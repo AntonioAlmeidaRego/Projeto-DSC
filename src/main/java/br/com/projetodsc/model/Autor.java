@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -23,6 +25,10 @@ public class Autor implements Serializable{
 	@Column(nullable = false, length = 15)
 	@NotBlank(message = "CPF do autor é uma informação obrigatória!")
 	private String cpf;
+	@ManyToOne
+	@JoinColumn(name="livro_id")
+	private Livro livro;
+	
 	
 	public Long getId() {
 		return id;
@@ -41,6 +47,15 @@ public class Autor implements Serializable{
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	public Livro getLivro() {
+		return livro;
+	}
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	

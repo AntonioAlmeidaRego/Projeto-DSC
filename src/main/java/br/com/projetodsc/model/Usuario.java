@@ -1,11 +1,15 @@
 package br.com.projetodsc.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -32,6 +36,12 @@ public class Usuario implements Serializable{
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "Bairro é uma informação obrigatória!")
 	private String bairro;
+	@OneToMany(mappedBy="usuario")
+	private List<Pedido> pedidos;
+	@OneToOne
+	@JoinColumn(name="municipio_id")
+	private Municipio municipio;
+	
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +80,18 @@ public class Usuario implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
 	}
 	
 	

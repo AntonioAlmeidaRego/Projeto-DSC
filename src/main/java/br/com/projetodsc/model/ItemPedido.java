@@ -1,11 +1,17 @@
 package br.com.projetodsc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -23,6 +29,12 @@ public class ItemPedido implements Serializable{
 	@Column(nullable = false, length = 15)
 	@NotBlank(message = "Valor total é uma informação obrigatória!")
 	private double valorTotal;
+	@OneToOne
+	@JoinColumn(name="livro_id")
+	private Livro livro;
+	@ManyToMany
+	@JoinTable(name="item_pedidos")
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	public Long getId() {
 		return id;
@@ -44,6 +56,18 @@ public class ItemPedido implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Livro getLivro() {
+		return livro;
+	}
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 	

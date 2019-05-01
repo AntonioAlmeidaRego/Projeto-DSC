@@ -1,11 +1,15 @@
 package br.com.projetodsc.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -23,6 +27,9 @@ public class Editora implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Cidade da editora é uma informação obrigatória!")
 	private String cidade;
+	@ManyToOne
+	@JoinColumn(name="livro_id")
+	private Livro livro;
 	
 	public Long getId() {
 		return id;
@@ -42,6 +49,16 @@ public class Editora implements Serializable{
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+	public Livro getLivro() {
+		return livro;
+	}
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	
 	
 }
