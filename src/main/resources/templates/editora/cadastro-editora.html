@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                        	<div class="card">
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Cadastrar Editora</h4>
+                                	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
+                            	</div>
+                            	<div class="card-body">
+                                	<form th:object="${editora}" th:action="@{/editora/saveEditora}" id="form" method="POST">
+                                    	<input id="id" name="id" type="hidden" th:field="*{id}"
+                                           th:value="*{id}">
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Nome<span style="color: red"> *</span></label>
+                                                   <input type="text" id="nome" th:field="*{nome}" class="form-input">
+                                                   <div id="nome-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Cidade<span style="color: red"> *</span></label>
+                                                   <input type="text" id="cidade" th:field="*{cidade}" class="form-input">
+                                                   <p id="alert-preenche-email"></p>
+                                                   <p id="alert-numero-email"></p>
+                                                   <div id="email-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                    <button id="cadastro-editora" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button type="reset" id="reset-editora" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <div class="clearfix"></div>
+                                	</form>
+                            	</div>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>

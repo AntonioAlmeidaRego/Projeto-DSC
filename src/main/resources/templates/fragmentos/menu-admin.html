@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+</head>
+<body>
+<div th:fragment="menu-esquerdo" >
+	<div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          Creative Tim
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item active  ">
+            <a class="nav-link" href="./dashboard.html">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/editora/cadastro-editora}">
+              <i class="material-icons">add</i>
+              <p>Cadastrar Editora</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/editora/listaEditora}">
+              <i class="material-icons">content_paste</i>
+              <p>Listar Editora</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/livro/cadastro-livro}">
+              <i class="material-icons">library_books</i>
+              <p>Cadastrar Livro</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/livro/lista}">
+              <i class="material-icons">bubble_chart</i>
+              <p>Listar Livro</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/autor/cadastro-autor}">
+              <i class="material-icons">location_ons</i>
+              <p>Cadastrar Autor</p>
+            </a>
+          </li>
+           <li class="nav-item ">
+            <a class="nav-link" th:href="@{/autor/listaAutor}">
+              <i class="material-icons">location_ons</i>
+              <p>Listar Autor</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+	</div>
+
+</body>
+</html>

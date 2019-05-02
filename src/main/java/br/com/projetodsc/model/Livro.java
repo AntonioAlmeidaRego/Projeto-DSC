@@ -24,7 +24,10 @@ public class Livro implements Serializable{
 	private Long id;
 	@Column(nullable = false, length = 4)
 	@NotBlank(message = "Ano é uma informação obrigatória!")
-	private int ano;
+	private String ano;
+	@Column(nullable = false, length = 100)
+	@NotBlank(message = "Título é uma informação obrigatória!")
+	private String titulo;
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "Sinopsie é uma informação obrigatória!")
 	private String sinopsie;
@@ -36,7 +39,7 @@ public class Livro implements Serializable{
 	private String edicao;
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
-	private double peso;
+	private String peso;
 	@OneToOne
 	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
@@ -51,10 +54,10 @@ public class Livro implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getAno() {
+	public String getAno() {
 		return ano;
 	}
-	public void setAno(int ano) {
+	public void setAno(String ano) {
 		this.ano = ano;
 	}
 	public String getSinopsie() {
@@ -75,10 +78,10 @@ public class Livro implements Serializable{
 	public void setEdicao(String edicao) {
 		this.edicao = edicao;
 	}
-	public double getPeso() {
+	public String getPeso() {
 		return peso;
 	}
-	public void setPeso(double peso) {
+	public void setPeso(String peso) {
 		this.peso = peso;
 	}
 	public static long getSerialversionuid() {
@@ -101,6 +104,12 @@ public class Livro implements Serializable{
 	}
 	public void setAutors(List<Autor> autors) {
 		this.autors = autors;
+	}
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	
 	
