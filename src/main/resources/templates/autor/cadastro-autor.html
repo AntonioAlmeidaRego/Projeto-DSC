@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html
         xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        
         layout:decorate="~{layout}">
 <head>
 <title>Admin - Livraria</title>
@@ -19,7 +20,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${autor}" th:action="@{/hemo/saveHemo}" id="form" method="POST">
+                                	<form th:object="${autor}" th:action="@{/autor/saveAutor}" id="form" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
@@ -52,6 +53,19 @@
                                                    <div id="cpf-div">
 
                                                    </div>
+                                               </div>
+                                           </div>                                           
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Livros<span style="color: red"> *</span></label>
+                                                   <br />
+                                                   <th:block th:each="livro : ${livros}">
+                                                   		<label th:text="${livro.titulo}"></label>
+                                                   		<input type="checkbox" name="ids" th:value="${livro.id}" />
+                                                   		<br />
+                                                   </th:block>
                                                </div>
                                            </div>                                           
                                        </div>

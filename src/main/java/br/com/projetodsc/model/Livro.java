@@ -45,15 +45,10 @@ public class Livro implements Serializable{
 	@OneToOne
 	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
-	/*@OneToMany(mappedBy="livro")
-	private List<Editora> editoras = new ArrayList<Editora>();*/
 	@ManyToOne
 	@JoinColumn(name="editora_id")
 	private Editora editora;
-	/*@OneToMany(mappedBy="livro")
-	private List<Autor> autors = new ArrayList<Autor>();*/
-	@ManyToMany
-	@JoinTable(name="livros_autores")
+	@ManyToMany(mappedBy="livros")	 
 	private List<Autor> autors = new ArrayList<Autor>();
 	
 	public Long getId() {

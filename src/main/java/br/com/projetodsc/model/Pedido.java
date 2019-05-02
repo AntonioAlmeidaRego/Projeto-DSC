@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -31,9 +32,9 @@ public class Pedido implements Serializable{
 	private Date data;
 	@ManyToMany(mappedBy="pedidos")
 	private List<ItemPedido> itemPedidos = new ArrayList<ItemPedido>();
-	@ManyToOne
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario;
+	@ManyToMany
+	@JoinTable(name="pedidos_usuarios")
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	@ManyToOne
 	@JoinColumn(name="frete_id")
 	private Frete frete;
@@ -65,11 +66,11 @@ public class Pedido implements Serializable{
 	public void setItemPedidos(List<ItemPedido> itemPedidos) {
 		this.itemPedidos = itemPedidos;
 	}
-	public Usuario getUsuario() {
-		return usuario;
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 	public Frete getFrete() {
 		return frete;

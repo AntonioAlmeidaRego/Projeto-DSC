@@ -161,11 +161,13 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
+						<h2>Cadastra-se na Livraria</h2>
+						<form th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
+							<input type="text" th:field="*{nome}" placeholder="Nome"/>
+							<input type="email" th:field="*{email}" placeholder="Email Address"/>
+							<input type="password" th:field="*{senha}" placeholder="Password"/>
+							<input type="text" th:field="*{rua}" placeholder="Rua"/>
+							<input type="text" th:field="*{bairro}" placeholder="Bairro"/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->

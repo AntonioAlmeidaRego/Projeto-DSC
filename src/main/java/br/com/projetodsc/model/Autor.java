@@ -1,12 +1,16 @@
 package br.com.projetodsc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -25,10 +29,12 @@ public class Autor implements Serializable{
 	@Column(nullable = false, length = 15)
 	@NotBlank(message = "CPF do autor é uma informação obrigatória!")
 	private String cpf;
-	@ManyToOne
-	@JoinColumn(name="livro_id")
-	private Livro livro;
-	
+	@Column(nullable = false, length = 100)
+	@NotBlank(message = "Email do autor é uma informação obrigatória!")
+	private String email;
+	@ManyToMany
+	@JoinTable(name="livros_autores")
+	private List<Livro> livros = new ArrayList<Livro>();
 	
 	public Long getId() {
 		return id;
@@ -48,16 +54,20 @@ public class Autor implements Serializable{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public Livro getLivro() {
-		return livro;
+	public List<Livro> getLivros() {
+		return livros;
 	}
-	public void setLivro(Livro livro) {
-		this.livro = livro;
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }
