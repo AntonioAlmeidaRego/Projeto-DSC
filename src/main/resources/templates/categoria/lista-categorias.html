@@ -3,7 +3,7 @@
         layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
-<title>Lista de Livros</title>
+<title>Lista de Categorias</title>
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="corpo">
@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-success">
-                                <h4 class="card-title">Lista de Livros</h4>
+                                <h4 class="card-title">Lista de Categorias</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -21,33 +21,19 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Título</th>
-                                            <th>Ano</th>
-                                            <th>Sinopsie</th>
-                                            <th>ISBN</th>
-                                            <th>Edição</th>
-                                            <th>Peso</th>
-                                            <th>Editora</th>
-                                            <th>Categoria</th>
+                                            <th>Nome</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="livro : ${livros}">
-                                            <td th:text="${livro.id}"></td>
-                                            <td th:text="${livro.titulo}"></td>
-                                            <td th:text="${livro.ano}"></td>
-                                            <td th:text="${livro.sinopsie}"></td>
-                                            <td th:text="${livro.isbn}"></td>
-                                            <td th:text="${livro.edicao}"></td>
-                                            <td th:text="${livro.peso}"></td>
-                                            <td th:text="${livro.editora.nome}"></td>
-                                            <td th:text="${livro.categoria.nome}"></td>
+                                        <tr th:each="categoria : ${categorias}">
+                                            <td th:text="${categoria.id}"></td>
+                                            <td th:text="${categoria.nome}"></td>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{/livro/updateLivro/{id}(id=${livro.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{/categoria/updateCategoria/{id}(id=${categoria.id})}"
                                                     >Editar</a> <a
                                                         class="delete btn btn-sm btn-danger"
-                                                        th:href="@{/livro/deleteLivro/{id}(id=${livro.id})}">Excluir</a>
+                                                        th:href="@{/categoria/deleteCategoria/{id}(id=${categoria.id})}">Excluir</a>
                                                 </div>
                                             </td>
                                         </tr>

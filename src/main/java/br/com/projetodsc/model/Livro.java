@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -43,9 +45,15 @@ public class Livro implements Serializable{
 	@OneToOne
 	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
-	@OneToMany(mappedBy="livro")
-	private List<Editora> editoras = new ArrayList<Editora>();
-	@OneToMany(mappedBy="livro")
+	/*@OneToMany(mappedBy="livro")
+	private List<Editora> editoras = new ArrayList<Editora>();*/
+	@ManyToOne
+	@JoinColumn(name="editora_id")
+	private Editora editora;
+	/*@OneToMany(mappedBy="livro")
+	private List<Autor> autors = new ArrayList<Autor>();*/
+	@ManyToMany
+	@JoinTable(name="livros_autores")
 	private List<Autor> autors = new ArrayList<Autor>();
 	
 	public Long getId() {
@@ -93,11 +101,11 @@ public class Livro implements Serializable{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	public List<Editora> getEditoras() {
-		return editoras;
+	public Editora getEditora() {
+		return editora;
 	}
-	public void setEditoras(List<Editora> editoras) {
-		this.editoras = editoras;
+	public void setEditora(Editora editora) {
+		this.editora = editora;
 	}
 	public List<Autor> getAutors() {
 		return autors;

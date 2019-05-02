@@ -20,9 +20,21 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="/administrador/portal-admin">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" th:href="@{/categoria/cadastro-categoria}">
+              <i class="material-icons">location_ons</i>
+              <p>Cadastrar Categoria</p>
+            </a>
+          </li>
+           <li class="nav-item ">
+            <a class="nav-link" th:href="@{/categoria/listaCategorias}">
+              <i class="material-icons">location_ons</i>
+              <p>Listar Categoria</p>
             </a>
           </li>
           <li class="nav-item ">

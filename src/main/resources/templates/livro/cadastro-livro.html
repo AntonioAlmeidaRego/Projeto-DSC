@@ -66,6 +66,21 @@
                                                    <input type="text" id="peso" th:field="*{peso}" class="form-input" />                                               </div>
                                            </div>                                         
                                        </div>
+                                       <div class="row">
+                                       		<div class="col-md-6">
+                                       			<label class="bmd-label-floating">Editoras<span style="color: red"> *</span></label>
+                                       			<select th:field="*{editora.id}"  class="form-control">
+                                    				<option th:value="${editora.id}" th:each="editora : ${editoras}" th:text="${editora.nome}"></option>
+                                       			</select>
+                                       		</div>
+                                       		<div class="col-md-6">
+                                       			<label class="bmd-label-floating">Categoria<span style="color: red"> *</span></label>
+                                       			<select th:field="*{categoria.id}" class="form-control">
+                                       				<option th:value="${categoria.id}" th:each="categoria : ${categorias}" th:text="${categoria.nome}"></option>
+                                       			</select>
+                                       		</div>
+                                       </div>
+                                       <br />
                                     <button id="cadastro-autor" class="btn btn-success pull-right">Cadastrar</button>
                                     <button type="reset" id="reset-autor" class="btn btn-danger pull-right">Limpar Campos</button>
                                     <div class="clearfix"></div>
