@@ -28,4 +28,8 @@ public class UsuarioService {
 	public Usuario getOne(Long id) {
 		return repository.getOne(id);
 	}
+	
+	public Usuario getEmail(String email) {
+		return repository.findByEmail(email);
+	}
 }

@@ -1,7 +1,5 @@
 package br.com.projetodsc.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +18,20 @@ public class UsuarioController {
 	
 	@PostMapping("/saveUsuario")
 	public ModelAndView saveUsuario(Usuario usuario) {
-		service.add(usuario);
-		return new ModelAndView("/usuario/success");
+		Usuario usuario2 = service.getEmail(usuario.getEmail());
+		ModelAndView view = new ModelAndView("login");
+		if(usuario2 != null) {
+			if(!usuario.getEmail().equals(usuario2.getEmail())) {
+				service.add(usuario);
+				view.addObject("mensagem", "Usuário cadastrado com sucesso!");
+			}else {
+				view.addObject("error", "Email já está cadastrado no sistema!");
+			}
+		}else {
+			service.add(usuario);
+			view.addObject("mensagem", "Usuário cadastrado com sucesso!");
+		}
+		return view;
 	}
 	
 	@GetMapping("/listaUsuario")

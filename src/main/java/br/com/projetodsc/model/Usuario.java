@@ -23,25 +23,21 @@ public class Usuario implements Serializable{
 	@GeneratedValue
 	private Long id;
 	@Column(nullable = false, length = 100)
-	@NotBlank(message = "Nome é uma informação obrigatória!")
 	private String nome;
 	@Column(nullable = false, length = 100)
-	@NotBlank(message = "Email é uma informação obrigatória!")
 	private String email;
 	@Column(nullable = false, length = 255)
-	@NotBlank(message = "Senha é uma informação obrigatória!")
 	private String senha;
 	@Column(nullable = false, length = 255)
-	@NotBlank(message = "Rua é uma informação obrigatória!")
 	private String rua;
 	@Column(nullable = false, length = 255)
-	@NotBlank(message = "Bairro é uma informação obrigatória!")
 	private String bairro;
 	@ManyToMany(mappedBy="usuarios")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
-	@OneToOne
-	@JoinColumn(name="municipio_id")
-	private Municipio municipio;
+	@Column(nullable =false, length=100)
+	private String municipio;
+	@Column(nullable=false, length=100)
+	private String estado;
 	
 	public Long getId() {
 		return id;
@@ -88,11 +84,17 @@ public class Usuario implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	public Municipio getMunicipio() {
+	public String getMunicipio() {
 		return municipio;
 	}
-	public void setMunicipio(Municipio municipio) {
+	public void setMunicipio(String municipio) {
 		this.municipio = municipio;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

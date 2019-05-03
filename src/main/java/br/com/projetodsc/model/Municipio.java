@@ -8,9 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="tb_municipio")
 public class Municipio implements Serializable{
 	
 	/**
@@ -21,7 +22,6 @@ public class Municipio implements Serializable{
 	@GeneratedValue
 	private Long id;
 	@Column(nullable = false, length = 100)
-	@NotBlank(message = "Nome do Municipio é uma informação obrigatória!")
 	private String nome;
 	@OneToOne
 	@JoinColumn(name="estado_id")
