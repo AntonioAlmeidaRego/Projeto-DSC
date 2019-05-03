@@ -12,8 +12,11 @@ import br.com.projetodsc.model.Usuario;
 public class IndexController {
 	
 	@RequestMapping("/")
-	public String index() {
-		return "index";
+	public ModelAndView index() {
+		Usuario usuario = new Usuario();
+		ModelAndView view = new ModelAndView("login");
+		view.addObject("usuario", usuario);
+		return view;
 	}
 	@PostMapping("/login")
 	public ModelAndView login(String email, String senha) {

@@ -161,10 +161,10 @@
 				</div>
 				<div class="col-sm-4">
 					<div id="success" class="alert alert-success">
-						<span th:text="${mensagem}"></span>
+						<span id="teste" th:text="${mensagem}"></span>
 					</div>
 					<div id="error" class="alert alert-danger">
-						<span th:text="${error}"></span>
+						<span id="teste2" th:text="${error}"></span>
 					</div>
 					
 					<div class="signup-form"><!--sign up form-->
@@ -366,18 +366,21 @@
 
      <script type="text/javascript">
      $(document).ready(function(){
-     	console.log($("#cidade").val());
 		var mensagemError = document.getElementById("error");
 		var mensagemSuccess = document.getElementById("success");
-		if((mensagemError.value === undefined) && (mensagemSuccess.value === undefined)){
+		var teste = document.getElementById("teste");
+		var teste2 = document.getElementById("teste2");
+		
+		if((teste.textContent == "") && (teste2.textContent == "")){
 			$("#error").hide();
 			$("#success").hide();
 		}else{
-			if(mensagemError.value === undefined){
+			if(teste.textContent != ""){
 				$("#error").hide();
 				$("#success").show();
 			}
-			if(mensagemSuccess.value === undefined){
+			if(teste2.textContent != ""){
+				console.log(teste2.textContent);
 				$("#success").hide();
 				$("#error").show();
 			}

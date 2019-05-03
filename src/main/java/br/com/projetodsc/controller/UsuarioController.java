@@ -22,9 +22,11 @@ public class UsuarioController {
 		ModelAndView view = new ModelAndView("login");
 		if(usuario2 != null) {
 			if(!usuario.getEmail().equals(usuario2.getEmail())) {
+				System.out.println("OK");
 				service.add(usuario);
 				view.addObject("mensagem", "Usuário cadastrado com sucesso!");
 			}else {
+				System.out.println("ERRO");
 				view.addObject("error", "Email já está cadastrado no sistema!");
 			}
 		}else {

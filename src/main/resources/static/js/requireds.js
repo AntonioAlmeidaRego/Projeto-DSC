@@ -30,10 +30,6 @@ $("#cadastro").click(function (event) {
         $("#bairro").attr("disabled", false);
         $("#estado").attr("disabled", false);
         $("#cadastro").submit();
-
-        for(let i = 0;i<form.length-1;i++){
-        	document.getElementById(form[i].id).value = "";
-        }
     }else{
         event.preventDefault();
     }
