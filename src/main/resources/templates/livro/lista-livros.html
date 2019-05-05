@@ -41,7 +41,9 @@
                                             <td th:text="${livro.edicao}"></td>
                                             <td th:text="${livro.peso}"></td>
                                             <td th:text="${livro.editora.nome}"></td>
-                                            <td th:text="${livro.categoria.nome}"></td>
+                                            <th:block th:each="categoria : ${livro.categorias}">
+                                            	<td th:text="${categoria.nome}">
+                                            </th:block>
                                             <td>
                                                 <div class="btn-group pull-right">
                                                     <a class="btn btn-sm btn-success" th:href="@{/livro/updateLivro/{id}(id=${livro.id})}"

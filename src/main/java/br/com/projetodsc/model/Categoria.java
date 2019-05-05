@@ -1,12 +1,14 @@
 package br.com.projetodsc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -22,8 +24,8 @@ public class Categoria implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Nome da Categoria é uma informação obrigatória!")
 	private String nome;
-	@OneToOne(mappedBy="categoria")
-	private Livro livro;
+	@ManyToMany(mappedBy="categorias")
+	private List<Livro> livros = new ArrayList<Livro>();
 	
 	public Long getId() {
 		return id;
@@ -37,11 +39,11 @@ public class Categoria implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Livro getLivro() {
-		return livro;
+	public List<Livro> getLivros() {
+		return livros;
 	}
-	public void setLivro(Livro livro) {
-		this.livro = livro;
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

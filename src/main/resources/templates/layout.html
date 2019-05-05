@@ -74,6 +74,11 @@
   <script th:src="@{/assets/demo/demo.js}"></script>
 <script>
     $(document).ready(function() {
+    	$("#file-capa").change(function () {
+    		if(this.files.length > 0) nome = this.files[0].name;
+            $("#urlCapa").val("/home/antonio/Imagens/capas/"+nome);
+        });
+    	
         $().ready(function() {
             $sidebar = $('.sidebar');
 

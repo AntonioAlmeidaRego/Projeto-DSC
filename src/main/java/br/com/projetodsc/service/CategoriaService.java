@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.projetodsc.model.Categoria;
+import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.repository.CategoriaRepository;
 
 @Service
@@ -28,4 +29,5 @@ public class CategoriaService {
 	public Categoria getOne(Long id) {
 		return repository.getOne(id);
 	}
+	
 }

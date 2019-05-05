@@ -28,4 +28,8 @@ public class LivroService {
 	public Livro getOne(Long id) {
 		return repository.getOne(id);
 	}
+	
+	public List<Livro> findAllCategoriaId(long id){
+		return repository.findAllCategoriaId(id);
+	}
 }

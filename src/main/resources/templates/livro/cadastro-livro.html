@@ -19,9 +19,16 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form" method="POST">
+                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form" method="POST" enctype="multipart/form-data">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
+                                      <div class="row">
+                                       		<div class="col-md-12">
+                                       			<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
+                                       			<input type="file" id="file-capa" class="form-input" />
+                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
+                                       		</div>
+                                       </div>   
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">
@@ -43,7 +50,7 @@
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Sinopsie<span style="color: red"> *</span></label>
-                                                   <textarea type="text" id="sinopsie" th:field="*{sinopsie}" class="form-input" ></textarea>
+                                                   <textarea maxlength="255" type="text" id="sinopsie" th:field="*{sinopsie}" class="form-input" ></textarea>
                                                </div>
                                            </div>     
                                            <div class="col-md-6">
@@ -66,6 +73,14 @@
                                                    <input type="text" id="peso" th:field="*{peso}" class="form-input" />                                               </div>
                                            </div>                                         
                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Preço<span style="color: red"> *</span></label>
+                                                   <input type="text" id="edicao" th:field="*{preco}" class="form-input" />
+                                               </div>
+                                           </div>     
+                                       </div>
                                        <div class="row">
                                        		<div class="col-md-6">
                                        			<label class="bmd-label-floating">Editoras<span style="color: red"> *</span></label>
@@ -74,10 +89,13 @@
                                        			</select>
                                        		</div>
                                        		<div class="col-md-6">
-                                       			<label class="bmd-label-floating">Categoria<span style="color: red"> *</span></label>
-                                       			<select th:field="*{categoria.id}" class="form-control">
-                                       				<option th:value="${categoria.id}" th:each="categoria : ${categorias}" th:text="${categoria.nome}"></option>
-                                       			</select>
+                                       			<label class="bmd-label-floating">Categorias<span style="color: red"> *</span></label>
+                                       				<br />
+                                                   <th:block th:each="categoria : ${categorias}">
+                                                   		<label th:text="${categoria.nome}"></label>
+                                                   		<input type="checkbox" name="ids" th:value="${categoria.id}" />
+                                                   		<br />
+                                                   </th:block>
                                        		</div>
                                        </div>
                                        <br />

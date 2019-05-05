@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -42,9 +43,14 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
 	private String peso;
-	@OneToOne
-	@JoinColumn(name="categoria_id")
-	private Categoria categoria;
+	@Column(nullable=false)
+	private String urlImagem;
+	@Column(nullable=false, length=100)
+	private String preco;
+	
+	@ManyToMany
+	@JoinTable(name="livros_categorias")
+	private List<Categoria> categorias = new ArrayList<Categoria>();
 	@ManyToOne
 	@JoinColumn(name="editora_id")
 	private Editora editora;
@@ -90,11 +96,11 @@ public class Livro implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	public Editora getEditora() {
 		return editora;
@@ -114,7 +120,17 @@ public class Livro implements Serializable{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
-	
+	public String getUrlImagem() {
+		return urlImagem;
+	}
+	public void setUrlImagem(String urlImagem) {
+		this.urlImagem = urlImagem;
+	}
+	public String getPreco() {
+		return preco;
+	}
+	public void setPreco(String preco) {
+		this.preco = preco;
+	}
 	
 }
