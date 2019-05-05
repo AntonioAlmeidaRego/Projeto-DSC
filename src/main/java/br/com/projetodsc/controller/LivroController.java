@@ -95,4 +95,11 @@ public class LivroController {
 		service.delete(id);
 		return findAll();
 	}
+	@GetMapping("/detalheLivro/{id}")
+	public ModelAndView detalheLivro(@PathVariable Long id) {
+		ModelAndView view = new ModelAndView("/livro/detalhesLivro");
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("livro", service.getOne(id));
+		return view;
+	}
 }

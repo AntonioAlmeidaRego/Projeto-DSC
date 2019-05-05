@@ -24,11 +24,9 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(nullable = false, length = 100)
-	@NotBlank(message = "Valor total é uma informação obrigatória!")
+	@Column(nullable = true, length = 100)
 	private double valorTotal;
-	@Column(nullable = false, length = 30)
-	@NotBlank(message = "Data é uma informação obrigatória!")
+	@Column(nullable = true, length = 30)
 	private Date data;
 	@ManyToMany(mappedBy="pedidos")
 	private List<ItemPedido> itemPedidos = new ArrayList<ItemPedido>();

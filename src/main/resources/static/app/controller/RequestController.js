@@ -3,19 +3,29 @@ class RequestController {
     constructor(){
     }
 
-    submit(submitRequest, parameters){
-        //parameters = (typeof  parameters !== object) ? [] : Parameters;
-        //submitRequest = (typeof submitRequest !== object) ? {} : SubmitRequest;
+    submitPedido(submitRequest, dataPedido, valorTotal){
 
-      /*  $.ajax({
+        $.ajax({
             url: submitRequest.getUrl(),
             method: submitRequest.getMethod(),
             data:{
-                nome: submitRequest.getParameters()._parameters,
+                data: dataPedido,
+                valorTotal: valorTotal,
             }
-        });*/
+        });
+    }
 
-
+    submitItemPedido(submitRequest, quantidade, valorTotal, idsPedidos, idsLivros){
+        $.ajax({
+            url: submitRequest.getUrl(),
+            method: submitRequest.getMethod(),
+            data:{
+                quantidade: quantidade,
+                valorTotal: valorTotal,
+                idsPedidos: idsPedidos,
+                idsLivros: idsLivros
+            }
+        });
     }
 
 }

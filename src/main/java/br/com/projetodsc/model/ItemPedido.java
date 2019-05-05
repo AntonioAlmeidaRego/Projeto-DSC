@@ -25,13 +25,13 @@ public class ItemPedido implements Serializable{
 	private Long id;
 	@Column(nullable = false, length = 15)
 	@NotBlank(message = "Quantidade é uma informação obrigatória!")
-	private int quantidade;
+	private String quantidade;
 	@Column(nullable = false, length = 15)
 	@NotBlank(message = "Valor total é uma informação obrigatória!")
-	private double valorTotal;
-	@OneToOne
-	@JoinColumn(name="livro_id")
-	private Livro livro;
+	private String valorTotal;
+	@ManyToMany
+	@JoinTable(name="items_livros")
+	private List<Livro> livros = new ArrayList<Livro>();
 	@ManyToMany
 	@JoinTable(name="item_pedidos")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -42,26 +42,26 @@ public class ItemPedido implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getQuantidade() {
+	public String getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(String quantidade) {
 		this.quantidade = quantidade;
 	}
-	public double getValorTotal() {
+	public String getValorTotal() {
 		return valorTotal;
 	}
-	public void setValorTotal(double valorTotal) {
+	public void setValorTotal(String valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public Livro getLivro() {
-		return livro;
+	public List<Livro> getLivros() {
+		return livros;
 	}
-	public void setLivro(Livro livro) {
-		this.livro = livro;
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
 	}
 	public List<Pedido> getPedidos() {
 		return pedidos;
