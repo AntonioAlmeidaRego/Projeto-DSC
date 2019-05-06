@@ -8,10 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable{
@@ -32,7 +29,7 @@ public class Usuario implements Serializable{
 	private String rua;
 	@Column(nullable = false, length = 255)
 	private String bairro;
-	@ManyToMany(mappedBy="usuarios")
+	@OneToMany(mappedBy="usuario")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	@Column(nullable =false, length=100)
 	private String municipio;

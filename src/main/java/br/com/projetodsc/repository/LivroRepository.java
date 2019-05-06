@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.projetodsc.model.Livro;
+import br.com.projetodsc.model.Pedido;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long>{
@@ -15,4 +16,14 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"where c.id = ?)", 
 			  nativeQuery = true)
 	public List<Livro> findAllCategoriaId(long id);
+	
+	@Query(value=
+			"select * from livro l\n" + 
+			"where l.id in (select ip.livros_id from usuario u \n" + 
+			"inner join pedido p on(p.usuario_id = u.id)\n" + 
+			"inner join itens_pedidos ip on(l.id = ip.livros_id)\n" + 
+			" \n" + 
+			"where u.id = ?)\n",		
+			nativeQuery=true)
+	public List<Livro> carinhoCompras(Long usuario_id);
 }	

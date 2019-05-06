@@ -1,9 +1,10 @@
 class RequestController {
 
     constructor(){
+        this._teste;
     }
 
-    submitPedido(submitRequest, dataPedido, valorTotal){
+    submitPedido(submitRequest, dataPedido, valorTotal, codigoPedido, idLivro, quantidade, idUsuario){
 
         $.ajax({
             url: submitRequest.getUrl(),
@@ -11,21 +12,31 @@ class RequestController {
             data:{
                 data: dataPedido,
                 valorTotal: valorTotal,
+                codigo: codigoPedido,
+                idLivro: idLivro,
+                quantidade: quantidade,
+                idUsuario: idUsuario,
             }
         });
     }
 
-    submitItemPedido(submitRequest, quantidade, valorTotal, idsPedidos, idsLivros){
+    /*getSubmitPedido(submitRequest, codigo){
         $.ajax({
             url: submitRequest.getUrl(),
             method: submitRequest.getMethod(),
             data:{
-                quantidade: quantidade,
-                valorTotal: valorTotal,
-                idsPedidos: idsPedidos,
-                idsLivros: idsLivros
+                codigo: codigo,
             }
-        });
+        }).done(this.writeJson);
+    }*/
+
+    /*writeJson(data){
+        localStorage.setItem("id", data.id);
     }
+
+    readJson(){
+        return localStorage.getItem("id");
+    }*/
+
 
 }

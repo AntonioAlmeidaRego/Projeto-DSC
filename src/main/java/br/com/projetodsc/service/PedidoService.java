@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.model.Pedido;
 import br.com.projetodsc.repository.PedidoRepository;
 
@@ -25,7 +26,16 @@ public class PedidoService {
 		return repository.getOne(id);
 	}
 	
+	public Pedido getPedido(String codigo) {
+		return repository.findByCodigo(codigo);
+	}
+	
 	public List<Pedido> findAll(){
 		return repository.findAll();
 	}
+	
+	public List<Pedido> carinhoPedidos(Long id){
+		return repository.carinhoPedidos(id);
+	}
+	 
 }

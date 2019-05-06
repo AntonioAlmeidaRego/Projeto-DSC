@@ -38,7 +38,7 @@ public class AutorController {
 	public ModelAndView saveAutor(Autor autor, String ids) {
 		if(!ids.equals("")) {
 			String getIds[] = ids.split(",");
-			for(int i = 0;i<getIds.length-1;i++) {
+			for(int i = 0;i<getIds.length;i++) {
 				Long id = Long.parseLong(getIds[i]);
 				Livro livro = serviceLivro.getOne(id);
 				autor.getLivros().add(livro);

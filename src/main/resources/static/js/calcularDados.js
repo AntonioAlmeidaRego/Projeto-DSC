@@ -19,12 +19,14 @@ $(document).ready(function () {
       apiCorreios.apiCorreios($("#cep").val(), $("#preco").val(), val);
    });
 
-   $("#addPedido").click(function () {
-      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
-         let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
-         let request = new RequestController();
-         request.submitPedido(submit, new Date(), $("#preco").text());
-         alert("Pedido adicionado com Sucesso!");
-      }
-   });
+   $("#addPedido").click(function (event) {
+	        event.preventDefault();
+	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
+	    	 let randomPedido = Math.random();
+	         let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
+	         let request = new RequestController();
+	         request.submitPedido(submit, new Date(), $("#preco").text(), randomPedido, $("#idLivro").val(), $("#quantidade").val(), $("#idUsuario").val());
+	         alert("Pedido adicionado com Sucesso!");
+	      }
+	   });
 });

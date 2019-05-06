@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Pedido implements Serializable{
@@ -28,14 +27,20 @@ public class Pedido implements Serializable{
 	private double valorTotal;
 	@Column(nullable = true, length = 30)
 	private Date data;
-	@ManyToMany(mappedBy="pedidos")
-	private List<ItemPedido> itemPedidos = new ArrayList<ItemPedido>();
-	@ManyToMany
-	@JoinTable(name="pedidos_usuarios")
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	@Column(nullable=true, length = 255)
+	private String codigo;
+	@Column(nullable=true, length = 255)
+	private int quantidade;
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
 	@ManyToOne
 	@JoinColumn(name="frete_id")
 	private Frete frete;
+	@ManyToMany
+	@JoinTable(name="itens_pedidos")
+	private List<Livro> livros = new ArrayList<Livro>(); 
+	
 	
 	public Long getId() {
 		return id;
@@ -58,23 +63,36 @@ public class Pedido implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public List<ItemPedido> getItemPedidos() {
-		return itemPedidos;
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setItemPedidos(List<ItemPedido> itemPedidos) {
-		this.itemPedidos = itemPedidos;
-	}
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	public Frete getFrete() {
 		return frete;
 	}
 	public void setFrete(Frete frete) {
 		this.frete = frete;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	public List<Livro> getLivros() {
+		return livros;
+	}
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	} 
 	
 }

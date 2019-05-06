@@ -10,7 +10,7 @@ $("#phone").keypress(function (event){
     mascara.mascaraPhone(event);
 });
 
-$("#cpf").keypress(function (event){
+$("#cpf").keyup(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraCPF(event);
 });

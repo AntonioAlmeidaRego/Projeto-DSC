@@ -32,4 +32,8 @@ public class LivroService {
 	public List<Livro> findAllCategoriaId(long id){
 		return repository.findAllCategoriaId(id);
 	}
+	
+	public List<Livro> carinhoCompras(Long usuario_id){
+		return repository.carinhoCompras(usuario_id);
+	}
 }
