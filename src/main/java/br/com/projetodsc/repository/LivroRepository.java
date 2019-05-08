@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.projetodsc.model.Livro;
-import br.com.projetodsc.model.Pedido;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long>{
@@ -26,4 +25,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"where u.id = ?)\n",		
 			nativeQuery=true)
 	public List<Livro> carinhoCompras(Long usuario_id);
+	@Query
+	public Livro findByIsbnAndTitulo(String isbn, String titulo);
 }	

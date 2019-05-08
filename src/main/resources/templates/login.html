@@ -16,15 +16,20 @@ layout:decorate="~{layout-site}"
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-1">
-						<div id="error-usuario" class="alert alert-danger">
-					<!--  		<span id="usuario-invalido" th:text="${usuario-invalido}"></span> -->
+						<div id="father-login" class="alert alert-danger">
+
 						</div>
+						<th:block th:if="${invalido != null}">
+							<div id="error-usuario" class="alert alert-danger">
+						  		<span id="usuario-invalido" th:text="${invalido}"></span> 
+							</div>
+						</th:block>	
 						<div class="login-form"><!--login form-->
-							<h2>Login to your account</h2>
+							<h2>Faça login na sua conta</h2>
 							<form th:action="@{/login}" method="post">
-								<input type="text" name="email" placeholder="Email" />
-								<input type="password" name="senha" placeholder="senha" />
-								<button type="submit" class="btn btn-default">Login</button>
+								<input type="text" id="email-login" name="email" placeholder="Email" />
+								<input type="password" id="senha-login" name="senha" placeholder="senha" />
+								<button id="login" class="btn btn-default">Login</button>
 							</form>
 						</div><!--/login form-->
 					</div>
@@ -32,40 +37,52 @@ layout:decorate="~{layout-site}"
 						<h2 class="or">OR</h2>
 					</div>
 					<div class="col-sm-4">
-						<div id="success" class="alert alert-success">
-							<span id="teste" th:text="${mensagem}"></span>
-						</div>
+						<th:block th:if="${mensagem != null}">
+							<div id="success" class="alert alert-success">
+								<span id="teste" th:text="${mensagem}"></span>
+							</div>
+						</th:block>
+						<th:block th:if="${error != null}">
 						<div id="error" class="alert alert-danger">
 							<span id="teste2" th:text="${error}"></span>
 						</div>
-						
+						</th:block>
+						<div id="father-cadastro" class="alert alert-danger">
+
+						</div>
 						<div class="signup-form"><!--sign up form-->
 							<h2>Cadastra-se na Livraria</h2>
 							<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
-								<input type="text" th:field="*{nome}" placeholder="Nome"/>
-								<input type="email" th:field="*{email}" placeholder="Email Address"/>
-								<div id="email-div"></div>
-								<input type="password" th:field="*{senha}" placeholder="Password"/>
+								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
+								<div class="alert alert-danger" id="nome-div"></div>
+								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>
+								<div class="alert alert-danger" id="email-div"></div>
+								<input type="password" id="senha" th:field="*{senha}" placeholder="Password"/>
+								<div class="alert alert-danger" id="senha-div"></div>
 								<input type="text" placeholder="00000-000" id="cep">
 								<p id="alert-preenche-cep"></p>
 	                            <p id="alert-numero-cep"></p>
-								<div id="cep-div"></div>
+								<div class="alert alert-danger" id="cep-div"></div>
 								<input type="text" th:field="*{municipio}" id="cidade">
-								<div id="cidade-div">
+								<div class="alert alert-danger" id="cidade-div">
 	                            </div>
 								<input type="text" th:field="*{estado}" id="estado">
-								<div id="estado-div">
+								<div class="alert alert-danger" id="estado-div">
 	                            </div>
 								<input type="text" th:field="*{rua}" placeholder="Rua"/>
+								<div class="alert alert-danger" id="rua-div">
+								</div>
 								<input type="text" th:field="*{bairro}" placeholder="Bairro"/>
-								<button id="cadastro" class="btn btn-default">Signup</button>
+								<div class="alert alert-danger" id="bairro-div">
+								</div>
+								<button id="cadastro-usuario" class="btn btn-default">Signup</button>
 							</form>
 						</div><!--/sign up form-->
 					</div>
 				</div>
 			</div>
 		</section><!--/form-->
-	
+
 	</div>
 </body>
 </html>

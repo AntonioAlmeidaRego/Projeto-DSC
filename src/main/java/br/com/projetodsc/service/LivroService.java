@@ -36,4 +36,8 @@ public class LivroService {
 	public List<Livro> carinhoCompras(Long usuario_id){
 		return repository.carinhoCompras(usuario_id);
 	}
+	
+	public Livro getLivroIsbnAndTitulo(String isbn, String titulo) {
+		return repository.findByIsbnAndTitulo(isbn, titulo);
+	}
 }

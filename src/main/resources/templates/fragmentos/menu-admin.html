@@ -19,60 +19,87 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="/administrador/portal-admin">
-              <i class="material-icons">home</i>
-              <p>Home</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/categoria/cadastro-categoria}">
-              <i class="material-icons">category</i>
-              <p>Cadastrar Categoria</p>
-            </a>
-          </li>
-           <li class="nav-item ">
-            <a class="nav-link" th:href="@{/categoria/listaCategorias}">
-              <i class="material-icons">list</i>
-              <p>Listar Categoria</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/editora/cadastro-editora}">
-              <i class="material-icons">add</i>
-              <p>Cadastrar Editora</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/editora/listaEditora}">
-              <i class="material-icons">list</i>
-              <p>Listar Editora</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/livro/cadastro-livro}">
-              <i class="material-icons">book</i>
-              <p>Cadastrar Livro</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/livro/listaLivro}">
-              <i class="material-icons">list</i>
-              <p>Listar Livro</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" th:href="@{/autor/cadastro-autor}">
-              <i class="material-icons">account_box</i>
-              <p>Cadastrar Autor</p>
-            </a>
-          </li>
-           <li class="nav-item ">
-            <a class="nav-link" th:href="@{/autor/listaAutor}">
-              <i class="material-icons">list</i>
-              <p>Listar Autor</p>
-            </a>
-          </li>
+
+          <li class="nav-item"><a data-togle="collapse" class="nav-link"
+                                  th:href="@{/administrador/portal-admin}">
+
+            <p>Admin</p>
+          </a></li>
+          <li class="nav-item" data-toggle="collapse"
+              data-target="#collapseOne" aria-expanded="false"
+              aria-controls="collapseOne"><a class="nav-link"> <i
+                  class="material-icons">assignment</i>
+            <p>Cadastros</p>
+          </a>
+            <div id="collapseOne" class="collapse"
+                 aria-labelledby="headingOne" data-parent="#accordion">
+              <ul class="nav">
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/categoria/cadastro-categoria}">
+
+                  <p>Cadastrar Categoria</p>
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/editora/cadastro-editora}">
+
+                  <p>Cadastrar Editora</p>
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/livro/cadastro-livro}">
+
+                  <p>Cadastrar Livro</p>
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/autor/cadastro-autor}">
+
+                  <p>Cadastrar Autor</p>
+                </a></li>
+              </ul>
+
+            </div></li>
+
+          <li class="nav-item" data-toggle="collapse"
+              data-target="#collapseTwo" aria-expanded="false"
+              aria-controls="collapseTwo"><a class="nav-link"> <i
+                  class="material-icons">view_list</i>
+            <p>Consultas</p>
+          </a>
+            <div id="collapseTwo" class="collapse"
+                 aria-labelledby="headingOne" data-parent="#accordion">
+              <ul class="nav">
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/categoria/listaCategorias}">
+                  <p>Listar Categoria</p>
+
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/editora/listaEditora}">
+                  <p>Listar Editora</p>
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/livro/cadastro-livro}">
+
+                  <p>Listar Livro</p>
+                </a></li>
+
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/autor/listaAutor}">
+
+                  <p>Listar Autor</p>
+                </a></li>
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/pedido/listaPedidos}">
+
+                  <p>Listar Pedidos</p>
+                </a></li>
+              </ul>
+
+            </div></li>
         </ul>
       </div>
     </div>

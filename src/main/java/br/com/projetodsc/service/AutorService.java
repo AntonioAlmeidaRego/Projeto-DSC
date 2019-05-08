@@ -28,4 +28,8 @@ public class AutorService {
 	public Autor getOne(Long id) {
 		return repository.getOne(id);
 	}
+	
+	public Autor getOne(String nome, String cpf, String email) {
+		return repository.findByNomeAndCpfAndEmail(nome, cpf, email);
+	}
 }

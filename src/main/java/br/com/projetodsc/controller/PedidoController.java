@@ -33,8 +33,10 @@ public class PedidoController {
 	@PostMapping("/savePedido")
 	public ModelAndView savePedido(Date data, String valorTotal, String codigo, String idLivro, String quantidade, String idUsuario) {
 		ModelAndView view = new ModelAndView("index");
+		System.out.println(codigo);
 		Livro livro = serviceLivro.getOne(Long.parseLong(idLivro)); 
 		Usuario usuario = serviceUsuario.getOne(Long.parseLong(idUsuario)); 
+		System.out.println(usuario.getId());
 		Pedido pedido = new Pedido();
 		pedido.setData(data);
 		pedido.setValorTotal(Double.parseDouble(valorTotal));
@@ -46,6 +48,13 @@ public class PedidoController {
 		service.add(pedido);
 		return view;
 	}
+	@GetMapping("/listaPedidos")
+	public ModelAndView findAll() {
+		ModelAndView view = new ModelAndView("/pedido/listaPedidos");
+		view.addObject("pedidos", service.findAll());
+		return view;
+	}
+	
 	@GetMapping("/pedidos/{id}")
 	public ModelAndView findAllPedidos(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("/livro/carinho_compras");

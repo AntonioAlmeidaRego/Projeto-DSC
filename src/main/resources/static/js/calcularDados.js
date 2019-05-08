@@ -1,6 +1,5 @@
 
 
-$(document).ready(function () {
    const val = document.getElementById("preco").textContent;
    $("#quantidade").keyup(function () {
       if(($("#quantidade").val() == "0") || ($("#quantidade").val().length == 0)){
@@ -14,19 +13,17 @@ $(document).ready(function () {
       console.log();
    });
 
-   $("#cep").keyup(function () {
-      let apiCorreios = new Api();
-      apiCorreios.apiCorreios($("#cep").val(), $("#preco").val(), val);
-   });
-
    $("#addPedido").click(function (event) {
 	        event.preventDefault();
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
 	    	 let randomPedido = Math.random();
 	         let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
 	         let request = new RequestController();
-	         request.submitPedido(submit, new Date(), $("#preco").text(), randomPedido, $("#idLivro").val(), $("#quantidade").val(), $("#idUsuario").val());
+	         session.addSessionPedido($("#preco").text(), $("#idLivro").val(), $("#quantidade").val(), "pedido");
+	         session.getSession("pedido");
+	         console.log(session.getSession("user")._idUsuario);
+	         request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido, session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade, session.getSession("user")._idUsuario);
 	         alert("Pedido adicionado com Sucesso!");
+	         window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
 	      }
 	   });
-});

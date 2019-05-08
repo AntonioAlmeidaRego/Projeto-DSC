@@ -2,7 +2,6 @@
  * 
  */
 
-
 class MascaraController {
 
 	constructor(id) {
@@ -12,14 +11,7 @@ class MascaraController {
 	}
 
 	mascaraCEP(event){
-        if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97) 
-        		|| (event.which == 98 || event.keyCode == 98) ||
-            (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
-            || (event.which == 101 || event.keyCode == 101)
-            || (event.which == 102 || event.keyCode == 102)
-            || (event.which == 103 || event.keyCode == 103)
-            || (event.which == 104 || event.keyCode == 104)
-            || (event.which == 105 || event.keyCode == 105)){
+        if(this.keyCodeNumber(event)){
             if(($("#"+this._mascara.input.id).val().length == 5)){
                 this._view.updateElementInput(this._mascara.input, "-");
             }
@@ -43,14 +35,7 @@ class MascaraController {
     }
 
 	mascaraDate(event){
-        if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97) 
-        		|| (event.which == 98 || event.keyCode == 98) ||
-                (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
-                || (event.which == 101 || event.keyCode == 101)
-                || (event.which == 102 || event.keyCode == 102)
-                || (event.which == 103 || event.keyCode == 103)
-                || (event.which == 104 || event.keyCode == 104)
-                || (event.which == 105 || event.keyCode == 105)){
+        if(this.keyCodeNumber(event)){
             if(($("#"+this._mascara.input.id).val().length == 2)){
                 this._view.updateElementInput(this._mascara.input, "/");
             }
@@ -77,14 +62,7 @@ class MascaraController {
     }
 
 	mascaraRG(event){
-        if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97) 
-        		|| (event.which == 98 || event.keyCode == 98) ||
-                (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
-                || (event.which == 101 || event.keyCode == 101)
-                || (event.which == 102 || event.keyCode == 102)
-                || (event.which == 103 || event.keyCode == 103)
-                || (event.which == 104 || event.keyCode == 104)
-                || (event.which == 105 || event.keyCode == 105)){
+        if(this.keyCodeNumber(event)){
             if(($("#"+this._mascara.input.id).val().length == 1)){
                 this._view.updateElementInput(this._mascara.input, ".");
             }
@@ -112,14 +90,7 @@ class MascaraController {
     }
 
     mascaraCPF(event){
-        if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97) 
-        		|| (event.which == 98 || event.keyCode == 98) ||
-                (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
-                || (event.which == 101 || event.keyCode == 101)
-                || (event.which == 102 || event.keyCode == 102)
-                || (event.which == 103 || event.keyCode == 103)
-                || (event.which == 104 || event.keyCode == 104)
-                || (event.which == 105 || event.keyCode == 105)){
+        if(this.keyCodeNumber(event)){
             if(($("#"+this._mascara.input.id).val().length > 2) && ($("#"+this._mascara.input.id).val().length <= 3)){
                 this._view.updateElementInput(this._mascara.input, ".");
             }
@@ -148,11 +119,7 @@ class MascaraController {
     }
 	
 	mascaraPhone(event){
-		if(event.keyCode == 48 || event.keyCode == 49
-        		|| event.keyCode == 50 || event.keyCode == 51 || event.keyCode == 52
-                || event.keyCode == 53 || event.keyCode == 54
-                || event.keyCode == 55 || event.keyCode == 56
-                || event.keyCode == 57){
+		if(this.keyCodeNumber(event)){
             if(($("#"+this._mascara.input.id).val().length >= 0) && ($("#"+this._mascara.input.id).val().length < 1)){
                 this._view.updateElementInput(this._mascara.input, "(");
             }
@@ -178,5 +145,33 @@ class MascaraController {
           $("#alert-numero-phone").html("<div class='alert alert-danger' role='alert'>Só é aceito números</div>");
         }
 	}
+
+
+	keyCodeNumber(event){
+        if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97)
+        || (event.which == 98 || event.keyCode == 98) ||
+        (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
+        || (event.which == 101 || event.keyCode == 101)
+        || (event.which == 102 || event.keyCode == 102)
+        || (event.which == 103 || event.keyCode == 103)
+        || (event.which == 104 || event.keyCode == 104)
+        || (event.which == 105 || event.keyCode == 105)){
+            return true;
+        }else if(event.keyCode == 48 || event.keyCode == 49
+            || event.keyCode == 50 || event.keyCode == 51 || event.keyCode == 52
+            || event.keyCode == 53 || event.keyCode == 54
+            || event.keyCode == 55 || event.keyCode == 56
+            || event.keyCode == 57){
+            return true;
+        }
+        return false;
+    }
+
+    keyCodeBackspaceAndDelete(event){
+	    if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+	        return true;
+        }
+	    return false;
+    }
 	
 }

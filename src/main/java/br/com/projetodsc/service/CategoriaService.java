@@ -30,4 +30,8 @@ public class CategoriaService {
 		return repository.getOne(id);
 	}
 	
+	public Categoria getOne(String nome) {
+		return repository.findByNome(nome);
+	}
+	
 }

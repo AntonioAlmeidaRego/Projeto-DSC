@@ -36,16 +36,25 @@ public class AutorController {
 	}
 	@PostMapping("/saveAutor")
 	public ModelAndView saveAutor(Autor autor, String ids) {
-		if(!ids.equals("")) {
-			String getIds[] = ids.split(",");
-			for(int i = 0;i<getIds.length;i++) {
-				Long id = Long.parseLong(getIds[i]);
-				Livro livro = serviceLivro.getOne(id);
-				autor.getLivros().add(livro);
+		Autor autor2 = service.getOne(autor.getNome(), autor.getCpf(), autor.getEmail());
+		if(autor2 == null) {
+			if((!ids.equals(""))) {
+				String getIds[] = ids.split(",");
+				for(int i = 0;i<getIds.length;i++) {
+					Long id = Long.parseLong(getIds[i]);
+					Livro livro = serviceLivro.getOne(id);
+					autor.getLivros().add(livro);
+				}
+				service.add(autor);
+			}else {
+				return cadastroAutor(autor).addObject("error", "Livros não existem na base de dados!");
 			}
+			
+		}else {
+			return cadastroAutor(autor).addObject("error", "Autor já adicionado. Por favor tente outro!");
 		}
-		service.add(autor);
-		return findAll();
+		
+		return findAll().addObject("success", "Autor adicionado com sucesso!");
 	}
 	
 	@GetMapping("/updateAutor/{id}")

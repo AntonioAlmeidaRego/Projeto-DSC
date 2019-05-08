@@ -3,7 +3,7 @@
         xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
         layout:decorate="~{layout}">
 <head>
-<title>Admin - Livraria</title>
+<title>Admin - Livraria - Cadastro de Categoria</title>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -13,6 +13,13 @@
             	<div class="container-fluid">
                 	<div class="row">
                     	<div class="col-md-12">
+                    		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
                         	<div class="card">
                             	<div class="card-header card-header-success">
                                 	<h4 class="card-title">Cadastrar Categoria</h4>

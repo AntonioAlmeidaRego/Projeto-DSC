@@ -2,8 +2,9 @@
  * 
  */
 
-var incremento = 0;
+const tamanhoCep = 9;
 var bool = false;
+var count = 1;
 
 $("#phone").keypress(function (event){
     let mascara = new MascaraController(this);
@@ -23,42 +24,44 @@ $("#rg").keypress(function (event){
 $("#date").keypress(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraDate(event);
+
 });
 
 $("#cep").keyup(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraCEP(event);
-});
-
-$("#reset").click(function () {
-    bool = true;
-    $("#bairro").attr("disabled", false);
-});
-
-$("#cep").keyup(function (event) {
-    if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+    if(mascara.keyCodeBackspaceAndDelete(event)){
         $("#cidade").val("");
         $("#estado").val("");
         //$("#estado").attr("type", "reset");
         $("#bairro").attr("disabled", false);
         if($("#bairro").val() != ""){
             $("#bairro").val("");
-            //$("#bairro").attr("type", "reset");
         }
         $("#cep-div").hide("slow");
-        incremento = 0;
+        count = 1;
     }else {
-        if (event.originalEvent !== undefined) {
-            incremento++;
-            if (incremento < 9) {
-                let api = new Api();
-                let form = document.getElementById("form1");
-                api.apiCep($(this).val(), form);
-            } else if (bool) {
-                incremento = 1;
-                bool = false;
+        if(mascara.keyCodeNumber(event)){
+            if(event.length === undefined){
+                count++;
+                console.log(count);
+                if(count == tamanhoCep){
+                    if($("#cep").val().length == tamanhoCep){
+                        let api = new Api();
+                        let form = document.getElementById("form1");
+                        api.apiCep($(this).val(), form);
+                    }
+                    count = 1;
+                }
             }
+        }else{
+            count = 1;
         }
     }
+});
+
+$("#reset").click(function () {
+    bool = true;
+    $("#bairro").attr("disabled", false);
 });
 

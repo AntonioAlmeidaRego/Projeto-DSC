@@ -16,10 +16,10 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 	public Pedido findByCodigo(String codigo);
 	@Query(value="select * from pedido p\n" + 
 			"where p.id in (\n" + 
-			"select ip.pedido_id from livro l\n" + 
+			"select ip.pedidos_id from livro l\n" + 
 			"inner join itens_pedidos ip on(l.id = ip.livros_id)\n" + 
 			"inner join usuario u on (u.id = p.usuario_id)\n" + 
-			"where u.id = 1\n" + 
+			"where u.id = ?\n" + 
 			");", nativeQuery=true)
 	public List<Pedido> carinhoPedidos(Long idUsuario);
 	

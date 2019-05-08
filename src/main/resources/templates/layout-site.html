@@ -25,6 +25,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" th:href="@{/images/ico/apple-touch-icon-114-precomposed.png}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/images/ico/apple-touch-icon-72-precomposed.png}">
     <link rel="apple-touch-icon-precomposed" th:href="@{/images/ico/apple-touch-icon-57-precomposed.png}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script th:src="@{/app/model/Session.js}"></script>
+    <script th:src="@{/app/controller/SessionController.js}"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript">
+    	var session = new SessionController();
+    </script>
 </head><!--/head-->
 
 <body>
@@ -34,42 +44,19 @@
 	<div th:replace="/fragmentos/site/slides :: slider"></div>
 	<div layout:fragment="corpo-site"></div>
 	<div th:replace="/fragmentos/site/footer-site :: footer"></div>
-    <script th:src="@{/js/jquery.js}"></script>
+    
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery.scrollUp.min.js}"></script>
 	<script th:src="@{/js/price-range.js}"></script>
     <script th:src="@{/js/jquery.prettyPhoto.js}"></script>
     <script th:src="@{/js/main.js}"></script>
      <script type="text/javascript">
-     $(document).ready(function(){
-		var mensagemError = document.getElementById("error");
-		var mensagemSuccess = document.getElementById("success");
-		var teste = document.getElementById("teste");
-		var teste2 = document.getElementById("teste2");
-		var usuarioInvalido = document.getElementById("usuario-invalido");
-		
-		if((teste.textContent == "") && (teste2.textContent == "")){
-			$("#error").hide();
-			$("#success").hide();
-			$("#error-usuario").hide();
-		}else{
-			if(usuarioInvalido.textContent != ""){
-				$("#error-usuario").show();
-			}
-			if(teste.textContent != ""){
-				$("#error").hide();
-				$("#success").show();
-			}
-			if(teste2.textContent != ""){
-				console.log(teste2.textContent);
-				$("#success").hide();
-				$("#error").show();
-			}
-		}
+     
 
 
-     });	
 	</script>
+	
+	
     <script th:src="@{/app/model/Mascara.js}"></script>
     <script th:src="@{/app/model/Required.js}"></script>
     <script th:src="@{/app/controller/MascaraController.js}"></script>
@@ -79,6 +66,9 @@
     <script th:src="@{/app/controller/RequestController.js}"></script>
     <script th:src="@{/app/views/TagsView.js}"></script>
     <script th:src="@{/app/consumeJSON/Api.js}"></script>
+    <script th:src="@{/js/jquery.soap.js}"></script>
+	<script th:src="@{/app/consumeSoap/ApiSoap.js}"></script>
+	 
     <script th:src="@{/app/controller/ClearfieldsController.js}"></script>
     <script th:src="@{/js/requireds.js}"></script>
     <script th:src="@{/js/mascaras.js}"></script>

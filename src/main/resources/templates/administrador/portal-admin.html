@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
 
 <head>
     <title>Portal Admin</title>
@@ -16,7 +17,7 @@
 
 <body class="dark-edition">
 <div class="wrapper ">    
-	<div th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
+	 
     <div class="content-wrapper" layout:fragment="corpo">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">

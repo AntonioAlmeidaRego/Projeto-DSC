@@ -56,6 +56,8 @@ public class Livro implements Serializable{
 	private Editora editora;
 	@ManyToMany(mappedBy="livros")	 
 	private List<Autor> autors = new ArrayList<Autor>();
+	@ManyToMany(mappedBy="livros")
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	public Long getId() {
 		return id;
@@ -131,6 +133,12 @@ public class Livro implements Serializable{
 	}
 	public void setPreco(String preco) {
 		this.preco = preco;
+	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 }

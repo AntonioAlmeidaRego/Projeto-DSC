@@ -28,4 +28,8 @@ public class EditoraService {
 	public Editora getOne(Long id) {
 		return repository.getOne(id);
 	}
+	
+	public Editora getNomeAndCidade(String nome, String cidade) {
+		return repository.findByNomeAndCidade(nome, cidade);
+	}
 }

@@ -7,13 +7,14 @@ class TagsView {
 
     criarElement(tagName, classe, pai, id){
         if(tagName != "input"){
-        	console.log(pai);
             this._pai = document.getElementById(pai.id);
             let element = document.createElement(tagName);
             element.setAttribute("id", id);
             element.setAttribute("class", classe);
             this._element = element;
             this._pai.appendChild(element);
+
+            return element;
         }
 
     }
@@ -49,4 +50,5 @@ class TagsView {
     creatHtml(tag, texto){
         return "<"+tag+">"+texto+"<"+tag+"/>";
     }
+ 
 }

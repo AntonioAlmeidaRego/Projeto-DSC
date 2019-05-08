@@ -14,6 +14,13 @@
             	<div class="container-fluid">
                 	<div class="row">
                     	<div class="col-md-12">
+                    		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
                         	<div class="card">
                             	<div class="card-header card-header-success">
                                 	<h4 class="card-title">Cadastrar Autor</h4>

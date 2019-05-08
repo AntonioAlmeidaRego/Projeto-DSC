@@ -1,9 +1,8 @@
 class SubmitRequest {
 
-    constructor(method, url, Parameters){
+    constructor(method, url){
         this._method = method;
         this._url = url;
-        this._parameters = Parameters;
     }
     
    /* constructor(method, url){
@@ -19,9 +18,6 @@ class SubmitRequest {
         return this._url;
     }
 
-    getParameters(){
-        return this._parameters;
-    }
 
     setMethod(method){
         this._method = method;
@@ -31,7 +27,4 @@ class SubmitRequest {
         this._url = url;
     }
 
-    setParameters(parameters){
-        this._parameters = parameters;
-    }
 }

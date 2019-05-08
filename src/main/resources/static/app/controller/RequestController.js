@@ -20,23 +20,26 @@ class RequestController {
         });
     }
 
-    /*getSubmitPedido(submitRequest, codigo){
-        $.ajax({
-            url: submitRequest.getUrl(),
-            method: submitRequest.getMethod(),
-            data:{
-                codigo: codigo,
-            }
-        }).done(this.writeJson);
-    }*/
+    getUsuario(submit, email, senha){
 
-    /*writeJson(data){
-        localStorage.setItem("id", data.id);
+        $.ajax({
+            url: submit.getUrl(),
+            method: submit.getMethod(),
+            data:{
+                email: email,
+                senha: senha,
+            }
+        }).done(function (data) {
+            localStorage.setItem("json", JSON.stringify(data));
+        });
     }
 
-    readJson(){
-        return localStorage.getItem("id");
-    }*/
+    getJson(key){
+        return localStorage.getItem(key);
+    }
 
-
+    writeJson(key, data){
+    	console.log(data);
+        localStorage.setItem(key, data);
+    }
 }

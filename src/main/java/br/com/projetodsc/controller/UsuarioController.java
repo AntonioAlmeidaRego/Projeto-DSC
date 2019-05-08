@@ -3,6 +3,7 @@ package br.com.projetodsc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,6 +35,12 @@ public class UsuarioController {
 			view.addObject("mensagem", "Usuário cadastrado com sucesso!");
 		}
 		return view;
+	}
+	
+	@GetMapping("/updateUsuario/{id}")
+	public ModelAndView updateUsuario(@PathVariable Long id) {
+		Usuario usuario2 = service.getOne(id);
+		return saveUsuario(usuario2);
 	}
 	
 	@GetMapping("/listaUsuario")

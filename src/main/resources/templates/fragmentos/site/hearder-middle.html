@@ -40,7 +40,9 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
+
 								<th:block th:if="${usuario != null}">
+
 								<input type="hidden" id="idUsuario" value="${usuario.id}"/>
 									<li><a href="#" th:text="${usuario.nome}"><i class="fa fa-user"></i></a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
@@ -48,15 +50,36 @@
 								<li><a th:href="@{/pedido/pedidos/{id}(id=${usuario.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
 								<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i> Login</a></li>
 								</th:block>
+
 								<th:block th:if="${usuario == null}">
-									<li><a href="#"><i class="fa fa-user">User</i></a></li>
-									<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-									<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-									<li><a href="#"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
-									<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i> Login</a></li>
+									<div id="menu-horizontal">
+										<li><a href="#"><i class="fa fa-user"><span id="user-name"></span></i></a></li>
+										<li><a><i class="fa fa-star"></i> Wishlist</a></li>
+										<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+										<li><a id="url"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+										<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i>Login</a></li>
+									</div>
 								</th:block>
 							</ul>
+
 						</div>
+						<script type="text/javascript">
+							/*$(document).ready(function () {
+								*/
+								if(session.getSession("user") != null){
+									var name = document.getElementById("user-name");
+									if(name != null){
+										name.textContent = " "+session.getSession("user")._nomeUsuario
+									}
+								}
+								$("#url").click(function () {
+									if(session.getSession("user") != null) {
+										var id = session.getSession("user")._idUsuario;
+										window.open("/pedido/pedidos/" + id);
+									}
+								});
+							//});
+						</script>
 					</div>
 				</div>
 			</div>

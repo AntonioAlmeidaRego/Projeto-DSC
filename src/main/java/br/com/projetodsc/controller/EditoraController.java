@@ -24,16 +24,25 @@ public class EditoraController {
 		mv.addObject(editora);
 		return mv;
 	}
+	
 	@GetMapping("/listaEditora")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("/editora/lista-editoras");
 		mv.addObject("editoras", service.findAll());
 		return mv;
 	}
+	
 	@PostMapping("/saveEditora")
 	public ModelAndView saveEditora(Editora editora) {
-		service.add(editora);
-		return findAll();
+		Editora editora2 = service.getNomeAndCidade(editora.getNome(), editora.getCidade());
+		
+		if(editora2 == null) {
+			service.add(editora);			
+		}else {
+			return cadastroEditora(editora).addObject("error", "Editora já adicionada. Por favor tente outra!");
+		}
+		
+		return findAll().addObject("success", "Editora adicionada com sucesso!");
 	}
 	@PostMapping("/updateEditora/{id}")
 	public ModelAndView updateEditora(@PathVariable Long id) {

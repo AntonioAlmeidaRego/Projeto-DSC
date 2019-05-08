@@ -9,10 +9,9 @@ class RequiredController {
     }
 
     requiredAll(event, form, length){
-		for(let i = 1; i <= length;i++){
+		for(let i = 0; i < length;i++){
+		    console.log(form[i].id);
             if(document.getElementById(form[i].id).value == "") {
-                this._seletor.criarElement("div", "alert alert-danger", document.getElementById(form[i].id+"-div"), form[i].id+"-div");
-                this._seletor.updateElementWithoutFather("div", "campo obrigatório!");
                 bool = true;
             }
         }
@@ -21,25 +20,24 @@ class RequiredController {
         }
 		return false;
     }
-    
-    requiredEmail(form, length){
-    	let array = [
-    		this._input.value,
-    	];
-    	
+
+    required(i, form){
+        if(document.getElementById(form[i].id).value == "") {
+            return true;
+        }
+        return false;
+    }
+
+    requiredEmail(){
+        let array = this._input.value.split("");
     	for(let i = 0;i< array.length;i++){
-    		if(array[i] == "@"){
-    			 return true;
-    		}
-    	}
-    	if(achou == false){
-    		for(let i = 1; i <= length;i++){
-    			if(document.getElementById(form[i].id).id == "email"){
-    				this._seletor.criarElement("div", "alert alert-danger", document.getElementById(form[i].id+"-div"), form[i].id+"-div");
-                    this._seletor.updateElementWithoutFather("div", "Email Inválido!");
-                    return false;
-    			}    			
-    		}
+			if(array[i] == "@"){
+				var res = this._input.value.substring(i, this._input.value.length.length);
+				console.log(res);
+				if((res == "@hotmail.com") || (res == "@gmail.com") || (res == "@outlook.com")){
+					return true;
+				}
+			}
     	}
     	return false;
     }

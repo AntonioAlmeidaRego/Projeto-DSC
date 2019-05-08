@@ -57,32 +57,39 @@ public class LivroController {
 	
 	@PostMapping("/saveLivro")
 	public ModelAndView saveLivro(Livro livro, String ids) {
-		random = new Random();
-		int valor = random.nextInt();
-		Arquivo arquivo = new ArquivoImg(100, 100, "jpg");
-		try {
-			arquivo.creatFile(livro.getUrlImagem());
-			arquivo.writeFile(url+valor+".jpg");
-			livro.setUrlImagem(urlDestino+valor+".jpg");
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		Editora editora = serviceEditora.getOne(livro.getEditora().getId());
-		System.out.println("IDS: "+ids);
-		if(!ids.equals("")) {
-			String getIds[] = ids.split(",");
-			for(int i = 0;i<getIds.length;i++) {
-				Long id = Long.parseLong(getIds[i]);
-				Categoria categoria = serviceCategoria.getOne(id);
-				livro.getCategorias().add(categoria);
+		Livro livro2 = service.getLivroIsbnAndTitulo(livro.getIsbn(), livro.getTitulo());
+		if(livro2 == null) {
+			random = new Random();
+			int valor = random.nextInt();
+			Arquivo arquivo = new ArquivoImg(100, 100, "jpg");
+			try {
+				arquivo.creatFile(livro.getUrlImagem());
+				arquivo.writeFile(url+valor+".jpg");
+				livro.setUrlImagem(urlDestino+valor+".jpg");
+			} catch (Exception e) {
+				System.out.println(e);
 			}
+			Editora editora = serviceEditora.getOne(livro.getEditora().getId());
+			System.out.println("IDS: "+ids);
+			if(!ids.equals("")) {
+				String getIds[] = ids.split(",");
+				for(int i = 0;i<getIds.length;i++) {
+					Long id = Long.parseLong(getIds[i]);
+					Categoria categoria = serviceCategoria.getOne(id);
+					livro.getCategorias().add(categoria);
+				}
+			}
+			if((editora != null)) {
+				livro.setEditora(editora);
+				editora.setLivro(livro);
+				service.add(livro);
+			}else {
+				return cadastroLivro(livro).addObject("error", "Editora não existe na base de dados!");
+			}
+		}else {
+			return cadastroLivro(livro).addObject("error", "Livro já adicionado. Por favor tente outro!");
 		}
-		if((editora != null)) {
-			livro.setEditora(editora);
-			editora.setLivro(livro);
-			service.add(livro);
-		}
-		return findAll();
+		return findAll().addObject("success", "Livro adicionado com sucesso!");
 	}
 	
 	@GetMapping("/updateLivro/{id}")
