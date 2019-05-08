@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout-user}">
+<head>
+<title>Meus Dados</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo-user">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                        	<div class="card">
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Meus Dados</h4>
+                            	</div>
+                            	<div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Estado</th>
+                                            <th>Cidade</th>
+                                            <th>Bairro</th>
+                                            <th>Rua</th>                                            
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${usuario.id}"></td>
+                                            <td th:text="${usuario.nome}"></td>
+                                            <td th:text="${usuario.email}"></td>
+                                            <td th:text="${usuario.estado}"></td>
+                                            <td th:text="${usuario.cidade}"></td>
+                                            <td th:text="${usuario.bairro}"></td>
+                                            <td th:text="${usuario.rua}"></td>
+                                            <td>
+                                                <div class="btn-group pull-right">
+                                                    <a class="btn btn-sm btn-success" th:href="@{/usuario/updateUsuario/{id}(id=${usuario.id})}"
+                                                    >Editar</a> 
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+</body>
+</html>
