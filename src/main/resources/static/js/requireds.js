@@ -19,19 +19,42 @@ function esconderDiv(form, inicio, fim){
     }
 }
 
+function esconderDivCategoria(form, inicio, fim){
+    for(let i = inicio; i < fim;i++){
+        clearfield.hide(form[i].id+"-div-categoria");
+    }
+}
+
 /* --------------------------------------------------------------------------------------------------------------------- */
 
 /* Inicializa todas as funções do JavaScript */
 $(document).ready(function () {
+	 console.log("ENTROU");
     clearfield = new ClearfieldsController();
     tags = new TagsView();
-    var form = document.getElementById("form1");
-    
-    clearfield.hide("father-login");
-    if(form !== undefined){
-    	esconderDiv(form, 0, form.length-1);
+
+    /* formularios de todos os cadastros */
+
+    var formCadastroUsuario = document.getElementById("form1");
+    var formCadastroCategoria = document.getElementById("form-categoria");
+
+    if($("#form1").length){
+        //formCadastroUsuario !== undefined
+    	esconderDiv(formCadastroUsuario, 0, formCadastroUsuario.length-1);
     }
+    if($("#form-categoria").length){
+        //formCadastroCategoria !== undefined
+        esconderDivCategoria(formCadastroCategoria, 0, formCadastroCategoria.length-1);
+    }
+
+    /* Esconder as divs de cadastro */
+
+    clearfield.hide("father-login");
     clearfield.hide("father-cadastro");
+    clearfield.hide("father-cadastro-categoria");
+   
+    /* disabilitar os campos */
+
     $("#cidade").attr("disabled", true);
     $("#estado").attr("disabled", true);
 });
@@ -74,6 +97,12 @@ $("input").focus(function () {
     clearfield.hide(this.id+"-div");
 });
 
+/* Eventos Cadastro Categoria */
+
+$("input").focus(function () {
+    clearfield.hide(this.id+"-div-categoria");
+});
+
 /* Evento de click para o buttom cadastro de usuario */
 $("#cadastro-usuario").click(function (event) {
     ////event.preventDefault();
@@ -90,6 +119,7 @@ $("#cadastro-usuario").click(function (event) {
     } else{
         for(let i = 0; i < form.length-1;i++){
             if(requerid.required(i, form)){
+                event.preventDefault();
                 if(form[i].id == "email"){
                     emailEmpty = true;
                 }
@@ -99,14 +129,44 @@ $("#cadastro-usuario").click(function (event) {
         }
          if(emailEmpty == false){
              if(!verificarEmail("email")){
+                 event.preventDefault();
                  clearfield.show("father-cadastro");
                  clearfield.clear("father-cadastro");
                  tags.updateElement(document.getElementById("father-cadastro"), "span", "Email inválido!");
              }
          }
-        event.preventDefault();
+
     }
 
 
 });
 /*-----------------------------------------------------------------------------------------------------------------------*/
+
+/* Eventos cadastro categoria */
+
+$("#cadastro-categoria").click(function (event) {
+    event.preventDefault();
+   let required = new RequiredController(this);
+   let formCategoria = document.getElementById("form-categoria");
+   let tags = new TagsView();
+
+    let inputs = document.getElementsByTagName("input");
+
+   if(!required.required(1, formCategoria)){
+        clearfield.hide("father-cadastro-categoria");
+        $("#cadastro-categoria").submit();
+   }else{
+       for(let j = 0; j < formCategoria.length-1;j++){
+           for(let i = 0; i < inputs.length;i++){
+               if(inputs[i].id == formCategoria[j].id){
+                   console.log(formCategoria[i].id);
+                   if(required.requiredInput(inputs[i].id)){
+                       event.preventDefault();
+                       clearfield.show(formCategoria[j].id+"-div-categoria");
+                       tags.updateElement(document.getElementById(formCategoria[j].id+"-div-categoria"), "span", "campo obrigatório!");
+                   }
+               }
+           }
+       }
+   }
+});

@@ -20,20 +20,26 @@
 	                    			<span th:text="${error}"></span>
 	                    		</div>
                     		</th:block>
+                    		<div id="father-cadastro-categoria" class="alert alert-danger">
+
+							</div>
                         	<div class="card">
                             	<div class="card-header card-header-success">
                                 	<h4 class="card-title">Cadastrar Categoria</h4>
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
+                            	
                             	<div class="card-body">
-                                	<form th:object="${categoria}" th:action="@{/categoria/saveCategoria}" id="form" method="POST">
+                                	<form th:object="${categoria}" class="teste" id="form-categoria" th:action="@{/categoria/saveCategoria}" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
                                            <div class="col-md-12">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Nome<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{nome}" class="form-input">
+                                                   <input type="text" id="nome-categoria" th:field="*{nome}" class="form-input">
+                                                   <div class="alert alert-danger" id="nome-div-categoria">
+	                            				   </div>
                                                </div>
                                            </div>
                                         </div>  

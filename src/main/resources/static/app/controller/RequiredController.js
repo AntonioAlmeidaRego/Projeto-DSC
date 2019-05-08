@@ -28,6 +28,13 @@ class RequiredController {
         return false;
     }
 
+    requiredInput(id){
+        if(document.getElementById(id).value == "") {
+            return true;
+        }
+        return false;
+    }
+
     requiredEmail(){
         let array = this._input.value.split("");
     	for(let i = 0;i< array.length;i++){
