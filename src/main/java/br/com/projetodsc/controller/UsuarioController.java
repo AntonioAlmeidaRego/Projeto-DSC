@@ -17,6 +17,11 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 	
+	@GetMapping("/portal-user")
+	public ModelAndView portalUser(Usuario usuario) {
+		return new ModelAndView("/usuario/portal-user").addObject("usuario", usuario);
+	}
+	
 	@PostMapping("/saveUsuario")
 	public ModelAndView saveUsuario(Usuario usuario) {
 		Usuario usuario2 = service.getEmail(usuario.getEmail());

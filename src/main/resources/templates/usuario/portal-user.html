@@ -1,28 +1,20 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout-user}">
 
 <head>
-    <title>Hello, world!</title>
+    <title>Portal User</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- Material Kit CSS -->
-    <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <meta charset="utf-8"> 
 </head>
 
 <body class="dark-edition">
 <div class="wrapper ">    
-    <div class="content-wrapper" layout:fragment="corpo">
+	 
+    <div class="content-wrapper" layout:fragment="corpo-user">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
-                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="navbar-toggler-icon icon-bar"></span>

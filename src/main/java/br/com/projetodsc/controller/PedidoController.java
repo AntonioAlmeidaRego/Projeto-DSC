@@ -36,8 +36,7 @@ public class PedidoController {
 		System.out.println(codigo);
 		Livro livro = serviceLivro.getOne(Long.parseLong(idLivro)); 
 		Usuario usuario = serviceUsuario.getOne(Long.parseLong(idUsuario)); 
-		System.out.println(usuario.getId());
-		Pedido pedido = new Pedido();
+		Pedido	pedido = new Pedido();
 		pedido.setData(data);
 		pedido.setValorTotal(Double.parseDouble(valorTotal));
 		pedido.setCodigo(codigo);
@@ -48,11 +47,25 @@ public class PedidoController {
 		service.add(pedido);
 		return view;
 	}
+	
 	@GetMapping("/listaPedidos")
 	public ModelAndView findAll() {
 		ModelAndView view = new ModelAndView("/pedido/listaPedidos");
 		view.addObject("pedidos", service.findAll());
 		return view;
+	}
+	
+	@GetMapping("/myPedidos/{id}")
+	public ModelAndView findMyPedidos(@PathVariable Long id) {
+		ModelAndView view = new ModelAndView("/pedido/meusPedidosUser");
+		view.addObject("myPedidos", service.carinhoPedidos(id));
+		return view;
+	}
+	
+	@GetMapping("/cancelaPedido/{idUsuario}/{idPedido}")
+	public ModelAndView cancelaPedido(@PathVariable Long idUsuario, @PathVariable Long idPedido) {
+		service.delete(idPedido);
+		return findMyPedidos(idUsuario);
 	}
 	
 	@GetMapping("/pedidos/{id}")

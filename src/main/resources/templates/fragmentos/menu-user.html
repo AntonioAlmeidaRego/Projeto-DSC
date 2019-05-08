@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+</head>
+<body>
+<div th:fragment="menu-user-esquerdo" >
+	<div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          Creative Tim
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+
+          <li class="nav-item"><a data-togle="collapse" class="nav-link"
+                                  th:href="@{/usuario/portal-user}">
+
+            <p>User</p>
+          </a></li>
+          <li class="nav-item" data-toggle="collapse"
+              data-target="#collapseOne" aria-expanded="false"
+              aria-controls="collapseOne"><a class="nav-link"> <i
+                  class="material-icons">assignment</i>
+            <p>Cadastros</p>
+          </a>
+            <div id="collapseOne" class="collapse"
+                 aria-labelledby="headingOne" data-parent="#accordion">
+              <ul class="nav">
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/}">
+                  <p>Fazer novo pedido</p>
+                </a></li>
+
+              </ul>
+
+            </div></li>
+
+          <li class="nav-item" data-toggle="collapse"
+              data-target="#collapseTwo" aria-expanded="false"
+              aria-controls="collapseTwo"><a class="nav-link"> <i
+                  class="material-icons">view_list</i>
+            <p>Consultar Pedidos</p>
+          </a>
+            <div id="collapseTwo" class="collapse"
+                 aria-labelledby="headingOne" data-parent="#accordion">
+              <ul class="nav">
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/pedido/myPedidos/{id}(id=${usuario.id})}">
+
+                  <p>Listar Pedidos</p>
+                </a></li>
+              </ul>
+
+            </div></li>
+        </ul>
+      </div>
+    </div>
+	</div>
+
+</body>
+</html>

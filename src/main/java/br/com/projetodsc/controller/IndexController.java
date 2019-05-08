@@ -40,7 +40,7 @@ public class IndexController{
 		if(email.equals("antonio.alm1020@gmail.com") && senha.equals("123456")) {
 			return new ModelAndView("/administrador/portal-admin");
 		}else if(usuario != null) {
-			ModelAndView view = new ModelAndView("index");
+			ModelAndView view = new ModelAndView("/usuario/portal-user");
 			view.addObject("usuario", usuario);
 			view.addObject("categorias", service.findAll());
 			view.addObject("livros", serviceLivro.findAll());
