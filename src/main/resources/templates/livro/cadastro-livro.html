@@ -26,22 +26,40 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form" method="POST" enctype="multipart/form-data">
+                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form-livro" method="POST" enctype="multipart/form-data">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                       <div class="row">
                                        		<div class="col-md-12">
-                                       			<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
-                                       			<input type="file" id="file-capa" class="form-input" />
-                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
-                                       		</div>
+                                       			<th:block th:if="${livro.urlImagem == null}">
+                                       					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
+		                                       			<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa" />
+		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
+		                                       			<div class="alert alert-danger" id="file-capa-div">
+
+                                            			</div>
+                                       			</th:block>
+                                       			<th:block th:if="${livro.urlImagem != null}">
+                                  						<img th:src="@{${livro.urlImagem}}" width="100"/>
+                                       					
+                                       					<label class="bmd-label-floating">Alterar Capa do Livro</label>
+                                       					<br />
+                                       					<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa"  />
+		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
+	                                       				<div class="alert alert-danger" id="file-capa-div">
+	
+	                                           			</div> 
+                                       			</th:block>
+                                       			
+                                       		</div>         
                                        </div>   
+                                       <br />
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Título<span style="color: red"> *</span></label>
-                                                   <input type="text" id="titulo" th:field="*{titulo}" class="form-input">
-                                                   <div id="titulo-div">
+                                                   <input type="text" id="titulo-livro" th:field="*{titulo}" class="form-input">
+                                                   <div class="alert alert-danger" id="titulo-livro-div">
 
                                                    </div>
                                                </div>
@@ -49,7 +67,10 @@
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Ano<span style="color: red"> *</span></label>
-                                                   <input type="text" id="ano" th:field="*{ano}" class="form-input">
+                                                   <input type="text" id="ano-livro" th:field="*{ano}" class="form-input">
+                                                    <div class="alert alert-danger" id="ano-livro-div">
+
+                                                   </div>
                                                </div>
                                            </div>
                                        </div>
@@ -57,13 +78,19 @@
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Sinopsie<span style="color: red"> *</span></label>
-                                                   <textarea maxlength="255" type="text" id="sinopsie" th:field="*{sinopsie}" class="form-input" ></textarea>
+                                                   <textarea maxlength="255" type="text" id="sinopsie-livro" th:field="*{sinopsie}" class="form-input" ></textarea>
+                                                   <div class="alert alert-danger" id="sinopsie-livro-div">
+
+                                                   </div>
                                                </div>
                                            </div>     
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">ISBN<span style="color: red"> *</span></label>
-                                                   <textarea type="text" id="isbn" th:field="*{isbn}" class="form-input" ></textarea>
+                                                   <input type="text" id="isbn-livro" th:field="*{isbn}" class="form-input" />
+                                                   <div class="alert alert-danger" id="isbn-livro-div">
+
+                                                   </div>
                                                </div>
                                            </div>                                         
                                        </div>
@@ -71,42 +98,66 @@
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Edição<span style="color: red"> *</span></label>
-                                                   <input type="text" id="edicao" th:field="*{edicao}" class="form-input" />
+                                                   <input type="text" id="edicao-livro" th:field="*{edicao}" class="form-input" />
+                                                   <div class="alert alert-danger" id="edicao-livro-div">
+
+                                                   </div>
                                                </div>
                                            </div>     
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Peso<span style="color: red"> *</span></label>
-                                                   <input type="text" id="peso" th:field="*{peso}" class="form-input" />                                               </div>
+                                                   <input type="text" id="peso-livro" th:field="*{peso}" class="form-input" />
+                                               	   <div class="alert alert-danger" id="peso-livro-div">
+														
+                                                   </div>    
+                                               </div>
                                            </div>                                         
                                        </div>
                                         <div class="row">
-                                           <div class="col-md-6">
+                                           <div class="col-md-12">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Preço<span style="color: red"> *</span></label>
-                                                   <input type="text" id="edicao" th:field="*{preco}" class="form-input" />
+                                                   <input type="text" id="preco-livro" th:field="*{preco}" class="form-input" />
+                                                   <div class="alert alert-danger" id="preco-livro-div">
+
+                                                   </div>
                                                </div>
                                            </div>     
                                        </div>
                                        <div class="row">
                                        		<div class="col-md-6">
                                        			<label class="bmd-label-floating">Editoras<span style="color: red"> *</span></label>
-                                       			<select th:field="*{editora.id}"  class="form-control">
+                                       			<select id="editora-livro" th:field="*{editora.id}"  class="form-control">
+                                       				<option value="">--Selecione uma Editora--</option>
                                     				<option th:value="${editora.id}" th:each="editora : ${editoras}" th:text="${editora.nome}"></option>
                                        			</select>
+                                       			 <div class="alert alert-danger" id="editora-livro-div">
+
+                                                   </div>
                                        		</div>
                                        		<div class="col-md-6">
                                        			<label class="bmd-label-floating">Categorias<span style="color: red"> *</span></label>
                                        				<br />
                                                    <th:block th:each="categoria : ${categorias}">
-                                                   		<label th:text="${categoria.nome}"></label>
-                                                   		<input type="checkbox" name="ids" th:value="${categoria.id}" />
-                                                   		<br />
+                                                   		<th:block th:if="${not #lists.isEmpty(categoria.livros)}">
+                                                   				<label th:text="${categoria.nome}"></label>
+                                                   					<input type="checkbox" checked id="idsCategoria-livro" name="ids" th:value="${categoria.id}" />
+                                                   				<br />
+                                                   		</th:block>
+                                                   		<th:block th:if="${#lists.isEmpty(categoria.livros)}">
+	                                              				<label th:text="${categoria.nome}"></label>
+	                                              					<input type="checkbox" id="idsCategoria-livro" name="ids" th:value="${categoria.id}" />
+	                                              				<br />
+                                             			</th:block>  
                                                    </th:block>
+                                                   <div class="alert alert-danger" id="idsCategoria-livro-div">
+
+                                                   </div>
                                        		</div>
                                        </div>
                                        <br />
-                                    <button id="cadastro-autor" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button id="cadastro-livro" class="btn btn-success pull-right">Cadastrar</button>
                                     <button type="reset" id="reset-autor" class="btn btn-danger pull-right">Limpar Campos</button>
                                     <div class="clearfix"></div>
                                 	</form>
