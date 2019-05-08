@@ -30,7 +30,7 @@
                             	</div>
                             	
                             	<div class="card-body">
-                                	<form th:object="${categoria}" class="teste" id="form-categoria" th:action="@{/categoria/saveCategoria}" method="POST">
+                                	<form th:object="${categoria}" id="form-categoria" th:action="@{/categoria/saveCategoria}" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
@@ -38,11 +38,12 @@
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Nome<span style="color: red"> *</span></label>
                                                    <input type="text" id="nome-categoria" th:field="*{nome}" class="form-input">
-                                                   <div class="alert alert-danger" id="nome-div-categoria">
-	                            				   </div>
+                                                    <div class="alert alert-danger" id="nome-categoria-div-categoria">
+                         							</div>
                                                </div>
                                            </div>
                                         </div>  
+                                       
                                     <button id="cadastro-categoria" class="btn btn-success pull-right">Cadastrar</button>
                                     <button type="reset" id="reset-categoria" class="btn btn-danger pull-right">Limpar Campos</button>
                                     <div class="clearfix"></div>

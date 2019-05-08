@@ -21,6 +21,7 @@ function esconderDiv(form, inicio, fim){
 
 function esconderDivCategoria(form, inicio, fim){
     for(let i = inicio; i < fim;i++){
+    	console.log(form[i].id);
         clearfield.hide(form[i].id+"-div-categoria");
     }
 }
@@ -29,7 +30,6 @@ function esconderDivCategoria(form, inicio, fim){
 
 /* Inicializa todas as funções do JavaScript */
 $(document).ready(function () {
-	 console.log("ENTROU");
     clearfield = new ClearfieldsController();
     tags = new TagsView();
 
@@ -44,7 +44,7 @@ $(document).ready(function () {
     }
     if($("#form-categoria").length){
         //formCadastroCategoria !== undefined
-        esconderDivCategoria(formCadastroCategoria, 0, formCadastroCategoria.length-1);
+        esconderDivCategoria(formCadastroCategoria, 0, formCadastroCategoria.length);
     }
 
     /* Esconder as divs de cadastro */
@@ -145,7 +145,6 @@ $("#cadastro-usuario").click(function (event) {
 /* Eventos cadastro categoria */
 
 $("#cadastro-categoria").click(function (event) {
-    event.preventDefault();
    let required = new RequiredController(this);
    let formCategoria = document.getElementById("form-categoria");
    let tags = new TagsView();
@@ -156,13 +155,14 @@ $("#cadastro-categoria").click(function (event) {
         clearfield.hide("father-cadastro-categoria");
         $("#cadastro-categoria").submit();
    }else{
-       for(let j = 0; j < formCategoria.length-1;j++){
-           for(let i = 0; i < inputs.length;i++){
+       for(let j = 1; j < formCategoria.length;j++){
+           for(let i = 1; i < inputs.length;i++){
                if(inputs[i].id == formCategoria[j].id){
-                   console.log(formCategoria[i].id);
+                   console.log(inputs[i].id);
                    if(required.requiredInput(inputs[i].id)){
                        event.preventDefault();
                        clearfield.show(formCategoria[j].id+"-div-categoria");
+                       console.log(formCategoria[j].id);
                        tags.updateElement(document.getElementById(formCategoria[j].id+"-div-categoria"), "span", "campo obrigatório!");
                    }
                }
