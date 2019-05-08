@@ -15,6 +15,7 @@ var tags;
 
 function esconderDiv(form, inicio, fim){
     for(let i = inicio; i < fim;i++){
+        console.log(form[i].id);
         clearfield.hide(form[i].id+"-div");
     }
 }
@@ -39,7 +40,6 @@ function esconderDivAutor(form, inicio, fim){
 
 function esconderDivLivro(form, inicio, fim){
     for(let i = inicio; i < fim; i++){
-        console.log(form[i].id);
         clearfield.hide(form[i].id+"-div");
     }
 }
@@ -51,7 +51,7 @@ function esconderDivLivro(form, inicio, fim){
 
 /* Inicializa todas as funções do JavaScript */
 $(document).ready(function () {
-	
+
     clearfield = new ClearfieldsController();
     tags = new TagsView();
 
@@ -145,11 +145,11 @@ $("#editora-livro").click(function () {
 
 /* Evento de click para o buttom cadastro de usuario */
 $("#cadastro-usuario").click(function (event) {
-    ////event.preventDefault();
+    //event.preventDefault();
     let requerid = new RequiredController(this);
     let form = document.getElementById("form1");
 
-    if(!requerid.requiredAll(event, form, form.length-1)){
+    if(!requerid.requiredAll(event, form, form.length-1) && ($("#senha-confirmar").val() == $("#senha").val())){
         $("#cidade").attr("disabled", false);
         $("#bairro").attr("disabled", false);
         $("#estado").attr("disabled", false);
@@ -158,14 +158,20 @@ $("#cadastro-usuario").click(function (event) {
         $("#cadastro").submit();
     } else{
         for(let i = 0; i < form.length-1;i++){
-            if(requerid.required(i, form)){
-                event.preventDefault();
-                if(form[i].id == "email"){
-                    emailEmpty = true;
+                if(requerid.required(i, form)){
+                    event.preventDefault();
+                    if(form[i].id == "email"){
+                        emailEmpty = true;
+                    }
+                    clearfield.show(form[i].id+"-div");
+                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+                }else {
+                    if(($("#senha-confirmar").val() != $("#senha").val())){
+                        clearfield.show(form[i].id+"-div");
+                        tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "senhas inválidas!");
+                    }
                 }
-                clearfield.show(form[i].id+"-div");
-                tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
-            }
+
         }
          if(emailEmpty == false){
              if(!verificarEmail("email")){

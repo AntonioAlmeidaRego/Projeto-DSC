@@ -22,7 +22,7 @@ class RequiredController {
     }
 
     required(i, form){
-        if(document.getElementById(form[i].id).value == "") {
+        if((document.getElementById(form[i].id).value == "") && (document.getElementById(form[i].id).value.length <= 0)) {
             return true;
         }
         return false;
