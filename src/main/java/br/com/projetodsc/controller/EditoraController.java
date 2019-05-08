@@ -44,7 +44,7 @@ public class EditoraController {
 		
 		return findAll().addObject("success", "Editora adicionada com sucesso!");
 	}
-	@PostMapping("/updateEditora/{id}")
+	@GetMapping("/updateEditora/{id}")
 	public ModelAndView updateEditora(@PathVariable Long id) {
 		Editora editora = service.getOne(id);
 		return cadastroEditora(editora);
