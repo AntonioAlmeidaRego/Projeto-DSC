@@ -33,7 +33,7 @@ layout:decorate="~{layout-site}"
 							<div class="col-sm-9 padding-right">
 							<div class="features_items"><!--features_items-->
 								<h2 class="title text-center">Livros</h2>
-									<th:block th:if="${not #lists.isEmpty(livros)}">
+									<th:block th:if="livros!=null and !livros.empty">
 										<div th:each="livro : ${livros}">
 												<div class="col-sm-4">
 													<div class="product-image-wrapper">
@@ -43,22 +43,18 @@ layout:decorate="~{layout-site}"
 																	<img th:src="@{${livro.urlImagem}}" alt="" />
 																	<h2 th:text="${livro.preco}"></h2>
 																	<p th:text="${livro.titulo}"></p>
-																	<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+																	<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
 																</div>
 																<div class="product-overlay">
 																	<div class="overlay-content">
 																		<h2 th:text="${livro.preco}"></h2>
 																		<p th:text="${livro.titulo}"></p>
-																		<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+																		<a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
 																	</div>
 																</div>
 															
 														</div>
 														<div class="choose">
-															<ul class="nav nav-pills nav-justified">
-																<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-																<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-															</ul>
 														</div>
 													</div>
 												</div>
@@ -77,7 +73,7 @@ layout:decorate="~{layout-site}"
 												</div>
 									</th:block>
 							</div><!--features_items-->
-						 
+
 						</div>
 					</div>
 				</div>

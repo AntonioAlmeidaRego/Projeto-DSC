@@ -16,7 +16,7 @@ class ValidacaoController {
             || (event.which == 102 || event.keyCode == 102)
             || (event.which == 103 || event.keyCode == 103)
             || (event.which == 104 || event.keyCode == 104)
-            || (event.which == 105 || event.keyCode == 105)){
+            || (event.which == 105 || event.keyCode == 105) || (event.keyCode == 108 || event.whitch == 108)){
             return true;
         }else if(event.keyCode == 48 || event.keyCode == 49
             || event.keyCode == 50 || event.keyCode == 51 || event.keyCode == 52

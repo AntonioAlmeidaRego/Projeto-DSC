@@ -26,11 +26,12 @@
                   class="material-icons">home</i>
             <p>Home</p>
           </a></li>
-          <li class="nav-item"><a data-togle="collapse" class="nav-link"
-                                  th:href="@{/usuario/mydados/{id}(id=${usuario.id})}">
+          <li class="nav-item"><a id="url-my-dados" data-togle="collapse" class="nav-link"
+                                  >
 
             <p>Meus Dados</p>
           </a></li>
+          
           <li class="nav-item" data-toggle="collapse"
               data-target="#collapseOne" aria-expanded="false"
               aria-controls="collapseOne"><a class="nav-link"> <i
@@ -58,14 +59,54 @@
             <div id="collapseTwo" class="collapse"
                  aria-labelledby="headingOne" data-parent="#accordion">
               <ul class="nav">
-                <li class="nav-item"><a data-togle="collapse"
-                                        class="nav-link" th:href="@{/pedido/myPedidos/{id}(id=${usuario.id})}">
+                <li class="nav-item"><a id="url-my-pedido" data-togle="collapse"
+                                        class="nav-link">
 
                   <p>Listar Pedidos</p>
                 </a></li>
               </ul>
 
             </div></li>
+            
+          <li class="nav-item"><a id="sair" data-togle="collapse" class="nav-link"
+                                  >
+				<i
+                  class="material-icons"></i>
+            <p>Sair</p>
+          </a></li>
+            <script type="text/javascript">
+				/*$(document).ready(function () {
+					*/
+					if(session.getSession("user") != null){
+						var name = document.getElementById("user-name");
+						if(name != null){
+							name.textContent = " "+session.getSession("user")._nomeUsuario
+						}
+					}
+					$("#url-my-dados").click(function () {
+						if(session.getSession("user") != null) {
+							var id = session.getSession("user")._idUsuario;
+                          window.location.replace("/usuario/mydados/" + id);
+						}else{
+                          window.location.replace("/");
+						}
+					});
+					
+					$("#url-my-pedido").click(function(){
+						if(session.getSession("user") != null){
+							var id = session.getSession("user")._idUsuario;
+                          window.location.replace("/pedido/myPedidos/"+id);
+						}else{
+                          window.location.replace("/");
+						}
+					});
+					
+					$("#sair").click(function(){
+						session.clearSession("user");
+						window.location.replace("/");
+					});
+				//});
+			</script>
         </ul>
       </div>
     </div>

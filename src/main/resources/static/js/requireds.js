@@ -199,7 +199,7 @@ $("#cadastro-usuario").click(function (event) {
         clearfield.hide("father-cadastro");
         emailEmpty = true;
         $("#cadastro").submit();
-        alert("ENTROU ");
+         
     } else{
         event.preventDefault();
         for(let i = 0; i < form.length-1;i++){
