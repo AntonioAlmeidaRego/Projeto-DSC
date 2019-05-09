@@ -1,31 +1,40 @@
 /**
  * 
  */
-
+/* Variaveis globais */
 const tamanhoCep = 9;
-var bool = false;
-var count = 1;
+var entrou = false;
+
+/* Mascara do telefone */
 
 $("#phone").keypress(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraPhone(event);
 });
 
+/* Mascara do CEP */
+
 $("#cpf").keyup(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraCPF(event);
 });
+
+/* Mascara RG */
 
 $("#rg").keypress(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraRG(event);
 });
 
+/* Mascara date */
+
 $("#date").keypress(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraDate(event);
 
 });
+
+/* Mascara do Cep e faz o consumo da Api*/
 
 $("#cep").keyup(function (event){
     let mascara = new MascaraController(this);
@@ -38,30 +47,29 @@ $("#cep").keyup(function (event){
         if($("#bairro").val() != ""){
             $("#bairro").val("");
         }
+        entrou = false;
         $("#cep-div").hide("slow");
-        count = 1;
     }else {
         if(mascara.keyCodeNumber(event)){
             if(event.length === undefined){
-                count++;
-                console.log(count);
-                if(count == tamanhoCep){
-                    if($("#cep").val().length == tamanhoCep){
-                        let api = new Api();
-                        let form = document.getElementById("form1");
-                        api.apiCep($(this).val(), form);
-                    }
-                    count = 1;
+                if(($("#cep").val().length == tamanhoCep) && (entrou == false)){
+                    let api = new Api();
+                    entrou = true;
+                    let form = document.getElementById("form1");
+                    api.apiCep($(this).val(), form);
                 }
             }
         }else{
-            count = 1;
+            entrou = false;
+            $("#cep").val("");
+            $("#estado").val("");
+            $("#cidade").val("");
         }
     }
 });
 
+
 $("#reset").click(function () {
-    bool = true;
     $("#bairro").attr("disabled", false);
 });
 

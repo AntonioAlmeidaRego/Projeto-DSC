@@ -15,7 +15,6 @@ var tags;
 
 function esconderDiv(form, inicio, fim){
     for(let i = inicio; i < fim;i++){
-        console.log(form[i].id);
         clearfield.hide(form[i].id+"-div");
     }
 }
@@ -26,23 +25,6 @@ function esconderDivCategoria(form, inicio, fim){
     }
 }
 
-function esconderDivEditora(form, inicio, fim){
-	for(let i = inicio; i < fim;i++){
-		clearfield.hide(form[i].id+"-div");
-	}
-}
-
-function esconderDivAutor(form, inicio, fim){
-	for(let i = inicio; i < fim;i++){
-		clearfield.hide(form[i].id+"-div");
-	}
-}
-
-function esconderDivLivro(form, inicio, fim){
-    for(let i = inicio; i < fim; i++){
-        clearfield.hide(form[i].id+"-div");
-    }
-}
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 
@@ -65,13 +47,16 @@ $(document).ready(function () {
         esconderDivCategoria(document.getElementById("form-categoria"), 0, document.getElementById("form-categoria").length);
     }
     if($("#form-editora").length){
-    	esconderDivEditora(document.getElementById("form-editora"), 0, document.getElementById("form-editora").length);
+    	esconderDiv(document.getElementById("form-editora"), 0, document.getElementById("form-editora").length);
     }
     if($("#form-autor").length){
-    	esconderDivAutor(document.getElementById("form-autor"), 0, document.getElementById("form-autor").length);
+    	esconderDiv(document.getElementById("form-autor"), 0, document.getElementById("form-autor").length);
     }
     if($("#form-livro").length){
-        esconderDivLivro(document.getElementById("form-livro"), 0, document.getElementById("form-livro").length);
+        esconderDiv(document.getElementById("form-livro"), 0, document.getElementById("form-livro").length);
+    }
+    if($("#form-update-user").length){
+        esconderDiv(document.getElementById("form-update-user"), 0, document.getElementById("form-update-user").length);
     }
 
     /* Esconder as divs de cadastro */
@@ -104,7 +89,7 @@ $("#login").click(function (event) {
         if(!verificarEmail("email-login")){
             event.preventDefault();
             clearfield.clear("father-login");
-            tags.updateElement(document.getElementById("father-login"), "span", "Email inválido!");
+            tags.updateElement(document.getElementById("father-login"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
         }else {
             clearfield.hide("father-login");
 
@@ -144,41 +129,72 @@ $("#editora-livro").click(function () {
 });
 
 /* Evento de click para o buttom cadastro de usuario */
+$("#update-user").click(function (event) {
+    let requerid = new RequiredController(this);
+    let form = document.getElementById("form-update-user");
+
+
+    if((!requerid.requiredAll(event, form, form.length-2))){
+        emailEmpty = true;
+        $("#cadastro").submit();
+    } else{
+        event.preventDefault();
+        for(let i = 1; i < form.length-2;i++){
+            if(requerid.required(i, form)){
+                console.log(form[i].id);
+                if(form[i].id == "update-user-email"){
+                    emailEmpty = true;
+                }
+                clearfield.show(form[i].id+"-div");
+                tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+            }
+        }
+        if(!verificarEmail("update-user-email")){
+            clearfield.show("update-user-email-div");
+            clearfield.clear("update-user-email-div");
+            tags.updateElement(document.getElementById("update-user-email-div"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
+        }
+
+    }
+});
+
+
 $("#cadastro-usuario").click(function (event) {
     //event.preventDefault();
     let requerid = new RequiredController(this);
     let form = document.getElementById("form1");
+    let inputs = document.getElementsByTagName("input");
+    //event.preventDefault();
 
-    if(!requerid.requiredAll(event, form, form.length-1) && ($("#senha-confirmar").val() == $("#senha").val())){
+    if((!requerid.requiredAll(event, form, form.length-1)) && (requerid.requiredSenha("senha", "senha-confirmar"))){
         $("#cidade").attr("disabled", false);
         $("#bairro").attr("disabled", false);
         $("#estado").attr("disabled", false);
         clearfield.hide("father-cadastro");
         emailEmpty = true;
         $("#cadastro").submit();
+        alert("ENTROU ");
     } else{
+        event.preventDefault();
         for(let i = 0; i < form.length-1;i++){
-                if(requerid.required(i, form)){
-                    event.preventDefault();
-                    if(form[i].id == "email"){
-                        emailEmpty = true;
-                    }
-                    clearfield.show(form[i].id+"-div");
-                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
-                }else {
-                    if(($("#senha-confirmar").val() != $("#senha").val())){
-                        clearfield.show(form[i].id+"-div");
-                        tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "senhas inválidas!");
-                    }
+            if(requerid.required(i, form)){
+                if(form[i].id == "email"){
+                    emailEmpty = true;
                 }
+                clearfield.show(form[i].id+"-div");
+                tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+            }
+        }
 
+        if(($("#senha-confirmar").val() != $("#senha").val())){
+            clearfield.show("senha-confirmar-div");
+            tags.updateElement(document.getElementById("senha-confirmar-div"), "span", "senhas inválidas!");
         }
          if(emailEmpty == false){
              if(!verificarEmail("email")){
-                 event.preventDefault();
                  clearfield.show("father-cadastro");
                  clearfield.clear("father-cadastro");
-                 tags.updateElement(document.getElementById("father-cadastro"), "span", "Email inválido!");
+                 tags.updateElement(document.getElementById("father-cadastro"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
              }
          }
 
@@ -225,12 +241,12 @@ $("#reset-editora").click(function() {
 });
 
 $("input").focus(function() {
-	$("input").keyup(function(event) {
+	/*$("input").keyup(function(event) {
 		let mascara = new MascaraController(this);
 		if(mascara.keyCodeBackspaceAndDelete(event)){
 			$(this).val("");
 		}
-	});
+	});*/
 });
 
 $("#cadastro-editora").click(function(event) {

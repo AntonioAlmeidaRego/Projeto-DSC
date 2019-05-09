@@ -10,13 +10,9 @@ class RequiredController {
 
     requiredAll(event, form, length){
 		for(let i = 0; i < length;i++){
-		    console.log(form[i].id);
             if(document.getElementById(form[i].id).value == "") {
-                bool = true;
+                return true;
             }
-        }
-		if(bool == true){
-		    return true;
         }
 		return false;
     }
@@ -47,5 +43,15 @@ class RequiredController {
 			}
     	}
     	return false;
+    }
+    
+
+    requiredSenha(idSenha, idconfirmarSenha){
+        if(document.getElementById(idSenha).value == document.getElementById(idconfirmarSenha).value){
+            alert("TRUE");
+            return true;
+        }
+        alert("FALSE");
+        return false;
     }
 }

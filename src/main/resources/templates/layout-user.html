@@ -22,7 +22,14 @@
 
 		<div th:replace="/fragmentos/menu-user :: menu-user-esquerdo"></div>
 		<div class="main-panel">
-			<div class="content-wrapper" layout:fragment="corpo-user"></div>
+			
+			<div class="content-wrapper" layout:fragment="corpo-user">
+				<th:block if="${succes != null}">
+					<div class="alert alert-success">
+						<span th:text="${succes}"></span>
+					</div>
+				</th:block>
+			</div>
 		</div>
     </div>
     <!-- End Navbar -->

@@ -67,14 +67,15 @@ public class UsuarioController {
 	@PostMapping("/saveUsuarioUpdate")
 	public ModelAndView saveUsuarioUpdate(Usuario usuario) {
 		Usuario usuario2 = service.getEmail(usuario.getEmail());
+		System.out.println(usuario.getEmail());
 		ModelAndView view = new ModelAndView("/usuario/cadastro-user");
-		if(usuario2 != null) {
-			if(!usuario.getEmail().equals(usuario2.getEmail())) {
-				service.add(usuario);
-				view.addObject("success", "Usuário alterou seus dados com sucesso!");
-			}else {
-				view.addObject("error", "Email já está cadastrado no sistema!");
-			}
+		if(usuario2 == null) {
+			ModelAndView view2 = new ModelAndView("/usuario/portal-user");
+			service.add(usuario);
+			view2.addObject("success", "Usuário alterou seus dados com sucesso!");
+			return view2;
+		}else {
+			view.addObject("error", "Email já está cadastrado no sistema!");
 		}
 		return view;
 	}

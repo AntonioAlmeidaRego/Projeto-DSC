@@ -31,30 +31,38 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${usuario}" th:action="@{/usuario/saveUsuarioUpdate}" id="form" method="POST">
+                                	<form th:object="${usuario}" th:action="@{/usuario/saveUsuarioUpdate}" id="form-update-user" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Nome<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{nome}" class="form-input">
+                                                   <input type="text" id="update-user-nome" th:field="*{nome}" class="form-input">
+                                                   <div id="update-user-nome-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Email<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{email}" class="form-input">
+                                                   <input type="text" id="update-user-email" th:field="*{email}" class="form-input">
+                                                   <div id="update-user-email-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                             </div>   
                                      	</div>   
                                      	<div class="row">     
                                      	 	<div class="col-md-6">	    
                                                <div class="form-group">
-                                                   <label class="bmd-label-floating">Cidade<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{cidade}" class="form-input">
+                                                   <label class="bmd-label-floating">Municipio<span style="color: red"> *</span></label>
+                                                   <input type="text" id="update-user-municipio" th:field="*{municipio}" class="form-input">
+                                                   <div id="update-user-municipio-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Estado<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{estado}" class="form-input">
+                                                   <input type="text" id="update-user-estado" th:field="*{estado}" class="form-input">
+                                                   <div id="update-user-estado-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                            </div>    
                                         </div>       
@@ -62,17 +70,20 @@
                                        		 <div class="col-md-6">  
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Bairro<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{bairro}" class="form-input">
+                                                   <input type="text" id="update-user-bairro" th:field="*{bairro}" class="form-input">
+                                                   <div id="update-user-bairro-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                                <div class="form-group">
                                                    <label class="bmd-label-floating">Rua<span style="color: red"> *</span></label>
-                                                   <input type="text" id="nome" th:field="*{rua}" class="form-input">
+                                                   <input type="text" id="update-user-rua" th:field="*{rua}" class="form-input">
+                                                   <div id="update-user-rua-div" class="alert alert-danger">
+                                                   </div>
                                                </div>
                                             </div>   
                                            </div>
-                                        </div>
-                                    <button id="cadastro-categoria" class="btn btn-success pull-right">Cadastrar</button>
-                                    <button type="reset" id="reset-categoria" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <button id="update-user" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button type="reset" id="update-reset-user" class="btn btn-danger pull-right">Limpar Campos</button>
                                     <div class="clearfix"></div>
                                 	</form>
                             	</div>
