@@ -71,26 +71,13 @@
                                                    <label class="bmd-label-floating">Livros<span style="color: red"> *</span></label>
                                                    <br />
                                                	 <th:block th:each="livro : ${livros}">
-                                               	 	<th:block th:if="${not #lists.isEmpty(livro.autors)}">
                                                 		<label th:text="${livro.titulo}"></label>
-                                                			<input type="checkbox" id="idLivros" checked="checked"  name="ids" th:value="${livro.id}" />
-                                                			<div class="alert alert-danger" id="idLivros-autor-div">
-
-                                                   			</div>
+                                                			<input class="checkbox-autores" type="checkbox" th:id="'idLivros-autor'+${livro.id}" name="ids" th:value="${livro.id}" />
                                                 		<br />
-                                               		 </th:block>
                                                </th:block>
-                                           		<th:block th:each="livro : ${livros}">
-                                           			<th:block th:if="${#lists.isEmpty(livro.autors)}">
-	                                             		<label th:text="${livro.titulo}"></label>
-	                                             			<input type="checkbox" id="idLivros" name="ids" th:value="${livro.id}" />
-	                                             			<div class="alert alert-danger" id="idLivros-autor-div">
+                                               <div class="alert alert-danger" id="idLivros-autor-div">
 
-                                                   			</div>
-	                                             		<br />
-                                            		</th:block>
-                                            	</th:block>	
-                                                   
+                                               </div>
                                                </div>
                                            </div>                                           
                                        </div>

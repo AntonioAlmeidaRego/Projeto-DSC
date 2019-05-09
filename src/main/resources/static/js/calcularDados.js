@@ -32,6 +32,6 @@
                  alert("Pedido adicionado com Sucesso!");
                  window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
              }
- 
+
 	      }
 	   });

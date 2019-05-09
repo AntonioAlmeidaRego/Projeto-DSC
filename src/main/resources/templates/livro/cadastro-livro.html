@@ -33,6 +33,7 @@
                                        		<div class="col-md-12">
                                        			<th:block th:if="${livro.urlImagem == null}">
                                        					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
+                                       					<br/>
 		                                       			<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa" />
 		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
 		                                       			<div class="alert alert-danger" id="file-capa-div">
@@ -40,9 +41,9 @@
                                             			</div>
                                        			</th:block>
                                        			<th:block th:if="${livro.urlImagem != null}">
-                                  						<img th:src="@{${livro.urlImagem}}" width="100"/>
-                                       					
-                                       					<label class="bmd-label-floating">Alterar Capa do Livro</label>
+                                       					<label class="bmd-label-floating">Capa do Livro</label>
+                                       					<br/> 
+                                  						<img id="imagem-capa" th:src="@{${livro.urlImagem}}" width="100"/>
                                        					<br />
                                        					<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa"  />
 		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
@@ -139,19 +140,12 @@
                                        		<div class="col-md-6">
                                        			<label class="bmd-label-floating">Categorias<span style="color: red"> *</span></label>
                                        				<br />
-                                                   <th:block th:each="categoria : ${categorias}">
-                                                   		<th:block th:if="${not #lists.isEmpty(categoria.livros)}">
-                                                   				<label th:text="${categoria.nome}"></label>
-                                                   					<input type="checkbox" checked id="idsCategoria-livro" name="ids" th:value="${categoria.id}" />
-                                                   				<br />
-                                                   		</th:block>
-                                                   		<th:block th:if="${#lists.isEmpty(categoria.livros)}">
-	                                              				<label th:text="${categoria.nome}"></label>
-	                                              					<input type="checkbox" id="idsCategoria-livro" name="ids" th:value="${categoria.id}" />
-	                                              				<br />
-                                             			</th:block>  
-                                                   </th:block>
-                                                   <div class="alert alert-danger" id="idsCategoria-livro-div">
+														<th:block th:each="categoria : ${categorias}">
+															<label th:text="${categoria.nome}"></label>
+															<input class="checkbox1" type="checkbox" th:id="'idsCategoria-livro' + ${categoria.id}" name="ids" th:value="${categoria.id}" />
+															<br />
+														</th:block>
+												<div class="alert alert-danger" id="idsCategoria-livro-div">
 
                                                    </div>
                                        		</div>

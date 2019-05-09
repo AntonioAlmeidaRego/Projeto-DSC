@@ -31,7 +31,7 @@ public class CategoriaController {
 	}
 	@PostMapping("/saveCategoria")
 	public ModelAndView saveCategoria(Categoria categoria) {
-		Categoria categoria2 = service.getOne(categoria.getNome());
+		Categoria categoria2 = service.findByNome(categoria.getNome());
 		
 		if(categoria2 != null) {
 			return cadastroCategoria(categoria2).addObject("error", "Categoria já adicionada. Por favor tente outra!");

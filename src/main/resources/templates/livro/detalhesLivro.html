@@ -31,13 +31,14 @@
 									<input type="hidden" id="peso" th:value="${livro.peso}" />
 									<button id="addPedido" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
-										Add to cart
+										Adicionar pedido
 									</button>
 								</span>
-								<input id="cep" type="text"/>
 								<p><b>Sinopsie:</b><p th:text="${livro.sinopsie}"> </p></p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p>
+								<p><b>Autores:</b></p>
+								<th:block th:each="autor : ${livro.autors}">
+									 <p><p th:text="${autor.nome}"></p>
+								</th:block>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt=""></a>
 							</div><!--/product-information-->
 						</div>

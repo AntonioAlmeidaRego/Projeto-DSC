@@ -36,7 +36,7 @@ public class AutorController {
 	}
 	@PostMapping("/saveAutor")
 	public ModelAndView saveAutor(Autor autor, String ids) {
-		Autor autor2 = service.getOne(autor.getNome(), autor.getCpf(), autor.getEmail());
+		Autor autor2 = service.findByNomeAndCpfAndEmail(autor.getNome(), autor.getCpf(), autor.getEmail());
 		if(autor2 == null) {
 			if((!ids.equals(""))) {
 				String getIds[] = ids.split(",");

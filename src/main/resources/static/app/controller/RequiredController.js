@@ -31,6 +31,7 @@ class RequiredController {
         return false;
     }
 
+
     requiredEmail(){
         let array = this._input.value.split("");
     	for(let i = 0;i< array.length;i++){
@@ -44,14 +45,42 @@ class RequiredController {
     	}
     	return false;
     }
-    
+
+    requiredCheckBox(form, id){
+        let checked = false;
+        for(let i = 0; i < form.length;i++){
+            if(document.getElementById(form[i].id).id == id){
+                if(document.getElementById(form[i].id).checked == true){
+                    checked = true;
+                }
+            }
+        }
+        if(checked){
+            return true;
+        }
+        return false;
+    }
+
+    requiredRadio(id){
+        if(document.getElementById(id).checked == true){
+            return true;
+        }
+        return false;
+    }
 
     requiredSenha(idSenha, idconfirmarSenha){
         if(document.getElementById(idSenha).value == document.getElementById(idconfirmarSenha).value){
-            alert("TRUE");
             return true;
         }
-        alert("FALSE");
         return false;
     }
+
+    requiredExist(id){
+        if($("#"+id).length){
+            return true;
+        }
+        return false;
+    }
+
+
 }

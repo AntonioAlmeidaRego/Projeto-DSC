@@ -7,12 +7,19 @@ var entrou = false;
 
 /* Mascara do telefone */
 
-$("#phone").keypress(function (event){
+$("#phone").keyup(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraPhone(event);
 });
 
-/* Mascara do CEP */
+/* Mascara do CPF autor */
+
+$("#cpf-autor").keyup(function (event) {
+   let mascara = new MascaraController(this);
+   mascara.mascaraCPF(event);
+});
+
+/* Mascara do CPF */
 
 $("#cpf").keyup(function (event){
     let mascara = new MascaraController(this);

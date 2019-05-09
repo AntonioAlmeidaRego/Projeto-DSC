@@ -19,6 +19,14 @@ function esconderDiv(form, inicio, fim){
     }
 }
 
+function esconderDivLivro() {
+    clearfield.hide("idsCategoria-livro-div");
+}
+
+function esconderDivAutor() {
+    clearfield.hide("idLivros-autor-div");
+}
+
 function esconderDivCategoria(form, inicio, fim){
     for(let i = inicio; i < fim;i++){
         clearfield.hide(form[i].id+"-div-categoria");
@@ -51,12 +59,18 @@ $(document).ready(function () {
     }
     if($("#form-autor").length){
     	esconderDiv(document.getElementById("form-autor"), 0, document.getElementById("form-autor").length);
+        esconderDivAutor();
     }
     if($("#form-livro").length){
         esconderDiv(document.getElementById("form-livro"), 0, document.getElementById("form-livro").length);
+        esconderDivLivro();
     }
     if($("#form-update-user").length){
         esconderDiv(document.getElementById("form-update-user"), 0, document.getElementById("form-update-user").length);
+    }
+
+    if($("#imagem-capa").length){
+        exe = extensao;
     }
 
     /* Esconder as divs de cadastro */
@@ -126,6 +140,18 @@ $("#sinopsie-livro").focus(function () {
 
 $("#editora-livro").click(function () {
     clearfield.hide(this.id+"-div");
+});
+
+/* Evento CheckBox livro*/
+
+$("input").focus(function () {
+    clearfield.hide("idsCategoria-livro-div");
+});
+
+/* Evento checkbox autor */
+
+$("input").focus(function () {
+   clearfield.hide("idLivros-autor-div");
 });
 
 /* Evento de click para o buttom cadastro de usuario */
@@ -276,25 +302,37 @@ $("#cadastro-editora").click(function(event) {
 /* Eventos cadastro Autor */
 
 $("#cadastro-autor").click(function(event) {
-	event.preventDefault();
 	let required = new RequiredController(this);
     let formAutor = document.getElementById("form-autor");
     let tags = new TagsView();
     let inputs = document.getElementsByTagName("input");
+    let inputsCheck = document.getElementsByClassName("checkbox-autores");
 
-    if((!required.required(1, formAutor)) && (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")){
+    console.log(inputsCheck);
+
+    if((!required.required(1, formAutor)) && (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
+        && (isInputCheckBox(inputsCheck, required))){
     	$(this).submit();
     }else{
+        event.preventDefault();
     	for(let j = 1; j < formAutor.length;j++){
             for(let i = 1; i < inputs.length;i++){
                 if(inputs[i].id == formAutor[j].id){
                     if(required.requiredInput(inputs[i].id)){
-                        event.preventDefault();
                         clearfield.show(formAutor[j].id+"-div");
                         tags.updateElement(document.getElementById(formAutor[j].id+"-div"), "span", "campo obrigatório!");
                     }
                 }
             }
+        }
+        if(!verificarEmail("email-autor")){
+            clearfield.show("email-autor-div");
+            clearfield.clear("email-autor-div");
+            tags.updateElement(document.getElementById("email-autor-div"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
+        }
+        if(!isInputCheckBox(inputsCheck, required)){
+            clearfield.show("idLivros-autor-div");
+            tags.updateElement(document.getElementById("idLivros-autor-div"), "span", "campo obrigatório!");
         }
     }
 });
@@ -316,21 +354,30 @@ $("#file-capa").change(function () {
 
 });
 
-$("#cadastro-livro").click(function (event) {
+function isInputCheckBox(inputscheck, required){
+    for(let i = 0; i < inputscheck.length;i++){
+        if(required.requiredCheckBox(inputscheck, inputscheck[i].id)){
+            return true;
+        }
+    }
+    return false;
+}
 
+$("#cadastro-livro").click(function (event) {
+   // event.preventDefault();
     let required = new RequiredController(this);
     let formLivro = document.getElementById("form-livro");
     let tags = new TagsView();
     let inputs = document.getElementsByTagName("input");
-    let inputCheck = document.getElementById("idsCategoria-livro");
     let select = document.getElementById("editora-livro");
+    let inputsCheck = document.getElementsByClassName("checkbox1");
     let inputFoto = document.getElementById("file-capa");
 
-    if((!required.required(1, formLivro)) && (!$("#titulo-livro").val() == "") &&
+    if((!$("#titulo-livro").val() == "") &&
         (!$("#peso-livro").val() == "") && (!$("#preco-livro").val() == "")
         && (!$("#isbn-livro").val() == "") && (!$("#edicao-livro").val() == "")
-        && (!$("#ano-livro").val() == "") && (inputCheck.checked == true) && (select.value != "") && (exe == extensao)
-        && (!$("#sinopsie-livro").val() == "")){
+        && (!$("#ano-livro").val() == "") && (isInputCheckBox(inputsCheck, required)) && (select.value != "")
+        && (!$("#sinopsie-livro").val() == "") && (exe == extensao)){
         selectEmpty = false;
         $("#cadastro-livro").submit();
     }else{
@@ -338,9 +385,10 @@ $("#cadastro-livro").click(function (event) {
 
         for(let j = 1; j < formLivro.length-1;j++){
             for(let i = 1; i < inputs.length;i++){
-                if(formLivro[j].id != "urlCapa"){
+                if(formLivro[j].id != "urlCapa" && formLivro[j].id != "file-capa"){
                     if((inputs[i].id == formLivro[j].id)){
                         if(required.requiredInput(inputs[i].id)){
+
                             clearfield.show(formLivro[j].id+"-div");
                             tags.updateElement(document.getElementById(formLivro[j].id+"-div"), "span", "campo obrigatório!");
                         }
@@ -357,13 +405,78 @@ $("#cadastro-livro").click(function (event) {
             clearfield.show("sinopsie-livro-div");
             tags.updateElement(document.getElementById("sinopsie-livro-div"), "span", "campo obrigatório!");
         }
-        if(inputCheck.checked == false){
-            clearfield.show("idsCategoria-livro-div");
-            tags.updateElement(document.getElementById("idsCategoria-livro-div"), "span", "campo obrigatório!");
-        }
         if(exe != extensao){
+
             clearfield.show("file-capa-div");
             tags.updateElement(document.getElementById("file-capa-div"), "span", "campo obrigatório!");
         }
+        if(!isInputCheckBox(inputsCheck, required)){
+            clearfield.show("idsCategoria-livro-div");
+            tags.updateElement(document.getElementById("idsCategoria-livro-div"), "span", "campo obrigatório!");
+        }
+    }
+
+});
+
+/* Validar campos Cadastro de Livro*/
+$("#preco-livro").keyup(function (event) {
+    let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(10, this)){
+        $(this).attr("maxlength","10");
+    }
+ });
+
+$("#peso-livro").keyup(function (event) {
+   let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(5, this)){
+        $(this).attr("maxlength","5");
     }
 });
+
+$("#ano-livro").keyup(function (event) {
+   let validacao = new ValidacaoController();
+   if(!validacao.keyCodeNumber(event)){
+       clearfield.show(this.id+"-div");
+       tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+       $(this).val("");
+   }
+    if(validacao.validacaoFieldLength(4, this)){
+        $(this).attr("maxlength","4");
+    }
+});
+
+$("#edicao-livro").keyup(function (event) {
+   let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(10, this)){
+        $(this).attr("maxlength","10");
+    }
+});
+
+$("#isbn-livro").keyup(function (event) {
+   let validacao = new ValidacaoController();
+
+    if(validacao.validacaoFieldLength(30, this)){
+        $(this).attr("maxlength","30");
+    }
+
+});
+
+
