@@ -43,9 +43,9 @@ public class PedidoController {
 		pedido.setQuantidade(Integer.parseInt(quantidade));
 		pedido.getLivros().add(livro);
 		pedido.setUsuario(usuario);
-		
 		service.add(pedido);
 		return view;
+	
 	}
 	
 	@GetMapping("/listaPedidos")

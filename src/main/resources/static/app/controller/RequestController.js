@@ -34,6 +34,19 @@ class RequestController {
         });
     }
 
+    getLivro(submit, idLivro, idUsuario){
+        $.ajax({
+            url: submit.getUrl(),
+            method: submit.getMethod(),
+            data:{
+                idLivro: idLivro,
+                idUsuario: idUsuario,
+            }
+        }).fail(function () {
+            localStorage.setItem("errorPedido", JSON.stringify("pedido já adicionado!"));
+        });
+    }
+
     getJson(key){
         return localStorage.getItem(key);
     }

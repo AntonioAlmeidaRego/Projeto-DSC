@@ -42,34 +42,17 @@
 
 								<th:block th:each="pedido : ${livro.pedidos}">
 									<td class="cart_price">
-										<p th:text="${pedido.valorTotal}"></p>
+										<p th:text="${livro.preco}"></p>
 									</td>
 									<td class="cart_quantity">
 										<div class="cart_quantity_button">
-											<a class="cart_quantity_up" href="#"> + </a>
-											<input id="qtd" class="cart_quantity_input" type="text" name="quantity" th:value="${pedido.quantidade}" autocomplete="off" size="2">
-											<a class="cart_quantity_down" href="#"> - </a>
+											<span th:text="${pedido.quantidade}">
 										</div>
+									</td>									 
+									<td class="cart_total">
+										<p class="cart_total_price" th:text="${pedido.valorTotal}"></p>
 									</td>
-									<script type="text/javascript">
-										$(".cart_quantity_up").click(function () {
-											let resultado = parseInt(parseInt($("#qtd").val()) + 1);
-											console.log($("#qtd").val());
-											$("#qtd").val(resultado);
-										});
-										$(".cart_quantity_down").click(function () {
-											let resultado = parseInt($("#qtd").val() - 1);
-											$("#qtd").val(resultado);
-										})
-									</script>
 								</th:block>
-								
-								<td class="cart_total">
-									<p class="cart_total_price">$59</p>
-								</td>
-								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-								</td>
 							</tr>
 						</th:block>
 					</tbody>

@@ -40,4 +40,8 @@ public class LivroService {
 	public Livro getLivroIsbnAndTitulo(String isbn, String titulo) {
 		return repository.findByIsbnAndTitulo(isbn, titulo);
 	}
+	
+	public Livro livroJaAdd(Long idLivro, Long idUsuario) {
+		return repository.livroJaAdd(idLivro, idUsuario);
+	}
 }

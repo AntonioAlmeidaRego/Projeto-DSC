@@ -25,6 +25,14 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"where u.id = ?)\n",		
 			nativeQuery=true)
 	public List<Livro> carinhoCompras(Long usuario_id);
+	
+	@Query(value="SELECT * FROM ITENS_PEDIDOS ip \n" + 
+			"inner join livro l on(l.id = ip.livros_id)\n" + 
+			"inner join pedido p on(p.id = ip.pedidos_id)\n" + 
+			"inner join usuario u on(u.id = p.usuario_id)\n" + 
+			"where l.id = ? and u.id = ?;", nativeQuery=true)
+	public Livro livroJaAdd(Long idLivro, Long idUsuario);
+	
 	@Query
 	public Livro findByIsbnAndTitulo(String isbn, String titulo);
 }	
