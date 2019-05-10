@@ -444,6 +444,7 @@ $("#peso-livro").keyup(function (event) {
         $(this).attr("maxlength","5");
     }
 });
+ 
 
 $("#ano-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
@@ -452,9 +453,21 @@ $("#ano-livro").keyup(function (event) {
        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
        $(this).val("");
    }
-    if(validacao.validacaoFieldLength(4, this)){
-        $(this).attr("maxlength","4");
-    }
+   if((validacao.validacaoFieldLength(4, this))){
+       $(this).attr("maxlength","4");
+       clearfield.hide(this.id+"-div");
+       $("#cadastro-livro").attr("disabled",false);
+       $("#cadastro-livro").css("cursor","pointer");
+   }
+   if(!(validacao.validacaoFieldLimitDate(4, this, 2019))){
+	   $(this).attr("maxlength","4");
+	   clearfield.show(this.id+"-div");
+       tags.updateElement(document.getElementById(this.id+"-div"), "span", "Digite um ano válido!");
+       $("#cadastro-livro").attr("disabled", true);
+       $("#cadastro-livro").css("cursor","no-drop");
+   }
+   
+     
 });
 
 $("#edicao-livro").keyup(function (event) {

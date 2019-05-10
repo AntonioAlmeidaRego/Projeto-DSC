@@ -6,6 +6,13 @@ class ValidacaoController {
         }
         return false;
     }
+    
+    validacaoFieldLimitDate(length, element, dataAtual){
+    	if((element.value.length == length) && (element.value > 1900) && (element.value <= dataAtual)){
+    		return true;
+    	}
+    	return false;
+    }
 
 
     keyCodeNumber(event){
