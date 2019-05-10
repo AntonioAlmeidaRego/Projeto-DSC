@@ -54,9 +54,12 @@
 									}
 								}
 								$("#url").click(function () {
-									if(session.getSession("user") != null) {
-										var id = session.getSession("user")._idUsuario;
-										window.open("/pedido/pedidos/" + id);
+									if(session != null){
+										if(session.getSession("user") != null) {
+											var id = session.getSession("user")._idUsuario;
+											alert(id);
+											window.open("/pedido/pedidos/" + id);
+										}
 									}
 								});
 							//});

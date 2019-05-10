@@ -1,4 +1,8 @@
 
+$(document).ready(function () {
+	session.clearSession("errorPedido");
+});
+
 
    const val = document.getElementById("preco").textContent;
    $("#quantidade").keyup(function () {
@@ -25,6 +29,7 @@
 
 	         if(localStorage.getItem("errorPedido") != null){
                  alert("Este pedido já foi adicionado!");
+                 session.clearSession("errorPedido");
              }else{
                  session.addSessionPedido($("#preco").text(), $("#idLivro").val(), $("#quantidade").val(), "pedido");
                  session.getSession("pedido");

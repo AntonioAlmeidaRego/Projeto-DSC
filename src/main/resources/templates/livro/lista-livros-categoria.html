@@ -33,7 +33,7 @@ layout:decorate="~{layout-site}"
 							<div class="col-sm-9 padding-right">
 							<div class="features_items"><!--features_items-->
 								<h2 class="title text-center">Livros</h2>
-									<th:block th:if="livros!=null and !livros.empty">
+									<th:block th:if="${not #lists.isEmpty(livros)}">
 										<div th:each="livro : ${livros}">
 												<div class="col-sm-4">
 													<div class="product-image-wrapper">

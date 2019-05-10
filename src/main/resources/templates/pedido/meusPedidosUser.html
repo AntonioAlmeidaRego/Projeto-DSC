@@ -15,7 +15,7 @@
                             <div class="card-header card-header-success">
                                 <h4 class="card-title">Lista de Pedidos</h4>
                             </div>
-                            <th:block th:if="myPedidos!=null and !myPedidos.empty">
+                            <th:block th:if="${ !#lists.isEmpty(myPedidos)}">
                             	<div class="card-body">
 	                                <div class="table-responsive">
 	                                    <table class="table table-striped">
@@ -23,7 +23,7 @@
 	                                        <tr>
 	                                            <th>ID</th>
 	                                            <th>Valor Total</th>
-	                                            <th>Data</th>
+	                                            <th>Data</th> 
 	                                            <th>Código do Pedido</th>
 	                                            <th>Quantidade</th>
 	                                            <th>Usuarios</th>
@@ -31,16 +31,18 @@
 	                                        </tr>
 	                                        </thead>
 	                                        <tbody>
-	                                        <tr th:each="pedido : ${myPedidos}">
-	                                            <td th:text="${pedido.id}"></td>
-	                                            <td th:text="${pedido.valorTotal}"></td>
-	                                            <td th:text="${pedido.data}"></td>
-	                                            <td th:text="${pedido.codigo}"></td>
-	                                            <td th:text="${pedido.usuario.nome}"></td>
-	                                            <th:block th:each="livro : ${pedido.livros}">
-	                                            	<td th:text="${livro.titulo}"></td>
-	                                            </th:block>                                             
-	                                        </tr>
+	                                        <th:block th:each="pedido : ${myPedidos}">
+		                                        <tr>
+		                                            <td th:text="${pedido.id}"></td>
+		                                            <td th:text="${pedido.valorTotal}"></td>
+		                                            <td th:text="${pedido.data}"></td>
+		                                            <td th:text="${pedido.codigo}"></td>
+		                                            <td th:text="${pedido.usuario.nome}"></td>
+		                                            <th:block th:each="livro : ${pedido.livros}">
+		                                            	<td th:text="${livro.titulo}"></td>
+		                                            </th:block>                                             
+		                                        </tr>
+	                                        </th:block>
 	                                        </tbody>
 	                                    </table>
 	                                </div>
