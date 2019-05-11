@@ -29,18 +29,17 @@
 							<td></td>
 						</tr>
 					</thead>
-					<tbody>
-						<th:block th:each="livro : ${livros}">
+					<tbody id="tabela-pedidos">
+						<th:block th:each="pedido : ${pedidos}">
 							<tr>
-								<td class="cart_product">
-									<a href=""><img th:src="${livro.urlImagem}" width="100" alt=""></a>
-								</td>
-								<td class="cart_description">
-									<h4 th:text="${livro.titulo}"></h4>
-									<p>ISBN <p th:text="${livro.isbn}"></p></p>
-								</td>
-
-								<th:block th:each="pedido : ${livro.pedidos}">
+								<th:block th:each="livro : ${pedido.livros}">
+									<td class="cart_product">
+										<a href=""><img th:src="${livro.urlImagem}" width="100" alt=""></a>
+									</td>
+									<td class="cart_description">
+										<h4 th:text="${livro.titulo}"></h4>
+										<p>ISBN <p th:text="${livro.isbn}"></p></p>
+									</td>
 									<td class="cart_price">
 										<p th:text="${livro.preco}"></p>
 									</td>
@@ -48,6 +47,9 @@
 										<div class="cart_quantity_button">
 											<span th:text="${pedido.quantidade}">
 										</div>
+									</td>
+									<td class="ids-pedidos">
+										<p th:text="${pedido.id}"></p>
 									</td>									 
 									<td class="cart_total">
 										<p class="cart_total_price" th:text="${pedido.valorTotal}"></p>
@@ -56,6 +58,15 @@
 							</tr>
 						</th:block>
 					</tbody>
+					<tfoot>
+						<th>
+							<td>RESUMO DOS PEDIDOS</td>
+							<td id="resultado-compra"></td>
+						</th>
+						<th>
+							<td><a class="btn btn-success" id="finalizar-compra">Finalizar Compra</a></td>
+						</th>
+					</tfoot>
 				</table>
 			</div>			
 			</th:block>

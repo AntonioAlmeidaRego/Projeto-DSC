@@ -1,7 +1,7 @@
 class Calculadora {
 
     constructor(valor){
-        this._valor = valor;
+        this._valor = parseFloat(valor);
     }
 
     get valor(){
@@ -9,11 +9,16 @@ class Calculadora {
     }
 
     set valor(valor){
-        this._valor = valor;
+        this._valor = parseFloat(valor);
     }
 
-    calcularFrete(){
-
+    calcularSomaPedidos(className){
+        let soma = 0.0;
+        let p = document.getElementsByClassName(className);
+        for(let j = 0;j < p.length;j++){
+            soma += parseFloat(p[j].innerText);
+        }
+        return soma;
     }
 
     calcularQuantidade(quantidade){

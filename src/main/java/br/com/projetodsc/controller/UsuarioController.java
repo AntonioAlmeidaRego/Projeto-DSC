@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import br.com.projetodsc.model.Usuario;
+import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -18,6 +19,8 @@ import br.com.projetodsc.service.UsuarioService;
 public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
+	@Autowired
+	private CompraService serviceCompra;
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
@@ -85,6 +88,13 @@ public class UsuarioController {
 		ModelAndView mv = new ModelAndView("/usuario/lista-usuarios");
 		mv.addObject("usuarios", service.findAll());
 		return mv;
+	}
+	
+	@GetMapping("/listaComprasUsuario/{id}")
+	public ModelAndView findAllComprasUsuario(@PathVariable Long id) {
+		ModelAndView view = new ModelAndView("/usuario/lista-compras-user");
+		view.addObject("compras", serviceCompra.findAllCompraUsuario(id));
+		return view;
 	}
 	
 }

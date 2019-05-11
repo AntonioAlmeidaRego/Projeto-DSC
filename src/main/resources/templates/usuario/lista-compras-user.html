@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout-user}">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Compras</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo-user">
+		<div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-success">
+                                <h4 class="card-title">Lista de Compras</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody th:each="compra : ${compras}">
+	                                        <tr>
+	                                        	<td>ID</td>
+	                                            <td colspan="3" th:text="${compra.id}"></td>
+	                                            <td>VALOR COMPRA</td>
+	                                            <td colspan="3" th:text="${compra.valorCompra}"></td>                                                                                       
+	                                        </tr>
+                                        	<th:block th:each="pedido : ${compra.pedidos}">
+                                        	<tr>
+                                            	<td>USUÁRIO</td>
+                                            	<td colspan="3" th:text="${pedido.usuario.nome}"></td>	
+                                            	<th:block th:each="livro : ${pedido.livros}">
+		                                            <td>TÍTULO LIVRO</td>
+		                                            <td colspan="3" th:text="${livro.titulo}"></td>
+                                            	</th:block>	     
+                                           	</tr>                                       
+                                            </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+</body>
+</html>

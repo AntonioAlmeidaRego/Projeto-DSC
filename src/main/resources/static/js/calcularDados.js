@@ -1,4 +1,41 @@
-   const val = document.getElementById("preco").textContent;
+   function idsPedidos(className){
+        let array = [];
+        let idsString = "";
+       let ids = document.getElementsByClassName(className);
+       for(let i = 0; i < ids.length;i++){
+           array.push(ids[i].innerText);
+           if(i < ids.length-1){
+               idsString += parseInt(array[i]) + ",";
+           }else{
+               idsString += parseInt(array[i]);
+           }
+       }
+
+
+       return idsString;
+   }
+
+    $(document).ready(function () {
+
+       if($("#tabela-pedidos").length){
+           let cal = new Calculadora();
+           let resultado = cal.calcularSomaPedidos("cart_total");
+           console.log(idsPedidos("ids-pedidos"));
+           $(".ids-pedidos").hide();
+           $("#resultado-compra").text(resultado);
+
+           $("#finalizar-compra").click(function () {
+               alert("COMPRA FINALIZADA COM SUCESSO!");
+               let request = new RequestController();
+               let submit = new SubmitRequest("post", "/compra/saveCompra");
+               request.submitCompra(submit, idsPedidos("ids-pedidos"), resultado, true);
+               window.location.replace("/");
+           });
+       }
+
+   });
+
+    const val = document.getElementById("preco").textContent;
    $("#quantidade").keyup(function () {
       if(($("#quantidade").val() == "0") || ($("#quantidade").val().length == 0)){
          $("#addPedido").attr("disabled", true);
@@ -8,7 +45,6 @@
       let quantidade = document.getElementById("quantidade").value;
       let calc = new Calculadora(val);
       $("#preco").text(calc.calcularQuantidade(quantidade));
-      console.log();
    });
 
    $("#addPedido").click(function (event) {

@@ -32,6 +32,8 @@ public class Pedido implements Serializable{
 	private String codigo;
 	@Column(nullable=true, length = 255)
 	private int quantidade;
+	@Column(unique=false)
+	private boolean finalizouCompra;
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
@@ -94,6 +96,14 @@ public class Pedido implements Serializable{
 	}
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+	public boolean isFinalizouCompra() {
+		return finalizouCompra;
+	}
+	public void setFinalizouCompra(boolean finalizouCompra) {
+		this.finalizouCompra = finalizouCompra;
 	} 
+	
+	
 	
 }

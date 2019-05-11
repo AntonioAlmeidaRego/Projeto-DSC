@@ -16,6 +16,7 @@ class ValidacaoController {
 
 
     keyCodeNumber(event){
+    	console.log(event.which);
         if((event.which == 96 || event.keyCode == 96) || (event.which == 97 || event.keyCode == 97)
             || (event.which == 98 || event.keyCode == 98) ||
             (event.which == 99 || event.keyCode == 99) || (event.which == 100 || event.keyCode == 100)
@@ -23,7 +24,7 @@ class ValidacaoController {
             || (event.which == 102 || event.keyCode == 102)
             || (event.which == 103 || event.keyCode == 103)
             || (event.which == 104 || event.keyCode == 104)
-            || (event.which == 105 || event.keyCode == 105) || (event.keyCode == 108 || event.whitch == 108)){
+            || (event.which == 105 || event.keyCode == 105) || (event.keyCode == 190 || event.whitch == 190)){
             return true;
         }else if(event.keyCode == 48 || event.keyCode == 49
             || event.keyCode == 50 || event.keyCode == 51 || event.keyCode == 52

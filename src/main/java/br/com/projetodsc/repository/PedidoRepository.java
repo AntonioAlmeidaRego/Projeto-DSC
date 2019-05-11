@@ -19,7 +19,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 			"select ip.pedidos_id from livro l\n" + 
 			"inner join itens_pedidos ip on(l.id = ip.livros_id)\n" + 
 			"inner join usuario u on (u.id = p.usuario_id)\n" + 
-			"where u.id = ?\n" + 
+			"where u.id = ? and p.finalizou_compra = false\n" + 
 			");", nativeQuery=true)
 	public List<Pedido> carinhoPedidos(Long idUsuario);
 	

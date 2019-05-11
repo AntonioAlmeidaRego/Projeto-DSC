@@ -70,7 +70,7 @@ public class PedidoController {
 	
 	@GetMapping("/pedidos/{id}")
 	public ModelAndView findAllPedidos(@PathVariable Long id) {
-		ModelAndView view = new ModelAndView("/livro/carinho_compras");
+		ModelAndView view = new ModelAndView("/pedido/carinho_compras");
 		view.addObject("pedidos", service.carinhoPedidos(id));
 		view.addObject("livros", serviceLivro.carinhoCompras(id));
 		return view;

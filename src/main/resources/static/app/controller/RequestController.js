@@ -20,6 +20,18 @@ class RequestController {
         });
     }
 
+    submitCompra(submit, idsPedido, valorCompra, finalizar){
+        $.ajax({
+           url: submit.getUrl(),
+           method: submit.getMethod(),
+           data:{
+               idsPedidos: idsPedido,
+               valorCompra: valorCompra,
+               finalizouPedido: finalizar,
+           }
+        });
+    }
+
     _getUsuario(url, method, email, senha){
 
         return new Promise(resolve => {
