@@ -1,9 +1,3 @@
-
-$(document).ready(function () {
-	session.clearSession("errorPedido");
-});
-
-
    const val = document.getElementById("preco").textContent;
    $("#quantidade").keyup(function () {
       if(($("#quantidade").val() == "0") || ($("#quantidade").val().length == 0)){
@@ -20,23 +14,26 @@ $(document).ready(function () {
    $("#addPedido").click(function (event) {
 	        event.preventDefault();
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
-	    	 let randomPedido = Math.random();
-	         let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
-	         let submitLivro = new SubmitRequest("post", "http://localhost:8080/livrojson/livroJaAdd");
-	         let request = new RequestController();
+	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
+                let randomPedido = Math.random();
+                let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
+                let request = new RequestController();
+                let objeto = request.getJsonLivro("http://localhost:8080/livrojson/livroJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
 
-	         request.getLivro(submitLivro, $("#idLivro").val(), session.getSession("user")._idUsuario);
-
-	         if(localStorage.getItem("errorPedido") != null){
-                 alert("Este pedido já foi adicionado!");
-                 session.clearSession("errorPedido");
-             }else{
-                 session.addSessionPedido($("#preco").text(), $("#idLivro").val(), $("#quantidade").val(), "pedido");
-                 session.getSession("pedido");
-                 request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido, session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade, session.getSession("user")._idUsuario);
-                 alert("Pedido adicionado com Sucesso!");
-                 window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
-             }
-
+                objeto.then(function (data) {
+                    if(data == "pedido adicionado com sucesso"){
+                        session.addSessionPedido($("#preco").text(), $("#idLivro").val(), $("#quantidade").val(), "pedido");
+                        session.getSession("pedido");
+                        request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido, session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade, session.getSession("user")._idUsuario);
+                        alert("Pedido adicionado com Sucesso!");
+                        window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
+                    }else{
+                        alert("Este pedido já foi adicionado!");
+                    }
+                });
+            }else{
+                alert("Usuário não autenticado!");
+                window.location.replace("/entrar");
+            }
 	      }
 	   });

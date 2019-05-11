@@ -34,7 +34,7 @@ public class CategoriaController {
 		Categoria categoria2 = service.findByNome(categoria.getNome());
 		
 		if(categoria2 != null) {
-			return cadastroCategoria(categoria2).addObject("error", "Categoria já adicionada. Por favor tente outra!");
+			return cadastroCategoria(categoria).addObject("error", "Categoria já adicionada. Por favor tente outra!");
 		}
 		service.add(categoria);
 		return findAll().addObject("success", "Categoria adicionada com Sucesso!");

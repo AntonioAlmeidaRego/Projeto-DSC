@@ -9,8 +9,7 @@ class SessionController {
         this._session.nomeUsuario = nome;
         this._session.emailUsuario = email;
         this._session.idUsuario = id;
-
-        localStorage.setItem(key, JSON.stringify(this._session));
+       localStorage.setItem(key, JSON.stringify(this._session));
     }
 
     addSessionPedido(preco, idLivro, quantidade, key){
@@ -18,7 +17,6 @@ class SessionController {
         this._session.preco = preco;
         this._session.idLivro = idLivro;
         this._session.quantidade = quantidade;
-        //this._vetor.push(this._session);
         localStorage.setItem(key, JSON.stringify(this._session));
     }
 

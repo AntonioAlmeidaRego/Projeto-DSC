@@ -88,6 +88,10 @@ $(document).ready(function () {
 
 /* Eventos Login */
 
+function loginSemSesion(idBotao) {
+    $(idBotao).submit();
+}
+
 /* Verificar se o email é válido */
 function verificarEmail(id){
     let requerid = new RequiredController(document.getElementById(id));
@@ -107,12 +111,24 @@ $("#login").click(function (event) {
         }else {
             clearfield.hide("father-login");
 
-            let submitRequest = new SubmitRequest("post", "http://localhost:8080/usuariojson/usuario");
-            let request = new RequestController();
-            request.getUsuario(submitRequest, $("#email-login").val(), $("#senha-login").val());
-            let json = JSON.parse(request.getJson("json"));
-            session.addSession(json.nome, json.email, json.id, "user");
-            $(this).submit();
+            if($("#email-login").val() != "antonio.alm1020@gmail.com"){
+               let request = new RequestController();
+               let objeto = request.getJsonUsuario("http://localhost:8080/usuariojson/usuario", "post"
+                   ,$("#email-login").val(), $("#senha-login").val());
+               objeto.then(function (data) {
+                   if(data != "ERROR"){
+                       session.addSession(data.nome, data.email, data.id, "user");
+
+                       if((session.getSession("user")._idUsuario !== undefined) && (session.getSession("user") != null)){
+                           $(this).submit();
+                       }
+                   }else{
+                       alert("Error no servidor!");
+                   }
+               });
+            }else{
+                loginSemSesion("#login");
+            }
         }
     }
 });

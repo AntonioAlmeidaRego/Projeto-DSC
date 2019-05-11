@@ -4,7 +4,7 @@ class RequestController {
         this._teste;
     }
 
-    submitPedido(submitRequest, dataPedido, valorTotal, codigoPedido, idLivro, quantidade, idUsuario){
+     submitPedido(submitRequest, dataPedido, valorTotal, codigoPedido, idLivro, quantidade, idUsuario){
 
         $.ajax({
             url: submitRequest.getUrl(),
@@ -20,39 +20,46 @@ class RequestController {
         });
     }
 
-    getUsuario(submit, email, senha){
+    _getUsuario(url, method, email, senha){
 
-        $.ajax({
-            url: submit.getUrl(),
-            method: submit.getMethod(),
-            data:{
-                email: email,
-                senha: senha,
-            }
-        }).done(function (data) {
-            localStorage.setItem("json", JSON.stringify(data));
+        return new Promise(resolve => {
+            $.ajax({
+                url: url,
+                method: method,
+                data:{
+                    email: email,
+                    senha: senha,
+                }
+            }).done(function (data) {
+                resolve(data);
+            }).fail(function () {
+                resolve("ERROR");
+            });
         });
     }
 
-    getLivro(submit, idLivro, idUsuario){
-        $.ajax({
-            url: submit.getUrl(),
-            method: submit.getMethod(),
-            data:{
-                idLivro: idLivro,
-                idUsuario: idUsuario,
-            }
-        }).fail(function () {
-            localStorage.setItem("errorPedido", JSON.stringify("pedido já adicionado!"));
+    _getLivro(url, method, idLivro, idUsuario){
+        return new Promise(resolve => {
+            $.ajax({
+                url: url,
+                method: method,
+                data:{
+                    idLivro: idLivro,
+                    idUsuario: idUsuario,
+                }
+            }).done(function () {
+                resolve("pedido adicionado com sucesso");
+            }).fail(function () {
+                resolve("pedido já adicionado!");
+            });
         });
     }
 
-    getJson(key){
-        return localStorage.getItem(key);
+    async getJsonLivro(url, method, idLivro, idUsuario){
+        return await this._getLivro(url, method, idLivro, idUsuario);
     }
 
-    writeJson(key, data){
-    	console.log(data);
-        localStorage.setItem(key, data);
+    async getJsonUsuario(url, method, email, senha){
+        return await this._getUsuario(url, method, email, senha);
     }
 }
