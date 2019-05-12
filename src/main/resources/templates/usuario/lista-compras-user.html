@@ -18,23 +18,21 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
-                                        <tbody th:each="compra : ${compras}">
-	                                        <tr>
-	                                        	<td>ID</td>
-	                                            <td colspan="3" th:text="${compra.id}"></td>
-	                                            <td>VALOR COMPRA</td>
-	                                            <td colspan="3" th:text="${compra.valorCompra}"></td>                                                                                       
-	                                        </tr>
-                                        	<th:block th:each="pedido : ${compra.pedidos}">
-                                        	<tr>
-                                            	<td>USUÁRIO</td>
-                                            	<td colspan="3" th:text="${pedido.usuario.nome}"></td>	
-                                            	<th:block th:each="livro : ${pedido.livros}">
-		                                            <td>TÍTULO LIVRO</td>
-		                                            <td colspan="3" th:text="${livro.titulo}"></td>
-                                            	</th:block>	     
-                                           	</tr>                                       
-                                            </th:block>
+                                    	<thead>
+                                    		<th>ID</th>
+                                    		<th>VALOR COMPRA</th>
+                                    		<th>TÍTULO LIVRO</th>
+                                    	</thead>
+                                        <tbody>
+	                                        <tr th:each="compra : ${compras}">
+	                                            <td th:text="${compra.id}"></td>
+	                                            <td th:text="${compra.valorCompra}"></td> 
+	                                            <th:block th:each="pedido : ${compra.pedidos}">
+	                                            	<th:block th:each="livro : ${pedido.livros}">
+			                                            <td th:text="${livro.titulo}"></td>
+	                                            	</th:block>	     
+                                           		 </th:block>                                                                                      
+	                                        </tr>                                        	
                                         </tbody>
                                     </table>
                                 </div>

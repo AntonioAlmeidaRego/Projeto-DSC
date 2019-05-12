@@ -13,4 +13,6 @@ import br.com.projetodsc.model.Livro;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 	@Query
 	public Categoria findByNome(String nome);
+	@Query(value="select * from categoria c order by c.id limit ?", nativeQuery=true)
+	public List<Categoria> listaPrimeiras(int limit); 
 }

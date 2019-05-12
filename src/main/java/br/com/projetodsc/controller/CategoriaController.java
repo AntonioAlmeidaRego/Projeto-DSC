@@ -46,7 +46,11 @@ public class CategoriaController {
 	}
 	@GetMapping("/deleteCategoria/{id}")
 	public ModelAndView deleteCategoria(@PathVariable Long id) {
-		service.delete(id);
-		return findAll();
+		try {
+			service.delete(id);
+			return findAll().addObject("success", "Categoria Removida com Sucesso!");
+		} catch (Exception e) {
+			return findAll().addObject("error", "Erro no servidor!");
+		}
 	}
 }

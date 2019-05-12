@@ -47,7 +47,9 @@ public class Livro implements Serializable{
 	private String urlImagem;
 	@Column(nullable=false, length=100)
 	private String preco;
-	
+	@ManyToOne
+	@JoinColumn(name="promocao_id", nullable=true)
+	private Promocao promocao;
 	@ManyToMany
 	@JoinTable(name="livros_categorias")
 	private List<Categoria> categorias = new ArrayList<Categoria>();
@@ -140,7 +142,11 @@ public class Livro implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	
-	
-	
+	public Promocao getPromocao() {
+		return promocao;
+	}
+	public void setPromocao(Promocao promocao) {
+		this.promocao = promocao;
+	}
+ 
 }

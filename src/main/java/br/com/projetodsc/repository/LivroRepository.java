@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.projetodsc.model.Livro;
+import br.com.projetodsc.model.Promocao;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long>{
@@ -15,6 +16,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"where c.id = ?)", 
 			  nativeQuery = true)
 	public List<Livro> findAllCategoriaId(long id);
+	
+	@Query(value="select * from livro l order by l.id desc limit ?", nativeQuery=true)
+	public List<Livro> findAllLimit(int limit);
 	
 	@Query(value=
 			"select * from livro l\n" + 
@@ -32,6 +36,16 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"inner join usuario u on(u.id = p.usuario_id)\n" + 
 			"where l.id = ? and u.id = ?;", nativeQuery=true)
 	public Livro livroJaAdd(Long idLivro, Long idUsuario);
+	
+	@Query(value="select * from livro l\n" + 
+			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
+			"order by p.id limit ?", nativeQuery = true)
+	public List<Livro> listaTresPrimeiros(int limit);
+	
+	@Query(value="select * from livro l \n" + 
+			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
+			"order by p.id desc limit ?", nativeQuery=true)
+	public List<Livro> listaTresUltimos(int limit);
 	
 	@Query
 	public Livro findByIsbnAndTitulo(String isbn, String titulo);

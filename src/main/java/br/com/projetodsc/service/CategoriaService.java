@@ -34,4 +34,9 @@ public class CategoriaService {
 		return repository.findByNome(nome);
 	}
 	
+	public List<Categoria> listaPrimeirasLimit(int limit){
+		return repository.listaPrimeiras(limit);
+	}
+	
+	
 }

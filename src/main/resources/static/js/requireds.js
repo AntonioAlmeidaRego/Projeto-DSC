@@ -68,6 +68,9 @@ $(document).ready(function () {
     if($("#form-update-user").length){
         esconderDiv(document.getElementById("form-update-user"), 0, document.getElementById("form-update-user").length);
     }
+    if($("#form-promocao").length){
+        esconderDiv(document.getElementById("form-promocao"), 0, document.getElementById("form-promocao").length);
+    }
 
     if($("#imagem-capa").length){
         exe = extensao;
@@ -97,6 +100,25 @@ function verificarEmail(id){
     let requerid = new RequiredController(document.getElementById(id));
     return requerid.requiredEmail();
 }
+
+/* Evento para o cadastro de promocao */
+
+$("#cadastro-promocao").click(function (event) {
+
+   if(($("#promocao-desconto").val().length == 0) || ($("#promocao-desconto").val() == "") || ($("#promocao-desconto").val() == "0")){
+      event.preventDefault();
+      clearfield.show("promocao-desconto-div");
+      tags.updateElement(document.getElementById("promocao-desconto-div"), "span", "campo obrigatório!");
+   }else {
+       clearfield.hide();
+       $("#promocao-desconto").val(parseInt($("#promocao-desconto").val()));
+       $("#cadastro-promocao").submit();
+   }
+
+});
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+
 /* Evento de click para o buttom login */
 $("#login").click(function (event) {
     clearfield.show("father-login");
@@ -123,6 +145,7 @@ $("#login").click(function (event) {
                            $(this).submit();
                        }
                    }else{
+                       event.preventDefault();
                        alert("Error no servidor!");
                    }
                });
@@ -482,7 +505,6 @@ $("#ano-livro").keyup(function (event) {
        $("#cadastro-livro").attr("disabled", true);
        $("#cadastro-livro").css("cursor","no-drop");
    }
-   
      
 });
 
@@ -508,4 +530,17 @@ $("#isbn-livro").keyup(function (event) {
 
 });
 
+/* Validação campo de desconto */
+$("#promocao-desconto").keyup(function (event) {
+    let validacao = new ValidacaoController();
 
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(2, this)){
+        clearfield.hide(this.id+"-div");
+        $(this).attr("maxlength","2");
+    }
+});

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.projetodsc.model.Livro;
+import br.com.projetodsc.model.Promocao;
 import br.com.projetodsc.repository.LivroRepository;
 
 @Service
@@ -39,6 +40,18 @@ public class LivroService {
 	
 	public Livro getLivroIsbnAndTitulo(String isbn, String titulo) {
 		return repository.findByIsbnAndTitulo(isbn, titulo);
+	}
+	
+	public List<Livro> getPromocaoUltimosLimit(int limit){
+		return repository.listaTresUltimos(limit);
+	}
+	
+	public List<Livro> getPromocaoPrimeirosLimit(int limit){
+		return repository.listaTresPrimeiros(limit);
+	}
+	
+	public List<Livro> getLivroLimit(int limit){
+		return repository.findAllLimit(limit);
 	}
 	
 	public Livro livroJaAdd(Long idLivro, Long idUsuario) {

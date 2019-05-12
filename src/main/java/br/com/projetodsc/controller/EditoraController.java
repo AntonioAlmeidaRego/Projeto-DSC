@@ -51,7 +51,11 @@ public class EditoraController {
 	}
 	@GetMapping("/deleteEditora/{id}")
 	public ModelAndView deleteEditora(@PathVariable Long id) {
-		service.delete(id);
-		return findAll();
+		try {
+			service.delete(id);
+			return findAll().addObject("success", "Editora removida com sucesso!");
+		} catch (Exception e) {
+			return findAll().addObject("error", "Editora não pode ser removida. Consulte o suporte de TI!");
+		}
 	}
 }

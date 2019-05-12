@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                    		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+                        	<div class="card">
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Cadastrar Promoção</h4>
+                                	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
+                            	</div>
+                            	<div class="card-body">
+                                	<form th:object="${promocao}" th:action="@{/promocao/savePromocao}" id="form-promocao" method="POST">
+                                    	<input id="id" name="id" type="hidden" th:field="*{id}"
+                                           th:value="*{id}">
+                                       <div class="row">
+                                           <div class="col-md-12">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Desconto<span style="color: red"> *</span></label>
+                                                   <input type="text" id="promocao-desconto" th:field="*{desconto}" class="form-input">
+                                                   <div class="alert alert-danger" id="promocao-desconto-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>                                            
+                                       </div>
+                                    <button id="cadastro-promocao" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button type="reset" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <div class="clearfix"></div>
+                                	</form>
+                            	</div>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>

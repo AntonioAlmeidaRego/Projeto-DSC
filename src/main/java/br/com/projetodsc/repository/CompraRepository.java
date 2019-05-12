@@ -13,6 +13,6 @@ public interface CompraRepository extends JpaRepository<Compra, Long>{
 	@Query(value="select * from compra c inner join compra_pedidos cp on(c.id = cp.compra_id)\n" + 
 			"inner join pedido p on(p.id = cp.pedidos_id)\n" + 
 			"inner join usuario u on(u.id = p.usuario_id)\n" + 
-			" group by cp.compra_id, cp.pedidos_id having u.id = ?", nativeQuery=true)
+			"where u.id = ?", nativeQuery=true)
 	public List<Compra> listaComprasUsuario(Long id);
 }

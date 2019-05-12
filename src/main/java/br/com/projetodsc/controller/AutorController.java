@@ -64,7 +64,11 @@ public class AutorController {
 	}
 	@GetMapping("/deleteAutor/{id}")
 	public ModelAndView deleteAutor(@PathVariable Long id) {
-		service.delete(id);
-		return findAll();
+		try {
+			service.delete(id);
+			return findAll().addObject("success", "Autor removida com sucesso!");
+		} catch (Exception e) {
+			return findAll().addObject("error", "Autor não pode ser removido. Consulte o suporte de TI!");
+		}
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CategoriaService;
 import br.com.projetodsc.service.LivroService;
+import br.com.projetodsc.service.PromocaoService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -24,13 +25,17 @@ public class IndexController{
 	private LivroService serviceLivro;
 	@Autowired
 	private UsuarioService serviceUsuario;
+	@Autowired
+	private PromocaoService servicePromocao;
 	
 	@RequestMapping("/")
 	public ModelAndView index() {
-		
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("categorias", service.findAll());
-		view.addObject("livros", serviceLivro.findAll());
+		view.addObject("livros", serviceLivro.getLivroLimit(6));
+		view.addObject("promocoesUltimos", serviceLivro.getPromocaoUltimosLimit(3)); 
+		view.addObject("promocoesPrimeiros", serviceLivro.getPromocaoPrimeirosLimit(3));
+		view.addObject("primeirasCategorias", service.listaPrimeirasLimit(5));
 		return view;
 	}
 	

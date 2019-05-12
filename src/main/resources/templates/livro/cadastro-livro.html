@@ -127,6 +127,17 @@
                                            </div>     
                                        </div>
                                        <div class="row">
+                                       		<div class="col-md-12">
+                                       			<label class="bmd-label-floating">Desconto</label>
+                                       			<select th:field="*{promocao}" class="form-control">
+                                       				<option value="">Sem desconto</option>
+                                       				<th:block th:each="promocao : ${promocoes}">
+                                       					<option th:value="${promocao.id}" th:text="${promocao.desconto}"></option>
+                                       				</th:block>
+                                       			</select>
+                                       		</div>
+                                       </div>
+                                       <div class="row">
                                        		<div class="col-md-6">
                                        			<label class="bmd-label-floating">Editoras<span style="color: red"> *</span></label>
                                        			<select id="editora-livro" th:field="*{editora.id}"  class="form-control">
