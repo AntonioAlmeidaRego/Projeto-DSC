@@ -17,8 +17,6 @@ public class UsuarioJsonController {
 	
 	@PostMapping("/usuario")
 	public Usuario getUsuario(String email, String senha) {
-		System.out.println("REQUISIÇÂO: " + email + " " + senha);
-		System.out.println("USUARIO: "+service.findByEmailAndSenha(email, senha));
 		return service.findByEmailAndSenha(email, senha);
 	}
 	

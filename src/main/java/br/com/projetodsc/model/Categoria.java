@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Categoria implements Serializable{
 	/**
@@ -26,6 +29,7 @@ public class Categoria implements Serializable{
 	@NotBlank(message = "Nome da Categoria é uma informação obrigatória!")
 	private String nome;
 	@ManyToMany(mappedBy="categorias")
+	@JsonIgnore
 	private List<Livro> livros = new ArrayList<Livro>();
 	
 	public Long getId() {

@@ -16,7 +16,16 @@ class TagsView {
 
             return element;
         }
+    }
 
+    criarElementNoClassAndNoId(tagName, pai){
+        if(tagName != "input"){
+            this._pai = document.getElementById(pai.id);
+            let element = document.createElement(tagName);
+            this._element = element;
+            this._pai.appendChild(element);
+            return element;
+        }
     }
 
     criarElementInput(tagName, classe, pai, type, id){

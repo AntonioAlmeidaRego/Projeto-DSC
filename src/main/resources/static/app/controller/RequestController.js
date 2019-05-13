@@ -32,6 +32,22 @@ class RequestController {
         });
     }
 
+    _getCategoriaLivros(url, method, data){
+        return new Promise(resolve => {
+            $.ajax({
+                url: url,
+                method: method,
+                /*data:{
+                    id: data,
+                }*/
+            }).done(function (data) {
+                resolve(data);
+            }).fail(function () {
+                resolve("Error");
+            });
+        });
+    }
+
     _getUsuario(url, method, email, senha){
 
         return new Promise(resolve => {
@@ -73,5 +89,9 @@ class RequestController {
 
     async getJsonUsuario(url, method, email, senha){
         return await this._getUsuario(url, method, email, senha);
+    }
+
+    async getJsonLivrosCategoria(url, method){
+        return await this._getCategoriaLivros(url, method);
     }
 }

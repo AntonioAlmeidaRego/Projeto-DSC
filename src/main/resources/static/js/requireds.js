@@ -544,3 +544,21 @@ $("#promocao-desconto").keyup(function (event) {
         $(this).attr("maxlength","2");
     }
 });
+
+/* Calcular Desconto do Livro */
+$("#descontos").click(function (event) {
+    if(($("#preco-livro").val() == "") && ($("#preco-livro").val().length == 0)){
+        alert("Preencha o valor do livro!");
+        $("#descontos:first-child").val("Sem desconto");
+    }else{
+        if(this[this.selectedIndex].textContent != "Sem desconto"){
+            let calc = new Calculadora(parseFloat($("#preco-livro").val()));
+            let result = calc.calcularDesconto(parseInt(this[this.selectedIndex].textContent));
+            $("#preco-livro").val(parseFloat(result));
+        }else{
+            alert("Livro sem Desconto. Por favor preencha novamente o preço do Livro!");
+            $("#preco-livro").val("");
+        }
+    }
+});
+

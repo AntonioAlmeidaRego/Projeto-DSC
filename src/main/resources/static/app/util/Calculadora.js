@@ -26,9 +26,9 @@ class Calculadora {
     }
 
     calcularDesconto(desconto){
-        let valorAux = this._valor;
-        let result = desconto / valorAux;
-        let result2 = result * valorAux;
-        return this._valor - result2;
+    	let descontAux = (desconto/100);
+        let result = this._valor * descontAux;
+         
+        return this._valor - result;
     }
 }

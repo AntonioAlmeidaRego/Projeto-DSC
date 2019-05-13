@@ -32,7 +32,6 @@
                window.location.replace("/");
            });
        }
-
    });
 
     const val = document.getElementById("preco").textContent;
@@ -73,3 +72,5 @@
             }
 	      }
 	   });
+
+

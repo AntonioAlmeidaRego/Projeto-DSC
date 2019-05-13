@@ -13,8 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Livro implements Serializable{
@@ -49,16 +50,20 @@ public class Livro implements Serializable{
 	private String preco;
 	@ManyToOne
 	@JoinColumn(name="promocao_id", nullable=true)
+	@JsonIgnore
 	private Promocao promocao;
 	@ManyToMany
 	@JoinTable(name="livros_categorias")
 	private List<Categoria> categorias = new ArrayList<Categoria>();
 	@ManyToOne
 	@JoinColumn(name="editora_id")
+	@JsonIgnore
 	private Editora editora;
 	@ManyToMany(mappedBy="livros")	 
+	@JsonIgnore
 	private List<Autor> autors = new ArrayList<Autor>();
 	@ManyToMany(mappedBy="livros")
+	@JsonIgnore
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	public Long getId() {

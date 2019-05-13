@@ -129,7 +129,7 @@
                                        <div class="row">
                                        		<div class="col-md-12">
                                        			<label class="bmd-label-floating">Desconto</label>
-                                       			<select th:field="*{promocao}" class="form-control">
+                                       			<select id="descontos" th:field="*{promocao}" class="form-control">
                                        				<option value="">Sem desconto</option>
                                        				<th:block th:each="promocao : ${promocoes}">
                                        					<option th:value="${promocao.id}" th:text="${promocao.desconto}"></option>

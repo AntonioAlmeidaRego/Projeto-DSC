@@ -59,6 +59,13 @@ public class LivroController {
 		mv.addObject("livros", service.findAll());
 		return mv;
 	}
+	@GetMapping("/listaAll")
+	public ModelAndView listaAllLivros() {
+		ModelAndView view = new ModelAndView("/livro/livros");
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("livros", service.findAll());
+		return view;
+	}
 
 	private void saveAndupdate(Livro livro,int width, int height, String tipo) {
 		random = new Random();
