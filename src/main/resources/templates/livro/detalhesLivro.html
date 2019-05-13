@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html 
-	layout:decorate="~{layout-site-2}">
+	layout:decorate="~{layout-site}">
 <head>
     <title>Home | Livraria</title>
      
 </head><!--/head-->
 
 <body>
-	<div layout:fragment="corpo-site-2">
+	<div layout:fragment="corpo-site">
 		<section>
 			<div class="container">
 			<div th:replace="/fragmentos/site/menu_vertical :: menu-vertical"></div>
@@ -24,6 +24,9 @@
 								<input type="hidden" id="idLivro" th:value="${livro.id}"/> 
 								<p><b>ISBN:</b> <p th:text="${livro.isbn}"></p></p>
 								<img src="images/product-details/rating.png" alt="">
+								<div id="error-quantidade" class="alert alert-danger">
+
+								</div>
 								<span>
 									<span id="preco" th:text="${livro.preco}"></span>
 									<label>Quantidade:</label>

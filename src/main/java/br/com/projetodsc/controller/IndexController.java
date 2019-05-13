@@ -36,6 +36,10 @@ public class IndexController{
 		view.addObject("promocoesUltimos", serviceLivro.getPromocaoUltimosLimit(3)); 
 		view.addObject("promocoesPrimeiros", serviceLivro.getPromocaoPrimeirosLimit(3));
 		view.addObject("primeirasCategorias", service.listaPrimeirasLimit(5));
+		view.addObject("count10And60", serviceLivro.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", serviceLivro.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", serviceLivro.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", serviceLivro.countLivroMaiorValor(150.00));
 		return view;
 	}
 	

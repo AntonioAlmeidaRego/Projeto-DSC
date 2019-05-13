@@ -14,12 +14,12 @@ function waitEvent(element, event) {
         let objeto = request.getJsonLivrosCategoria("http://localhost:8080/livrojson/livros/"+element.id, "GET", element.id);
         objeto.then(function (data) {
             clearTags();
-            criarTags(data);
+            criarTags(data, tags);
         });
     }
 }
 
-function criarTags(data) {
+function criarTags(data, tags) {
     $.each(data, function (i2, info) {
         let element = tags.criarElement("div", "col-sm-3", document.getElementById("fatherAll"), Math.random());
         let element2 = tags.criarElement("div", "product-image-wrapper", element, Math.random());
@@ -35,10 +35,9 @@ function criarTags(data) {
         h2.textContent = info.preco;
         p.textContent = info.titulo;
 
-        $.each(info.categorias, function (j, info) {
-            a.setAttribute("href", "/livro/lista-livros-categoria/"+info.id);
-            a.textContent ="Detalhes";
-        });
+        a.setAttribute("href", "/livro/detalheLivro/"+info.id);
+        a.textContent ="Detalhes";
+
     });
 }
 

@@ -57,4 +57,24 @@ public class LivroService {
 	public Livro livroJaAdd(Long idLivro, Long idUsuario) {
 		return repository.livroJaAdd(idLivro, idUsuario);
 	}
+	
+	public Long countLivrosIntervalosValores(double interval, double interval2){
+		return repository.countLivrosEntreValores(interval, interval2);
+	}
+	
+	public Long countLivroMaiorValor(double valor) {
+		return repository.countLivrosMaiorValor(valor);
+	}
+	
+	public List<Livro> listaLivroIntervalosValores(double interval, double interval2){
+		return repository.listaLivrosEntreValores(interval, interval2);
+	}
+	
+	public List<Livro> listaLivroMaiorValor(double valor){
+		return repository.listaLivrosMaiorValor(valor);
+	}
+	
+	public List<Livro> listaLivroLimitInterval(int interval, int interval2){
+		return repository.listaLivrosLimitInteval(interval, interval2);
+	}
 }

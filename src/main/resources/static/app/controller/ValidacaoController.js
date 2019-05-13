@@ -35,5 +35,12 @@ class ValidacaoController {
         }
         return false;
     }
+    
+    keyCodeBackspaceAndDelete(event){
+	    if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+	        return true;
+        }
+	    return false;
+    }
 
 }

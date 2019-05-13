@@ -55,15 +55,32 @@ public class LivroController {
 	}
 	@GetMapping("/listaLivro")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/livro/lista-livros");
-		mv.addObject("livros", service.findAll());
-		return mv;
-	}
-	@GetMapping("/listaAll")
-	public ModelAndView listaAllLivros() {
-		ModelAndView view = new ModelAndView("/livro/livros");
-		view.addObject("categorias", serviceCategoria.findAll());
+		ModelAndView view = new ModelAndView("/livro/lista-livros");
 		view.addObject("livros", service.findAll());
+		return view;
+	}
+	@GetMapping("/listaAll/{interval}/{interval2}")
+	public ModelAndView listaAllLivros(@PathVariable int interval, @PathVariable int interval2) {
+		ModelAndView view = new ModelAndView("/livro/livros");
+		int length = service.findAll().size();
+		int resultado = length/6;
+		if(resultado > 1) {
+			view.addObject("categorias", serviceCategoria.findAll());
+			view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
+			view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+			view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+			view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+			view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+			view.addObject("quantidadePages", resultado);
+		}else {
+			view.addObject("categorias", serviceCategoria.findAll());
+			view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
+			view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+			view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+			view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+			view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+			view.addObject("quantidadePages", 0);
+		}
 		return view;
 	}
 
@@ -156,6 +173,32 @@ public class LivroController {
 		ModelAndView view = new ModelAndView("/livro/detalhesLivro");
 		view.addObject("categorias", serviceCategoria.findAll());
 		view.addObject("livro", service.getOne(id));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+		return view;
+	}
+	@GetMapping("/buscaValoresIntervalors/{interval}/{interval2}")
+	public ModelAndView resultadoBuscaIntervalos(@PathVariable double interval, @PathVariable double interval2) {
+		ModelAndView view = new ModelAndView("/livro/resultado-livros");
+		view.addObject("livros", service.listaLivroIntervalosValores(interval, interval2));
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+		return view;
+	}
+	@GetMapping("/buscaValorMaior/{valorMaior}")
+	public ModelAndView resultadoBuscaIntervalosMaiorValor(@PathVariable double valorMaior) {
+		ModelAndView view = new ModelAndView("/livro/resultado-livros");
+		view.addObject("livros", service.listaLivroMaiorValor(valorMaior));
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
 		return view;
 	}
 }

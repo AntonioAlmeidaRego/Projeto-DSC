@@ -24,13 +24,10 @@
 							<h2>Preços</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+									<li><a th:href="@{/livro/buscaValoresIntervalors/10.00/60.00}"> <span class="pull-right" th:text="'('+${count10And60}+')'"></span>R$ 10,00 a R$ 60,00</a></li>
+									<li><a th:href="@{/livro/buscaValoresIntervalors/60.00/100.00}"> <span class="pull-right" th:text="'('+${count60And100}+')'"></span>R$ 60,00 a R$ 100,00</a></li>
+									<li><a th:href="@{/livro/buscaValoresIntervalors/120.00/150.00}"> <span class="pull-right" th:text="'('+${count120And150}+')'"></span>R$ 120,00 a R$ 150,00</a></li>
+									<li><a th:href="@{/livro/buscaValorMaior/150.00}"> <span class="pull-right" th:text="'('+${countMaior150}+')'"></span>A partir de R$ 150,00</a></li>
 								</ul>
 							</div>
 						</div><!--/brands_products-->

@@ -49,4 +49,20 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	@Query
 	public Livro findByIsbnAndTitulo(String isbn, String titulo);
+	
+	@Query(value="select count(*) from livro l where l.preco > ? and l.preco < ?;", nativeQuery=true)
+	public Long countLivrosEntreValores(double intervalo, double intervalo2);
+	
+	@Query(value="select count(*) from livro l where l.preco > ?;", nativeQuery=true)
+	public Long countLivrosMaiorValor(double intervalo);
+	
+	@Query(value="select * from livro l where l.preco > ? and l.preco < ?;", nativeQuery=true)
+	public List<Livro> listaLivrosEntreValores(double intervalo, double intervalo2);
+	
+	@Query(value="select * from livro l where l.preco > ?;", nativeQuery=true)
+	public List<Livro> listaLivrosMaiorValor(double intervalo);
+	
+	@Query(value="select * from livro l limit ?, ?;", nativeQuery=true)
+	public List<Livro> listaLivrosLimitInteval(int interval, int interval2);
+	
 }	

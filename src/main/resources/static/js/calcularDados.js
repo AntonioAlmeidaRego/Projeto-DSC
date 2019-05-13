@@ -16,7 +16,7 @@
    }
 
     $(document).ready(function () {
-
+        $("#error-quantidade").hide();
        if($("#tabela-pedidos").length){
            let cal = new Calculadora();
            let resultado = cal.calcularSomaPedidos("cart_total");
@@ -35,15 +35,26 @@
    });
 
     const val = document.getElementById("preco").textContent;
-   $("#quantidade").keyup(function () {
-      if(($("#quantidade").val() == "0") || ($("#quantidade").val().length == 0)){
-         $("#addPedido").attr("disabled", true);
-      }else{
-         $("#addPedido").attr("disabled", false);
-      }
-      let quantidade = document.getElementById("quantidade").value;
-      let calc = new Calculadora(val);
-      $("#preco").text(calc.calcularQuantidade(quantidade));
+   $("#quantidade").keyup(function (event) {
+       let validacao = new ValidacaoController();
+       let tags = new TagsView();
+       let divPai = document.getElementById("error-quantidade");
+
+       if((!validacao.keyCodeNumber(event)) && (!validacao.keyCodeBackspaceAndDelete(event))){
+           $("#error-quantidade").show();
+           tags.updateElement(divPai, "span", "Somente números!");
+           $("#addPedido").attr("disabled", true);
+           $("#quantidade").val("");
+       }if(($("#quantidade").val() == "0") || ($("#quantidade").val().length == 0)){
+           $("#addPedido").attr("disabled", true);
+       }else{
+           $("#error-quantidade").hide();
+           $("#addPedido").attr("disabled", false);
+       }
+       let quantidade = document.getElementById("quantidade").value;
+       let calc = new Calculadora(val);
+       $("#preco").text(calc.calcularQuantidade(quantidade));
+
    });
 
    $("#addPedido").click(function (event) {

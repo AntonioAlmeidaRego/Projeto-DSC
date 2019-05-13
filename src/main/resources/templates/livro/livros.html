@@ -40,13 +40,34 @@ layout:decorate="~{layout-site}"
 											</div>
 										</div>
 								</div>
-								<ul class="pagination">
-									<li class="active"><a href="">1</a></li>
-									<li><a href="">2</a></li>
-									<li><a href="">3</a></li>
-									<li><a href="">&raquo;</a></li>
-								</ul>
 						</div>
+						<ul id="pages" class="pagination">
+
+						</ul>
+						<script type="text/javascript">
+							var pages = [[${quantidadePages}]];
+							var ul = document.getElementById("pages");
+							if(pages > 1){
+								var length = 0;
+								var inicio = 0;
+								var j = 1;
+								for(let i = 0; i < pages;i++){
+									let li = document.createElement("li");
+									let a = document.createElement("a");
+									inicio = length;
+									length = length + 6;
+									a.setAttribute("href", "/livro/listaAll/"+inicio+"/"+length);
+									a.textContent = j;
+
+									li.appendChild(a);
+									ul.appendChild(li);
+									j++;
+								}
+							}else{
+								ul.innerHTML = "";
+							}
+						</script>
+					</div>
 				</div>
 			</section>
 	</div>
