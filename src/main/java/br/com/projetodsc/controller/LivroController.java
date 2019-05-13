@@ -173,6 +173,9 @@ public class LivroController {
 		ModelAndView view = new ModelAndView("/livro/detalhesLivro");
 		view.addObject("categorias", serviceCategoria.findAll());
 		view.addObject("livro", service.getOne(id));
+		view.addObject("promocoesUltimos", service.getPromocaoUltimosLimit(3)); 
+		view.addObject("promocoesPrimeiros", service.getPromocaoPrimeirosLimit(3));
+		view.addObject("primeirasCategorias", serviceCategoria.listaPrimeirasLimit(5));
 		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
 		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
 		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
@@ -194,6 +197,18 @@ public class LivroController {
 	public ModelAndView resultadoBuscaIntervalosMaiorValor(@PathVariable double valorMaior) {
 		ModelAndView view = new ModelAndView("/livro/resultado-livros");
 		view.addObject("livros", service.listaLivroMaiorValor(valorMaior));
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+		return view;
+	}
+	@PostMapping("/searchLivro")
+	public ModelAndView searchLivro(String search) {
+		ModelAndView view = new ModelAndView("/livro/resultado-livros");
+		view.addObject("livros", service.listaLivroSearch(search));
+		System.out.println(service.listaLivroSearch(search));
 		view.addObject("categorias", serviceCategoria.findAll());
 		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
 		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));

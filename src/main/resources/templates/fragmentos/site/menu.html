@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Menu</title>
+
 </head>
 <body>
 <div th:fragment="menu-horizontal" >
@@ -32,8 +33,11 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-
+						<div class="pull-right">
+							<form th:action="@{/livro/searchLivro}" method="post">
+								<input type="text" placeholder="Buscar livro" class="input-search" id="search-livro" name="search">
+      							<button class="botao-search" id="buscar-livro"><i class="fa fa-search"></i></button>
+							</form>
 						</div>
 					</div>
 				</div>

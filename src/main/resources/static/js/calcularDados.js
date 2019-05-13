@@ -60,7 +60,7 @@
    $("#addPedido").click(function (event) {
 	        event.preventDefault();
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
-	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
+	        if((session.getSession("user") != null) || (session.getSession("user")._idUsuario !== undefined)){
                 let randomPedido = Math.random();
                 let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
                 let request = new RequestController();

@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.projetodsc.model.Livro;
-import br.com.projetodsc.model.Promocao;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long>{
@@ -64,5 +64,8 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	@Query(value="select * from livro l limit ?, ?;", nativeQuery=true)
 	public List<Livro> listaLivrosLimitInteval(int interval, int interval2);
+	
+	@Query(value="select * from livro l  where l.titulo like %?%", nativeQuery=true)
+	public List<Livro> listaLivrosSearch(String search);
 	
 }	

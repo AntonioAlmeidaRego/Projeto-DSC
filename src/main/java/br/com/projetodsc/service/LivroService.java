@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.projetodsc.model.Livro;
-import br.com.projetodsc.model.Promocao;
 import br.com.projetodsc.repository.LivroRepository;
 
 @Service
@@ -76,5 +76,8 @@ public class LivroService {
 	
 	public List<Livro> listaLivroLimitInterval(int interval, int interval2){
 		return repository.listaLivrosLimitInteval(interval, interval2);
+	}
+	public List<Livro> listaLivroSearch(String search){
+		return repository.listaLivrosSearch(search);
 	}
 }
