@@ -48,7 +48,7 @@ public class PromocaoController {
 			service.delete(id);
 			return findAll().addObject("success", "Promoção removida com sucesso!");
 		} catch (Exception e) {
-			return findAll().addObject("error", "Erro no servidor!");
+			return findAll().addObject("error", "Promoção não pode ser removida. Consulte o suporte de TI!");
 		}
 	}
 	

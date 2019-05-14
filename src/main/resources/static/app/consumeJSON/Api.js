@@ -10,7 +10,6 @@ class Api {
 
     apiCep(cep, form){        
         var view = this._view;
-        console.log("entrou ");
         $.getJSON("http://api.postmon.com.br/v1/cep/"+cep)
             .done(function (data) {
                 $.each(data.estado_info, function (i, data) {
@@ -22,28 +21,40 @@ class Api {
                 bairro = data.bairro;
                 siglaEstado = data.estado;
 
-                for(let i = 0;i<form.length-1;i++){
-                    if(form[i].id == "cidade"){
 
+
+                for(let i = 0;i<form.length-1;i++){
+                    if(form[i].id == "cidade" || form[i].id == "update-user-municipio"){
+                        $("#update-user-municipio").val("");
                         view.updateElementInput(form[i], cidade).attr("disabled", true);
                     }
-                    if(form[i].id == "estado"){
+                    if(form[i].id == "estado" || form[i].id == "update-user-estado"){
                         if(estado != ""){
+                            $("#update-user-estado").val("");
                             view.updateElementInput(form[i], estado).attr("disabled",true);
                         }
                     }
-                    if(form[i].id == "bairro"){
+                    if(form[i].id == "bairro" || form[i].id == "update-user-bairro"){
                         if(bairro != ""){
+                            $("#update-user-bairro").val("");
                             view.updateElementInput(form[i], bairro).attr("disabled",true);
                         }
                     }
                 }
             })
             .fail(function (data) {
-                $("#cep-div").show("slow");
-                let pai = document.getElementById("cep-div");
-                pai.setAttribute("class", "alert alert-danger");
-                view.updateElement(pai, "div", data.statusText);
+                if($("#cep-div").length){
+                    $("#cep-div").show("slow");
+                    let pai = document.getElementById("cep-div");
+                    pai.setAttribute("class", "alert alert-danger");
+                    view.updateElement(pai, "div", data.statusText);
+                }
+                if($("#update-user-cep-div").length){
+                    $("#update-user-cep-div").show("slow");
+                    let pai = document.getElementById("update-user-cep-div");
+                    pai.setAttribute("class", "alert alert-danger");
+                    view.updateElement(pai, "div", data.statusText);
+                }
             }); 
     }
 

@@ -2,6 +2,7 @@ package br.com.projetodsc.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,6 +31,8 @@ public class Compra implements Serializable{
 	@ManyToMany
 	@JoinTable(name="compra_pedidos")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	@Column(nullable=false)
+	private Date date;
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +53,12 @@ public class Compra implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }

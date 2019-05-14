@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario implements Serializable{
 	/**
@@ -31,6 +33,7 @@ public class Usuario implements Serializable{
 	@Column(nullable = false, length = 255)
 	private String bairro;
 	@OneToMany(mappedBy="usuario")
+	@JsonIgnore
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	@Column(nullable =false, length=100)
 	private String municipio;

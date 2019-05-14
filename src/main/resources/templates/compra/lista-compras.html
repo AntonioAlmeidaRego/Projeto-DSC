@@ -23,7 +23,9 @@
 	                                        	<td>ID</td>
 	                                            <td colspan="3" th:text="${compra.id}"></td>
 	                                            <td>VALOR COMPRA</td>
-	                                            <td colspan="3" th:text="${compra.valorCompra}"></td>                                                                                       
+	                                            <td colspan="3" th:text="${compra.valorCompra}"></td>    
+	                                            <td>DATE COMPRA</td>
+	                                            <td colspan="3" th:text="${compra.date}"></td>                                                                                       
 	                                        </tr>
                                         	<th:block th:each="pedido : ${compra.pedidos}">
                                         	<tr>

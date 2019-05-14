@@ -1,5 +1,7 @@
 package br.com.projetodsc.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class CompraController {
 	private PedidoService servicePedido;
 	
 	@PostMapping("/saveCompra")
-	public ModelAndView saveCompra(String idsPedidos, String valorCompra, boolean finalizouPedido) {
+	public ModelAndView saveCompra(String idsPedidos, String valorCompra, boolean finalizouPedido, Date date) {
 		
 		String getIds[] = idsPedidos.split(",");
 		double valorC = Double.parseDouble(valorCompra);
@@ -34,6 +36,7 @@ public class CompraController {
 			compra.getPedidos().add(pedido);
 		}
 		compra.setValorCompra(valorC);
+		compra.setDate(date);
 		service.add(compra);
 		
 		return new ModelAndView("index");

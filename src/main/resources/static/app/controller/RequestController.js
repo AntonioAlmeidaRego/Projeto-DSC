@@ -20,7 +20,7 @@ class RequestController {
         });
     }
 
-    submitCompra(submit, idsPedido, valorCompra, finalizar){
+    submitCompra(submit, idsPedido, valorCompra, finalizar, date){
         $.ajax({
            url: submit.getUrl(),
            method: submit.getMethod(),
@@ -28,6 +28,7 @@ class RequestController {
                idsPedidos: idsPedido,
                valorCompra: valorCompra,
                finalizouPedido: finalizar,
+               date: date,
            }
         });
     }

@@ -58,6 +58,9 @@
 										if(session.getSession("user") != null) {
 											var id = session.getSession("user")._idUsuario;
 											window.open("/pedido/pedidos/" + id);
+										}else{
+											alert("USUÁRIO NÃO AUTENTICADO!");
+											window.location.replace("/entrar");
 										}
 									}
 								});

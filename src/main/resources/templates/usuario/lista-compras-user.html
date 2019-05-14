@@ -18,21 +18,23 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
-                                    	<thead>
-                                    		<th>ID</th>
-                                    		<th>VALOR COMPRA</th>
-                                    		<th>TÍTULO LIVRO</th>
-                                    	</thead>
-                                        <tbody>
-	                                        <tr th:each="compra : ${compras}">
-	                                            <td th:text="${compra.id}"></td>
+                                        <tbody th:each="compra : ${compras}">
+	                                        <tr>
+	                                        	<td>ID</td>
+                                            	<td th:text="${compra.id}"></td>
+                                            	<td>VALOR COMPRA</td>
 	                                            <td th:text="${compra.valorCompra}"></td> 
-	                                            <th:block th:each="pedido : ${compra.pedidos}">
+	                                            <td>DATE COMPRA</td>
+	                                            <td th:text="${compra.date}"></td> 
+	                                        </tr>    
+	                                        <tr>
+	                                        	<td>TÍTULO LIVRO</td>
+	                                        	 <th:block th:each="pedido : ${compra.pedidos}">
 	                                            	<th:block th:each="livro : ${pedido.livros}">
 			                                            <td th:text="${livro.titulo}"></td>
 	                                            	</th:block>	     
-                                           		 </th:block>                                                                                      
-	                                        </tr>                                        	
+                                      		 	</th:block>
+	                                        </tr>                                    	
                                         </tbody>
                                     </table>
                                 </div>

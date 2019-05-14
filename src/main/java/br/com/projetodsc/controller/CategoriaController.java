@@ -33,10 +33,14 @@ public class CategoriaController {
 	public ModelAndView saveCategoria(Categoria categoria) {
 		Categoria categoria2 = service.findByNome(categoria.getNome());
 		
-		if(categoria2 != null) {
+		if(categoria2 == null) {
+			service.add(categoria);
+		}else if(categoria2.getId() == categoria.getId()) {
+			service.add(categoria);
+			return findAll().addObject("success", "Categoria alterada com sucesso!");
+		}else {
 			return cadastroCategoria(categoria).addObject("error", "Categoria já adicionada. Por favor tente outra!");
 		}
-		service.add(categoria);
 		return findAll().addObject("success", "Categoria adicionada com Sucesso!");
 	}
 	@GetMapping("/updateCategoria/{id}")
@@ -50,7 +54,7 @@ public class CategoriaController {
 			service.delete(id);
 			return findAll().addObject("success", "Categoria Removida com Sucesso!");
 		} catch (Exception e) {
-			return findAll().addObject("error", "Erro no servidor!");
+			return findAll().addObject("error", "Categoria não pode ser removida. Consulte o suporte de TI!");
 		}
 	}
 }

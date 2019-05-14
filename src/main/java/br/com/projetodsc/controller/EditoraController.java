@@ -38,6 +38,9 @@ public class EditoraController {
 		
 		if(editora2 == null) {
 			service.add(editora);			
+		}else if(editora2.getId() == editora.getId()) {
+			service.add(editora);
+			return findAll().addObject("success", "Editora alterada com sucesso!");
 		}else {
 			return cadastroEditora(editora).addObject("error", "Editora já adicionada. Por favor tente outra!");
 		}

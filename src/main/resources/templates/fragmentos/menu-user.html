@@ -98,6 +98,7 @@
 					});
 					
 					$("#url-my-pedido").click(function(){
+						 					
 						if(session.getSession("user") != null){
 							var id = session.getSession("user")._idUsuario;
                           window.location.replace("/pedido/myPedidos/"+id);

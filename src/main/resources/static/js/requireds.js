@@ -4,6 +4,7 @@
 const extensao = ".jpg";
 var exe = "";
 var emailEmpty = false;
+var entrou = false;
 var clearfield;
 var tags;
 
@@ -86,6 +87,8 @@ $(document).ready(function () {
 
     $("#cidade").attr("disabled", true);
     $("#estado").attr("disabled", true);
+    $("#update-user-estado").attr("disabled", true);
+    $("#update-user-municipio").attr("disabled", true);
 });
 /*---------------------------------------------------------------------------------------------------------------------*/
 
@@ -140,7 +143,6 @@ $("#login").click(function (event) {
                objeto.then(function (data) {
                    if(data != "ERROR"){
                        session.addSession(data.nome, data.email, data.id, "user");
-
                        if((session.getSession("user")._idUsuario !== undefined) && (session.getSession("user") != null)){
                            $(this).submit();
                        }
@@ -200,6 +202,9 @@ $("#update-user").click(function (event) {
 
 
     if((!requerid.requiredAll(event, form, form.length-2))){
+        $("#update-user-municipio").attr("disabled", false);
+        $("#update-user-bairro").attr("disabled", false);
+        $("#update-user-estado").attr("disabled", false);
         emailEmpty = true;
         $("#cadastro").submit();
     } else{
@@ -223,6 +228,45 @@ $("#update-user").click(function (event) {
     }
 });
 
+/*Mascara do CEP API*/
+$("#update-user-cep").keyup(function (event){
+    let mascara = new MascaraController(this);
+    mascara.mascaraCEP(event);
+    if(mascara.keyCodeBackspaceAndDelete(event)){
+        console.log();
+        if(document.getElementById("update-user-estado").disabled){
+            $("#update-user-municipio").val("");
+        }
+        if(document.getElementById("update-user-municipio").disabled){
+            $("#update-user-estado").val("");
+        }
+        if(document.getElementById("update-user-bairro").disabled){
+            $("#update-user-bairro").attr("disabled", false);
+            if($("#update-user-bairro").val() != ""){
+                $("#update-user-bairro").val("");
+            }
+        }
+        entrou = false;
+        $("#update-user-cep-div").hide("slow");
+    }else {
+        if(mascara.keyCodeNumber(event)){
+            if(event.length === undefined){
+                if(($("#update-user-cep").val().length == tamanhoCep) && (entrou == false)){
+
+                    let api = new Api();
+                    entrou = true;
+                    let form = document.getElementById("form-update-user");
+                    api.apiCep($(this).val(), form);
+                }
+            }
+        }else{
+            entrou = false;
+            $("#update-user-cep").val("");
+            $("#update-user-estado").val("");
+            $("#update-user-municipio").val("");
+        }
+    }
+});
 
 $("#cadastro-usuario").click(function (event) {
     //event.preventDefault();

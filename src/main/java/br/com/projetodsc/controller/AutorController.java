@@ -34,27 +34,40 @@ public class AutorController {
 		mv.addObject("autores", service.findAll());
 		return mv;
 	}
+	
+	private void relacionarAutorLivro(Autor autor, String ids) {
+		String getIds[] = ids.split(",");
+		for(int i = 0;i<getIds.length;i++) {
+			Long id = Long.parseLong(getIds[i]);
+			Livro livro = serviceLivro.getOne(id);
+			autor.getLivros().add(livro);
+		}
+	}
+	
 	@PostMapping("/saveAutor")
 	public ModelAndView saveAutor(Autor autor, String ids) {
 		Autor autor2 = service.findByNomeAndCpfAndEmail(autor.getNome(), autor.getCpf(), autor.getEmail());
 		if(autor2 == null) {
 			if((!ids.equals(""))) {
-				String getIds[] = ids.split(",");
-				for(int i = 0;i<getIds.length;i++) {
-					Long id = Long.parseLong(getIds[i]);
-					Livro livro = serviceLivro.getOne(id);
-					autor.getLivros().add(livro);
-				}
+				relacionarAutorLivro(autor, ids);
 				service.add(autor);
 			}else {
 				return cadastroAutor(autor).addObject("error", "Livros não existem na base de dados!");
 			}
 			
+		}else if(autor2.getId() == autor.getId()) {
+			if((!ids.equals(""))) {
+				relacionarAutorLivro(autor, ids);
+				service.add(autor);
+				return findAll().addObject("success", "Autor(a) alterado com sucesso!");
+			}else {
+				return cadastroAutor(autor).addObject("error", "Livros não existem na base de dados!");
+			}
 		}else {
-			return cadastroAutor(autor).addObject("error", "Autor já adicionado. Por favor tente outro!");
+			return cadastroAutor(autor).addObject("error", "Autor(a) já adicionado. Por favor tente outro!");
 		}
 		
-		return findAll().addObject("success", "Autor adicionado com sucesso!");
+		return findAll().addObject("success", "Autor(a) adicionado com sucesso!");
 	}
 	
 	@GetMapping("/updateAutor/{id}")
@@ -66,9 +79,9 @@ public class AutorController {
 	public ModelAndView deleteAutor(@PathVariable Long id) {
 		try {
 			service.delete(id);
-			return findAll().addObject("success", "Autor removida com sucesso!");
+			return findAll().addObject("success", "Autor(a) removida com sucesso!");
 		} catch (Exception e) {
-			return findAll().addObject("error", "Autor não pode ser removido. Consulte o suporte de TI!");
+			return findAll().addObject("error", "Autor(a) não pode ser removido. Consulte o suporte de TI!");
 		}
 	}
 }

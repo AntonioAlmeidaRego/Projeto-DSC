@@ -25,11 +25,17 @@
            $("#resultado-compra").text(resultado);
 
            $("#finalizar-compra").click(function () {
-               alert("COMPRA FINALIZADA COM SUCESSO!");
-               let request = new RequestController();
-               let submit = new SubmitRequest("post", "/compra/saveCompra");
-               request.submitCompra(submit, idsPedidos("ids-pedidos"), resultado, true);
-               window.location.replace("/");
+               if(idsPedidos("ids-pedidos") != ""){
+            	   alert("COMPRA FINALIZADA COM SUCESSO!");
+                   let request = new RequestController();
+                   let submit = new SubmitRequest("post", "/compra/saveCompra");
+                   request.submitCompra(submit, idsPedidos("ids-pedidos"), resultado, true, new Date());
+                   window.location.replace("/");
+               }else{
+            	   alert("CARINHO VAZIO!");
+            	   alert("VAMOS ÀS COMPRAS!!!");
+            	   window.location.replace("/");
+               }
            });
        }
    });
