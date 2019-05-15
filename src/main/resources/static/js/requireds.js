@@ -47,7 +47,7 @@ $(document).ready(function () {
     tags = new TagsView();
 
     /* formularios de todos os cadastros */
-  
+ 
 
     if($("#form1").length){
     	esconderDiv(document.getElementById("form1"), 0, document.getElementById("form1").length);
