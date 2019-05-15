@@ -81,7 +81,6 @@
                     if(data == "pedido adicionado com sucesso"){
                         let precoCorreio = document.getElementById("valor-correio").textContent;
                         let prazoCorreio = document.getElementById("prazo-correio").textContent;
-                        console.log(prazoCorreio[1]+ " " + prazoCorreio[2] + " "+ precoCorreio);
                         let str = precoCorreio.split("");
                         let str2 = "";
                         let dia = prazoCorreio[1] + prazoCorreio[2];
@@ -94,28 +93,15 @@
                             }
                         }
 
-                        let data = new Date();
+                        let cal = new Calculadora(null);
                         let result = (parseFloat(str2) + parseFloat($("#preco").text()));
-                        if(dia < data.getDate()){
-
-                            session.addSessionPedido(result, $("#idLivro").val(), $("#quantidade").val(), "pedido");
-                            session.getSession("pedido");
-                            request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido,
-                                session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade,
-                                session.getSession("user")._idUsuario, new Date(data.getFullYear(), (data.getMonth()+1), dia));
-                            alert("Pedido adicionado com Sucesso!");
-                            window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
-                        }else{
-                            session.addSessionPedido(result, $("#idLivro").val(), $("#quantidade").val(), "pedido");
-                            session.getSession("pedido");
-                            request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido,
-                                session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade,
-                                session.getSession("user")._idUsuario, new Date(data.getFullYear(), (data.getMonth()), dia));
-                            alert("Pedido adicionado com Sucesso!");
-                            window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
-                        }
-
-
+                        session.addSessionPedido(result, $("#idLivro").val(), $("#quantidade").val(), "pedido");
+                        session.getSession("pedido");
+                        request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido,
+                            session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade,
+                            session.getSession("user")._idUsuario, cal.calcularDays(dia, new Date().getMonth(), new Date().getFullYear()));
+                        alert("Pedido adicionado com Sucesso!");
+                        window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
 
                     }else{
                         alert("Este pedido já foi adicionado!");

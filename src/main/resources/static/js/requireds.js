@@ -639,7 +639,7 @@ $("#promocao-desconto").keyup(function (event) {
 $("#descontos").click(function (event) {
     if(($("#preco-livro").val() == "") && ($("#preco-livro").val().length == 0)){
         alert("Preencha o valor do livro!");
-        $("#descontos:first-child").val("Sem desconto");
+        $("#descontos:first-child").val($("#descontos:first-child").val());
     }else{
         if(this[this.selectedIndex].textContent != "Sem desconto"){
             let calc = new Calculadora(parseFloat($("#preco-livro").val()));

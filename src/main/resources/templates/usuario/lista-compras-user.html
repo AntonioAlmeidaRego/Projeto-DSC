@@ -21,17 +21,23 @@
                                         <tbody th:each="compra : ${compras}">
 	                                        <tr>
 	                                        	<td>ID</td>
-                                            	<td th:text="${compra.id}"></td>
-                                            	<td>VALOR COMPRA</td>
-	                                            <td th:text="${compra.valorCompra}"></td> 
-	                                            <td>DATE COMPRA</td>
-	                                            <td th:text="${compra.date}"></td> 
+                                            	<td colspan="3" th:text="${compra.id}"></td>
+                                            	<td colspan="3">VALOR COMPRA</td>
+	                                            <td colspan="3" th:text="${compra.valorCompra}"></td> 	                                            
 	                                        </tr>    
+	                                        <tr>
+	                                        	<td>DATE COMPRA</td>
+	                                            <td colspan="3" th:text="${compra.date}"></td>
+	                                            <td colspan="3">DATE ENTREGA PREVISTA</td>
+	                                            <th:block th:each="pedido : ${compra.pedidos}">
+	                                            	<td th:text="${pedido.dataEntrega}"></td>
+	                                            </th:block>
+	                                        </tr>
 	                                        <tr>
 	                                        	<td>TÍTULO LIVRO</td>
 	                                        	 <th:block th:each="pedido : ${compra.pedidos}">
 	                                            	<th:block th:each="livro : ${pedido.livros}">
-			                                            <td th:text="${livro.titulo}"></td>
+			                                            <td colspan="5" th:text="${livro.titulo}"></td>
 	                                            	</th:block>	     
                                       		 	</th:block>
 	                                        </tr>                                    	

@@ -12,6 +12,20 @@ class Calculadora {
         this._valor = parseFloat(valor);
     }
 
+    calcularDays(dia, mes, ano){
+        let dataAtual = new Date();
+        let diaAtual = dataAtual.getDate();
+        for(let i = 1; i<=dia;i++){
+            dataAtual = new Date(ano, mes, diaAtual);
+            if((dataAtual.getDay() > 0) && (dataAtual.getDay() < 6)){
+                diaAtual = diaAtual + 1;
+            }else{
+                diaAtual = dataAtual.getDate() + 1;
+            }
+        }
+        return dataAtual;
+    }
+
     calcularSomaPedidos(className){
         let soma = 0.0;
         let p = document.getElementsByClassName(className);
