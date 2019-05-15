@@ -39,9 +39,8 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
-	@ManyToOne
-	@JoinColumn(name="frete_id")
-	private Frete frete;
+	@Column(nullable=false)
+	private Date dataEntrega;
 	@ManyToMany
 	@JoinTable(name="itens_pedidos")
 	private List<Livro> livros = new ArrayList<Livro>(); 
@@ -68,18 +67,11 @@ public class Pedido implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Frete getFrete() {
-		return frete;
-	}
-	public void setFrete(Frete frete) {
-		this.frete = frete;
 	}
 	public String getCodigo() {
 		return codigo;
@@ -104,8 +96,11 @@ public class Pedido implements Serializable{
 	}
 	public void setFinalizouCompra(boolean finalizouCompra) {
 		this.finalizouCompra = finalizouCompra;
+	}
+	public Date getDataEntrega() {
+		return dataEntrega;
+	}
+	public void setDataEntrega(Date dataEntrega) {
+		this.dataEntrega = dataEntrega;
 	} 
-	
-	
-	
 }

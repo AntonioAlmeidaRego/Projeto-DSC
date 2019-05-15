@@ -31,14 +31,15 @@ public class PedidoController {
 	private UsuarioService serviceUsuario;
 	
 	@PostMapping("/savePedido")
-	public ModelAndView savePedido(Date data, String valorTotal, String codigo, String idLivro, String quantidade, String idUsuario) {
+	public ModelAndView savePedido(Date data, double valorTotal, String codigo, String idLivro, String quantidade, String idUsuario, Date prazoEntrega) {
 		ModelAndView view = new ModelAndView("index");
 		System.out.println(codigo);
 		Livro livro = serviceLivro.getOne(Long.parseLong(idLivro)); 
 		Usuario usuario = serviceUsuario.getOne(Long.parseLong(idUsuario)); 
 		Pedido	pedido = new Pedido();
+		pedido.setDataEntrega(prazoEntrega);
 		pedido.setData(data);
-		pedido.setValorTotal(Double.parseDouble(valorTotal));
+		pedido.setValorTotal(valorTotal);
 		pedido.setCodigo(codigo);
 		pedido.setQuantidade(Integer.parseInt(quantidade));
 		pedido.getLivros().add(livro);

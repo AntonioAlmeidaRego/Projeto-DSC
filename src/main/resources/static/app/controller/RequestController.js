@@ -4,18 +4,19 @@ class RequestController {
         this._teste;
     }
 
-     submitPedido(submitRequest, dataPedido, valorTotal, codigoPedido, idLivro, quantidade, idUsuario){
+     submitPedido(submitRequest, dataPedido, valorTotal, codigoPedido, idLivro, quantidade, idUsuario, prazoDias){
 
         $.ajax({
             url: submitRequest.getUrl(),
             method: submitRequest.getMethod(),
             data:{
                 data: dataPedido,
-                valorTotal: valorTotal,
+                valorTotal: parseFloat(valorTotal),
                 codigo: codigoPedido,
                 idLivro: idLivro,
                 quantidade: quantidade,
                 idUsuario: idUsuario,
+                prazoEntrega: prazoDias,
             }
         });
     }

@@ -79,6 +79,7 @@
 						let altura = [[${livro.altura}]];
 						let largura = [[${livro.largura}]];
 						   $("#cep").keyup(function (event) {
+							   $("#addPedido").attr("disabled", true);
 							   if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
 								   clearResult();
 							   }
@@ -108,8 +109,9 @@
 						           codigo = $(this).find('Codigo').text();
 						           valor = $(this).find('Valor').text();
 						           prazo = $(this).find('PrazoEntrega').text();
-						           divPai.innerHTML = "<p>"+valor+" "+" "+prazo+" dias</p>";
+						           divPai.innerHTML = "<p style='font-size:20px' id='valor-correio'>"+valor+"</p><p style='font-size:20px' id='prazo-correio'>"+" "+prazo+" dias</p>";
 						       });
+						       $("#addPedido").attr("disabled", false);
 						   }
 					</script>
 					

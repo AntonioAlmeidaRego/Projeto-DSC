@@ -50,8 +50,6 @@ public class Frete implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Bairro é uma informação obrigatória!")
 	private String bairro;
-	@OneToMany(mappedBy="frete")
-	private List<Pedido> pedidos;
 	@OneToOne
 	@JoinColumn(name="municipio_id")
 	private Municipio municipio;
@@ -110,12 +108,7 @@ public class Frete implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+ 
 	public Municipio getMunicipio() {
 		return municipio;
 	}
