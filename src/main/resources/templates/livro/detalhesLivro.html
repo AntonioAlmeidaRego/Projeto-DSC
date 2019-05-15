@@ -37,6 +37,13 @@
 										Adicionar pedido
 									</button>
 								</span>
+								<div>
+									<input type="text" class="cep-input" placeholder="_____-___" id="cep"/>
+								</div>
+								<div id="father-result-cep">
+									
+								</div>
+								<img alt="" id="img-carregamento" width="100px" height="100px" th:src="@{/images/gifs/carregando.gif}">
 								<p><b>Sinopsie:</b><p th:text="${livro.sinopsie}"> </p></p>
 								<p><b>Autores:</b></p>
 								<th:block th:each="autor : ${livro.autors}">
@@ -61,6 +68,50 @@
 							</div>
 						</div>
 					</div><!--/category-tab-->
+					
+					<script type="text/javascript">
+						$(document).ready(function(){
+							$("#img-carregamento").hide();
+						});
+						let preco = [[${livro.preco}]];
+						let peso = [[${livro.peso}]];
+						let comprimento = [[${livro.comprimento}]];
+						let altura = [[${livro.altura}]];
+						let largura = [[${livro.largura}]];
+						   $("#cep").keyup(function (event) {
+							   if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+								   clearResult();
+							   }
+						       if($(this).val().length == 9){
+						    	   $("#img-carregamento").show();
+						           let apisoap = new ApiSoap();
+						           let objetoXML = apisoap.apiCorreios($(this).val(), peso, comprimento, 
+						        		   altura,
+						               largura, preco);
+						           objetoXML.then(function (data) {
+						                clearResult();
+						                criarResult(data);
+						                console.log(data);
+						           });
+						       }
+						   });
+
+						   function clearResult() {
+							   $("#img-carregamento").hide();
+						       let divPai = document.getElementById("father-result-cep");
+						       divPai.innerHTML = "";
+						   }
+
+						   function criarResult(data){
+						       let divPai = document.getElementById("father-result-cep");
+						       $(data).find('cServico').each(function () {
+						           codigo = $(this).find('Codigo').text();
+						           valor = $(this).find('Valor').text();
+						           prazo = $(this).find('PrazoEntrega').text();
+						           divPai.innerHTML = "<p>"+valor+" "+" "+prazo+" dias</p>";
+						       });
+						   }
+					</script>
 					
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">Promoções de Livros</h2>

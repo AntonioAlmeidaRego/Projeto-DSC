@@ -48,6 +48,13 @@ public class Livro implements Serializable{
 	private String urlImagem;
 	@Column(nullable=false, length=100)
 	private String preco;
+	@Column(nullable=false, length=20)
+	private String comprimento;
+	@Column(nullable=false, length=20)
+	private String largura;
+	@Column(nullable=false, length=20)
+	private String altura;
+	
 	@ManyToOne
 	@JoinColumn(name="promocao_id", nullable=true)
 	@JsonIgnore
@@ -153,5 +160,22 @@ public class Livro implements Serializable{
 	public void setPromocao(Promocao promocao) {
 		this.promocao = promocao;
 	}
- 
+	public String getComprimento() {
+		return comprimento;
+	}
+	public void setComprimento(String comprimento) {
+		this.comprimento = comprimento;
+	}
+	public String getLargura() {
+		return largura;
+	}
+	public void setLargura(String largura) {
+		this.largura = largura;
+	}
+	public String getAltura() {
+		return altura;
+	}
+	public void setAltura(String altura) {
+		this.altura = altura;
+	}
 }

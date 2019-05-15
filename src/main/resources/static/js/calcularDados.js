@@ -17,6 +17,8 @@
 
     $(document).ready(function () {
         $("#error-quantidade").hide();
+
+        
        if($("#tabela-pedidos").length){
            let cal = new Calculadora();
            let resultado = cal.calcularSomaPedidos("cart_total");
@@ -45,7 +47,7 @@
        let validacao = new ValidacaoController();
        let tags = new TagsView();
        let divPai = document.getElementById("error-quantidade");
-
+       
        if((!validacao.keyCodeNumber(event)) && (!validacao.keyCodeBackspaceAndDelete(event))){
            $("#error-quantidade").show();
            tags.updateElement(divPai, "span", "Somente números!");
@@ -60,8 +62,9 @@
        let quantidade = document.getElementById("quantidade").value;
        let calc = new Calculadora(val);
        $("#preco").text(calc.calcularQuantidade(quantidade));
-
    });
+
+
 
    $("#addPedido").click(function (event) {
 	        event.preventDefault();

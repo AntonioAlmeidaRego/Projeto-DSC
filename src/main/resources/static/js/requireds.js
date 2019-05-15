@@ -460,7 +460,8 @@ $("#cadastro-livro").click(function (event) {
         (!$("#peso-livro").val() == "") && (!$("#preco-livro").val() == "")
         && (!$("#isbn-livro").val() == "") && (!$("#edicao-livro").val() == "")
         && (!$("#ano-livro").val() == "") && (isInputCheckBox(inputsCheck, required)) && (select.value != "")
-        && (!$("#sinopsie-livro").val() == "") && (exe == extensao)){
+        && (!$("#sinopsie-livro").val() == "") && (exe == extensao) && (!$("#comprimento-livro").val() == "")
+        && (!$("#largura-livro").val() == "") && (!$("#altura-livro").val() == "")){
         selectEmpty = false;
         $("#cadastro-livro").submit();
     }else{
@@ -504,13 +505,13 @@ $("#cadastro-livro").click(function (event) {
 /* Validar campos Cadastro de Livro*/
 $("#preco-livro").keyup(function (event) {
     let validacao = new ValidacaoController();
-
     if(!validacao.keyCodeNumber(event)){
         clearfield.show(this.id+"-div");
         tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(10, this)){
+        clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","10");
     }
  });
@@ -524,6 +525,49 @@ $("#peso-livro").keyup(function (event) {
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
+        clearfield.hide(this.id+"-div");
+        $(this).attr("maxlength","5");
+    }
+});
+
+$("#comprimento-livro").keyup(function (event) {
+    let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(5, this)){
+        clearfield.hide(this.id+"-div");
+        $(this).attr("maxlength","5");
+    }
+});
+
+$("#largura-livro").keyup(function (event) {
+    let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(5, this)){
+        clearfield.hide(this.id+"-div");
+        $(this).attr("maxlength","5");
+    }
+});
+
+$("#altura-livro").keyup(function (event) {
+    let validacao = new ValidacaoController();
+
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        $(this).val("");
+    }
+    if(validacao.validacaoFieldLength(5, this)){
+        clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","5");
     }
 });
@@ -561,6 +605,7 @@ $("#edicao-livro").keyup(function (event) {
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(10, this)){
+        clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","10");
     }
 });
@@ -569,6 +614,7 @@ $("#isbn-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
 
     if(validacao.validacaoFieldLength(30, this)){
+        clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","30");
     }
 

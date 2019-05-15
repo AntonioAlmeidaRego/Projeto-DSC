@@ -1,5 +1,10 @@
 
 $(document).ready(function () {
+    if($(".nav-tabs").length){
+        let pai = document.getElementsByClassName("nav-tabs");
+        a = pai.item(0).children.item(0).children.item(0);
+        startEvent(a);
+    }
     $("a").click(function (event) {
        waitEvent(this, event);
     });
@@ -17,6 +22,16 @@ function waitEvent(element, event) {
             criarTags(data, tags);
         });
     }
+}
+
+function startEvent(element) {
+    let tags = new TagsView();
+    let request = new RequestController();
+    let objeto = request.getJsonLivrosCategoria("http://localhost:8080/livrojson/livros/"+element.id, "GET", element.id);
+    objeto.then(function (data) {
+        clearTags();
+        criarTags(data, tags);
+    });
 }
 
 function criarTags(data, tags) {
