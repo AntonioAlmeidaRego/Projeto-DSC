@@ -518,6 +518,21 @@ $("#preco-livro").keyup(function (event) {
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","10");
     }
+    if(!validacao.validacaoFieldDesconto(this, 39.99)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)");
+        clearfield.hide("div-desconto-row");
+    }
+    if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não permitido (valor minimo: 19,5, valor maximo: 3000)");
+        $("#cadastro-livro").attr("disabled", true);
+    }else if(validacao.validacaoFieldDesconto(this, 39.99)){
+        clearfield.show("div-desconto-row");
+        $("#cadastro-livro").attr("disabled", false);
+    }else{
+        $("#cadastro-livro").attr("disabled", false);
+    }
  });
 
 $("#peso-livro").keyup(function (event) {
@@ -685,7 +700,7 @@ $("#preco-livro").keyup(function (event) {
 });
 
 $("#descontos").click(function (event) {
-
+    let validacao = new ValidacaoController();
     if(($("#preco-livro").val() == "") && ($("#preco-livro").val().length == 0)){
         alert("Preencha o valor do livro!");
         $("#descontos:first-child").val($("#descontos:first-child").val());

@@ -21,6 +21,19 @@ class ValidacaoController {
         return false;
     }
 
+    validacaoFieldIntervalValors(element, valor1, valor2){
+        if((element.value > valor1) && (element.value < valor2)){
+            return true;
+        }
+        return false;
+    }
+
+    validacaoFieldDesconto(element, valor){
+        if(element.value > valor){
+            return true;
+        }
+        return false;
+    }
 
     keyCodeNumber(event){
     	console.log(event.which);
