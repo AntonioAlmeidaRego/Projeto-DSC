@@ -9,5 +9,5 @@ import br.com.projetodsc.model.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long>{
 	@Query
-	public Autor findByNomeAndCpfAndEmail(String nome, String cpf, String email);
+	public Autor findByNomeOrCpfOrEmail(String nome, String cpf, String email);
 }

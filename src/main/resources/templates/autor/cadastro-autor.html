@@ -27,7 +27,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${autor}" th:action="@{/autor/saveAutor}" id="form-autor" method="POST">
+                                	<form th:object="${autor}" th:data-objeto="${autor}" th:action="@{/autor/saveAutor}" id="form-autor" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
@@ -74,7 +74,13 @@
                                                 		<label th:text="${livro.titulo}"></label>
                                                 			<input class="checkbox-autores" type="checkbox" th:id="'idLivros-autor'+${livro.id}" name="ids" th:value="${livro.id}" />
                                                 		<br />
-                                               </th:block>
+                                                 </th:block>
+                                                 <div id="autors-livros">
+                                                     <th:block th:each="livro : ${autor.livros}">
+                                                         <input class="autores-ids" th:value="${livro.id}" />
+                                                         <br />
+                                                     </th:block>
+                                                 </div>
                                                <div class="alert alert-danger" id="idLivros-autor-div">
 
                                                </div>
@@ -87,6 +93,20 @@
                                 	</form>
                             	</div>
                         	</div>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#autors-livros").hide();
+                                    let checkboxAutors = document.getElementsByClassName("checkbox-autores");
+                                    let idsAutors = document.getElementsByClassName("autores-ids");
+                                    for(let i = 0; i<idsAutors.length;i++){
+                                        for(let j = 0; j<checkboxAutors.length;j++){
+                                            if(idsAutors[i].value == checkboxAutors[j].value){
+                                                checkboxAutors[j].checked = true;
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                     	</div>
                 	</div>
             	</div>

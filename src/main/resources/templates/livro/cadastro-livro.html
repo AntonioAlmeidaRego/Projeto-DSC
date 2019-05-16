@@ -139,7 +139,7 @@
                                        <div class="row">
                                        		<div class="col-md-6">
                                        			<div class="form-group">
-	                                       			<label class="bmd-label-floating">Largura</label>
+	                                       			<label class="bmd-label-floating">Largura<span style="color: red"> *</span></label>
 	                                       			<input type="text" id="largura-livro" th:field="*{largura}" class="form-input" />
 	                                       			<div class="alert alert-danger" id="largura-livro-div">
 	                                       			
@@ -148,7 +148,7 @@
                                        		</div>
                                        		<div class="col-md-6">
                                        			<div class="form-group">
-                                       				<label class="bmd-label-floating">Altura</label>
+                                       				<label class="bmd-label-floating">Altura<span style="color: red"> *</span></label>
 	                                       			<input type="text" id="altura-livro" th:field="*{altura}" class="form-input" />
 	                                       			<div class="alert alert-danger" id="altura-livro-div">
 	                                       			
@@ -190,6 +190,12 @@
 
                                                    </div>
                                        		</div>
+										   <div id="livros-categorias">
+											   <th:block th:each="categoria : ${livro.categorias}">
+												   <input class="categoria-ids" th:value="${categoria.id}" />
+												   <br />
+											   </th:block>
+										   </div>
                                        </div>
                                        <br />
                                     <button id="cadastro-livro" class="btn btn-success pull-right">Cadastrar</button>
@@ -197,6 +203,20 @@
                                     <div class="clearfix"></div>
                                 	</form>
                             	</div>
+								<script type="text/javascript">
+									$(document).ready(function () {
+										$("#livros-categorias").hide();
+										let checkboxCategoria = document.getElementsByClassName("checkbox1");
+										let idsCategorias = document.getElementsByClassName("categoria-ids");
+										for(let i = 0; i<idsCategorias.length;i++){
+											for(let j = 0; j<checkboxCategoria.length;j++){
+												if(idsCategorias[i].value == checkboxCategoria[j].value){
+													checkboxCategoria[j].checked = true;
+												}
+											}
+										}
+									});
+								</script>
                         	</div>
                     	</div>
                 	</div>

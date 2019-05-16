@@ -97,6 +97,7 @@
     <script th:inline="javascript"  th:src="@{/app/util/Calculadora.js}"></script>
     <script th:src="@{/app/controller/ClearfieldsController.js}"></script>
     <script th:src="@{/js/wantRemove.js}"></script>
+    <script th:src="@{/js/setarchebox.js}"></script>
     <script th:inline="javascript"  th:src="@{/js/requireds.js}"></script>
     <script th:src="@{/js/mascaras.js}"></script>
 <script>
@@ -106,6 +107,11 @@
     		if(this.files.length > 0) nome = this.files[0].name;
             $("#urlCapa").val("/home/antonio/Imagens/capas/"+nome);
         });
+
+    	/*$("#file-foto-autor").change(function () {
+           if(this.files.length > 0) nome = this.files[0].name;
+           $("#urlFotoAutor").val("/home/antonio/Imagens/autors/"+nome);
+        });*/
     	
         $().ready(function() {
             $sidebar = $('.sidebar');

@@ -29,7 +29,7 @@ public class AutorService {
 		return repository.getOne(id);
 	}
 	
-	public Autor findByNomeAndCpfAndEmail(String nome, String cpf, String email) {
-		return repository.findByNomeAndCpfAndEmail(nome, cpf, email);
+	public Autor findByNomeOrCpfOrEmail(String nome, String cpf, String email) {
+		return repository.findByNomeOrCpfOrEmail(nome, cpf, email);
 	}
 }

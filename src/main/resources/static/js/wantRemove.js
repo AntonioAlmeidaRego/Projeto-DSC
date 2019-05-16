@@ -22,7 +22,7 @@ $(".cart_quantity_delete").click(function (event) {
         deleteLineTable(this.parentElement.parentElement);
         let cal = new Calculadora();
         let resultado = cal.calcularSomaPedidos("cart_total");
-        $("#resultado-compra").text(resultado);
+        $("#resultado-compra").text(resultado.toFixed(2));
     }else{
         event.preventDefault();
     }

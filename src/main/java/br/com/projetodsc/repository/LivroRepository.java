@@ -62,7 +62,7 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	@Query(value="select * from livro l where l.preco > ?;", nativeQuery=true)
 	public List<Livro> listaLivrosMaiorValor(double intervalo);
 	
-	@Query(value="select * from livro l limit ?, ?;", nativeQuery=true)
+	@Query(value="select * from livro l order by l.id desc limit ?, ?;", nativeQuery=true)
 	public List<Livro> listaLivrosLimitInteval(int interval, int interval2);
 	
 	@Query(value="select * from livro l  where l.titulo like %?%", nativeQuery=true)

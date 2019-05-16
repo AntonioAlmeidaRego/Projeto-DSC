@@ -1,5 +1,7 @@
 package br.com.projetodsc.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import br.com.projetodsc.model.Autor;
 import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.service.AutorService;
 import br.com.projetodsc.service.LivroService;
+import br.com.projetodsc.util.Arquivo;
+import br.com.projetodsc.util.ArquivoImg;
 
 @Controller
 @RequestMapping("/autor")
@@ -20,7 +24,7 @@ public class AutorController {
 	private AutorService service;
 	@Autowired
 	private LivroService serviceLivro;
-	
+ 
 	@GetMapping("/cadastro-autor")
 	public ModelAndView cadastroAutor(Autor autor) {
 		ModelAndView mv = new ModelAndView("/autor/cadastro-autor");
@@ -46,7 +50,7 @@ public class AutorController {
 	
 	@PostMapping("/saveAutor")
 	public ModelAndView saveAutor(Autor autor, String ids) {
-		Autor autor2 = service.findByNomeAndCpfAndEmail(autor.getNome(), autor.getCpf(), autor.getEmail());
+		Autor autor2 = service.findByNomeOrCpfOrEmail(autor.getNome(), autor.getCpf(), autor.getEmail());
 		if(autor2 == null) {
 			if((!ids.equals(""))) {
 				relacionarAutorLivro(autor, ids);

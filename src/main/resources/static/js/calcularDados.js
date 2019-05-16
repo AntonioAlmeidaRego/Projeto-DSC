@@ -25,7 +25,7 @@
            let cal = new Calculadora();
            let resultado = cal.calcularSomaPedidos("cart_total");
            $(".ids-pedidos").hide();
-           $("#resultado-compra").text(resultado);
+           $("#resultado-compra").text(resultado.toFixed(2));
 
            $("#finalizar-compra").click(function () {
                if(idsPedidos("ids-pedidos") != ""){

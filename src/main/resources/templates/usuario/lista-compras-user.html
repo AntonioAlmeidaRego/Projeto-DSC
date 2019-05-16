@@ -27,10 +27,12 @@
 	                                        </tr>    
 	                                        <tr>
 	                                        	<td>DATE COMPRA</td>
-	                                            <td colspan="3" th:text="${compra.date}"></td>
-	                                            <td colspan="3">DATE ENTREGA PREVISTA</td>
+	                                            <td colspan="5" th:text="${compra.date}"></td>	                                            
+	                                        </tr>
+	                                        <tr>
+	                                        	<td >DATE ENTREGA PREVISTA</td>
 	                                            <th:block th:each="pedido : ${compra.pedidos}">
-	                                            	<td th:text="${pedido.dataEntrega}"></td>
+	                                            	<td colspan="5" th:text="${pedido.dataEntrega}"></td>
 	                                            </th:block>
 	                                        </tr>
 	                                        <tr>

@@ -2,7 +2,9 @@
 
 /* Variaveis Globais */
 const extensao = ".jpg";
+
 var exe = "";
+var exeAutor = "";
 var emailEmpty = false;
 var entrou = false;
 var clearfield;
@@ -76,6 +78,10 @@ $(document).ready(function () {
     if($("#imagem-capa").length){
         exe = extensao;
     }
+
+    /*if($("#imagem-foto").length){
+        exeAutor = extensao;
+    }*/
 
     if($("#aux-Preco").length){
         clearfield.hide("aux-Preco");
@@ -388,6 +394,18 @@ $("#cadastro-editora").click(function(event) {
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Eventos cadastro Autor */
 
+/*$("#file-foto-autor").change(function () {
+    let name;
+    if(this.files.length > 0) name = this.files[0].name;
+    exeAutor = name.substring((name.length-4), name.length);
+
+    if(exeAutor != extensao){
+        alert("Tipo de imagem inválida!");
+        $(this).val("");
+    }
+
+});*/
+
 $("#cadastro-autor").click(function(event) {
 	let required = new RequiredController(this);
     let formAutor = document.getElementById("form-autor");
@@ -397,19 +415,21 @@ $("#cadastro-autor").click(function(event) {
 
     console.log(inputsCheck);
 
-    if((!required.required(1, formAutor)) && (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
+    if((!required.required(1, formAutor)) && /*(exeAutor == extensao) && */ (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
         && (isInputCheckBox(inputsCheck, required))){
     	$(this).submit();
     }else{
         event.preventDefault();
     	for(let j = 1; j < formAutor.length;j++){
             for(let i = 1; i < inputs.length;i++){
-                if(inputs[i].id == formAutor[j].id){
-                    if(required.requiredInput(inputs[i].id)){
-                        clearfield.show(formAutor[j].id+"-div");
-                        tags.updateElement(document.getElementById(formAutor[j].id+"-div"), "span", "campo obrigatório!");
+               /* if(formAutor[j].id != "urlFotoAutor" && formAutor[j].id != "file-foto-autor"){*/
+                    if(inputs[i].id == formAutor[j].id){
+                        if(required.requiredInput(inputs[i].id)){
+                            clearfield.show(formAutor[j].id+"-div");
+                            tags.updateElement(document.getElementById(formAutor[j].id+"-div"), "span", "campo obrigatório!");
+                        }
                     }
-                }
+               //}
             }
         }
         if(!verificarEmail("email-autor")){
@@ -421,6 +441,10 @@ $("#cadastro-autor").click(function(event) {
             clearfield.show("idLivros-autor-div");
             tags.updateElement(document.getElementById("idLivros-autor-div"), "span", "campo obrigatório!");
         }
+       /* if(exeAutor != extensao){
+            clearfield.show("file-foto-autor-div");
+            tags.updateElement(document.getElementById("file-foto-autor-div"), "span", "campo obrigatório!");
+        }*/
     }
 });
 
@@ -437,8 +461,6 @@ $("#file-capa").change(function () {
         alert("Tipo de imagem inválida!");
         $(this).val("");
     }
-
-
 });
 
 function isInputCheckBox(inputscheck, required){
@@ -513,18 +535,15 @@ $("#preco-livro").keyup(function (event) {
         clearfield.show(this.id+"-div");
         tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
         $(this).val("");
-    }
-    if(validacao.validacaoFieldLength(10, this)){
+    }if(validacao.validacaoFieldLength(10, this)){
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","10");
-    }
-    if(!validacao.validacaoFieldDesconto(this, 39.99)){
+    }if(!validacao.validacaoFieldDesconto(this, 39.99)){
         clearfield.show(this.id+"-div");
         tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)");
         clearfield.hide("div-desconto-row");
         clearfield.hide(this.id+"-div");
-    }
-    if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
+    }if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
         clearfield.show(this.id+"-div");
         tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não permitido (valor minimo: 19,5, valor maximo: 3000)");
         $("#cadastro-livro").attr("disabled", true);
@@ -535,7 +554,22 @@ $("#preco-livro").keyup(function (event) {
     }else{
         $("#cadastro-livro").attr("disabled", false);
     }
+
  });
+
+$("input").focus(function () {
+    if(this.id != $("#preco-livro").id){
+        if($("#preco-livro").val() != "" && $("#preco-livro").val().length != 0){
+            $("#preco-livro").val(parseFloat($("#preco-livro").val()).toFixed(2));
+        }
+    }
+});
+
+$("#cadastro-livro").click(function () {
+    if($("#preco-livro").val() != "" && $("#preco-livro").val().length != 0){
+        $("#preco-livro").val(parseFloat($("#preco-livro").val()).toFixed(2));
+    }
+});
 
 $("#peso-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
@@ -710,9 +744,10 @@ $("#descontos").click(function (event) {
         if(this[this.selectedIndex].textContent != "Sem desconto"){
             let calc = new Calculadora(parseFloat(auxPreco.textContent));
             let result = calc.calcularDesconto(parseInt(this[this.selectedIndex].textContent));
-            $("#preco-livro").val(parseFloat(result));
+           // $("#preco-livro").val(parseFloat(result));
+            $("#preco-livro").val(parseFloat(result).toFixed(2));
         }else{
-            $("#preco-livro").val(parseFloat(auxPreco.textContent));
+            $("#preco-livro").val(parseFloat(auxPreco.textContent).toFixed(2));
         }
     }
 });
