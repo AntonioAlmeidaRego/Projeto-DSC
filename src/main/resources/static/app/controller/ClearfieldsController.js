@@ -8,6 +8,10 @@ class ClearfieldsController {
        $("#"+id).hide();
     }
 
+    hideTime(id, time){
+        $("#"+id).hide(time);
+    }
+
     show(id){
         $("#"+id).show();
     }

@@ -522,6 +522,7 @@ $("#preco-livro").keyup(function (event) {
         clearfield.show(this.id+"-div");
         tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)");
         clearfield.hide("div-desconto-row");
+        clearfield.hide(this.id+"-div");
     }
     if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
         clearfield.show(this.id+"-div");
@@ -530,6 +531,7 @@ $("#preco-livro").keyup(function (event) {
     }else if(validacao.validacaoFieldDesconto(this, 39.99)){
         clearfield.show("div-desconto-row");
         $("#cadastro-livro").attr("disabled", false);
+        clearfield.hideTime(this.id+"-div", 3000);
     }else{
         $("#cadastro-livro").attr("disabled", false);
     }
