@@ -1,5 +1,6 @@
 package br.com.projetodsc.controller;
 
+import java.io.IOException;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class LivroController {
 		ModelAndView view = new ModelAndView("livro/lista-livros-categoria");
 		view.addObject("livros", service.findAllCategoriaId(id));
 		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
 		return view;
 	}
 	
@@ -59,28 +64,34 @@ public class LivroController {
 		view.addObject("livros", service.findAll());
 		return view;
 	}
+	
+	private int calcularPages(int length) {
+		int aux = 1;
+		int page = 6;
+		
+		for(int i = 1; i <= length;i++) {
+			if(i >= page) {
+				aux = aux + 1;
+				page = page + 6;
+			}
+		}
+		
+		return aux;
+	}
+	
 	@GetMapping("/listaAll/{interval}/{interval2}")
 	public ModelAndView listaAllLivros(@PathVariable int interval, @PathVariable int interval2) {
 		ModelAndView view = new ModelAndView("/livro/livros");
 		int length = service.findAll().size();
-		int resultado = length/6;
-		if(resultado > 1) {
-			view.addObject("categorias", serviceCategoria.findAll());
-			view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
-			view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
-			view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
-			view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
-			view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
-			view.addObject("quantidadePages", resultado);
-		}else {
-			view.addObject("categorias", serviceCategoria.findAll());
-			view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
-			view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
-			view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
-			view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
-			view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
-			view.addObject("quantidadePages", 0);
-		}
+		System.out.println(calcularPages(length));
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
+		view.addObject("quantidadePages", calcularPages(length));
+		
 		return view;
 	}
 
@@ -92,6 +103,7 @@ public class LivroController {
 			arquivo.creatFile(livro.getUrlImagem());
 			arquivo.writeFile(url+valor+".jpg");
 			livro.setUrlImagem(urlDestino+valor+".jpg");
+			arquivo.reloadFile(url);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

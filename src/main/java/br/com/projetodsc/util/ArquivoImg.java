@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+
 
 public class ArquivoImg implements Arquivo{
 	private File file = null;
@@ -18,6 +20,9 @@ public class ArquivoImg implements Arquivo{
 		this.width = width;
 		this.height = height;
 		this.typeImg = typeImg;
+	}
+	
+	public ArquivoImg() {
 	}
 
 	public int getWidth() {
@@ -59,6 +64,18 @@ public class ArquivoImg implements Arquivo{
 	public boolean writeFile(String urlDestino) throws IOException{
 		file = new File(urlDestino);  //output file path
 		return ImageIO.write(image, typeImg, file);
+	}
+
+	@Override
+	public void reloadFile(String urlDestino) throws IOException {
+		file = new File(urlDestino);
+		File[] arquivos = file.listFiles();
+		
+		for(File f : arquivos) {
+			if(f.isFile()) {
+				f.canRead();
+			}
+		}
 	}
 	
 	

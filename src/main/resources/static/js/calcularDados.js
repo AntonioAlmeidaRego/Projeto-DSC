@@ -24,7 +24,6 @@
        if($("#tabela-pedidos").length){
            let cal = new Calculadora();
            let resultado = cal.calcularSomaPedidos("cart_total");
-           console.log(idsPedidos("ids-pedidos"));
            $(".ids-pedidos").hide();
            $("#resultado-compra").text(resultado);
 
@@ -71,7 +70,7 @@
    $("#addPedido").click(function (event) {
 	        event.preventDefault();
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
-	        if((session.getSession("user") != null) || (session.getSession("user")._idUsuario !== undefined)){
+	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
                 let randomPedido = Math.random();
                 let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
                 let request = new RequestController();
@@ -99,7 +98,7 @@
                         session.getSession("pedido");
                         request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido,
                             session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade,
-                            session.getSession("user")._idUsuario, cal.calcularDays(dia, new Date().getMonth(), new Date().getFullYear()));
+                            session.getSession("user")._idUsuario, cal.calcularDays(dia, new Date().getMonth(), new Date().getFullYear()), str2);
                         alert("Pedido adicionado com Sucesso!");
                         window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
 

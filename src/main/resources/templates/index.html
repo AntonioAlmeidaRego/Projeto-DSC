@@ -13,51 +13,57 @@ layout:decorate="~{layout-site}"
 <body>
 	<div layout:fragment="corpo-site">
 		<section>
-				<div class="container">
-					<div th:replace="/fragmentos/site/menu_vertical :: menu-vertical"></div>
-					<div class="col-sm-9 padding-right">
-							<div class="features_items"><!--features_items-->
-								<h2 class="title text-center">Livros</h2>
-									<div th:each="livro : ${livros}">
-										<div class="col-sm-4">
-											<div class="product-image-wrapper">
-												<div class="single-products">
-														<div class="productinfo text-center">
-															<img th:src="@{${livro.urlImagem}}" width="90px" height="400px" alt="" />
-															<h2 th:text="${livro.preco}"></h2>
-															<p th:text="${livro.titulo}"></p>
-															<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
-														</div>
-														<div class="product-overlay">
-															<div class="overlay-content">
-																<h2 th:text="${livro.preco}"></h2>
-																<p th:text="${livro.titulo}"></p>
-																<a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
-															</div>
-														</div>
-													
-												</div>
-											</div>
-										</div>
-								</div>	
-							</div><!--features_items-->
-							<div class="category-tab"><!--category-tab-->
-								<div class="col-sm-12">
-									<ul class="nav nav-tabs">
-										<th:block th:each="categoria : ${primeirasCategorias}">
-											<li><a href="#" th:id="${categoria.id}" data-toggle="tab" th:text="${categoria.nome}"></a></li>
-										</th:block>
-									</ul>
-								</div>
-								<div class="tab-content">
-									<div class="tab-pane fade active in"  id="fatherAll">
+			<div class="container">
+		        <div class="row">
+		            <div th:replace="/fragmentos/site/menu_vertical :: menu-vertical"></div>
+		
+		            <div class="col-sm-9 padding-right">
+		                <div class="features_items"><!--features_items-->
+		                    <h2 class="title text-center">Livros</h2>
+		                    <th:block th:each="livro : ${livros}">
+			                    <div class="col-sm-5">
+			                        <div class="product-image-wrapper">
+			                            <div class="single-products">
+			                                <div class="productinfo text-center">
+			                                    <img th:src="@{${livro.urlImagem}}" width="206px" height="400px" alt="" />
+												<h2 th:text="${livro.preco}"></h2>
+												<p th:text="${livro.titulo}"></p>
+											    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+			                                </div>
+			                                <div class="product-overlay">
+			                                    <div class="overlay-content">
+			                                        <h2 th:text="${livro.preco}"></h2>
+													<p th:text="${livro.titulo}"></p>
+													<a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                            <div class="choose">
+			                                <ul class="nav nav-pills nav-justified">
+			                                </ul>
+			                            </div>
+			                        </div>
+			                    </div>
+		                    </th:block>
+		                </div><!--features_items-->
+		
+		                <div class="category-tab"><!--category-tab-->
+		                    <div class="col-sm-12">
+		                        <ul class="nav nav-tabs">
+		                            <th:block th:each="categoria : ${primeirasCategorias}">
+										<li><a href="#" th:id="${categoria.id}" data-toggle="tab" th:text="${categoria.nome}"></a></li>
+									</th:block>
+		                        </ul>
+		                    </div>
+		                    <div class="tab-content">
+		                       	<div class="tab-pane fade active in"  id="fatherAll">
 										 
-									</div>
 								</div>
-							</div><!--/category-tab-->
-							
-							<div class="recommended_items"><!--recommended_items-->
-								<h2 class="title text-center">Promoções de Livros</h2>
+		                    </div>
+		                </div><!--/category-tab-->
+		
+		                <div class="recommended_items"><!--recommended_items-->
+		                     <h2 class="title text-center">Promoções de Livros</h2>
 						
 								<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 									<div class="carousel-inner">
@@ -101,11 +107,13 @@ layout:decorate="~{layout-site}"
 									  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 										<i class="fa fa-angle-right"></i>
 									  </a>			
-								</div>								
-							</div><!--/recommended_items-->
-						</div>
-				</div>
-			</section>
+								</div>			
+		                </div><!--/recommended_items-->
+		
+		            </div>
+		        </div>
+		    </div>
+		</section>
 	</div>
 
 </body>

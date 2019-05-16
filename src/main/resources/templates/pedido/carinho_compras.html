@@ -25,6 +25,7 @@
 							<td class="description"></td>
 							<td class="price">Preço</td>
 							<td class="quantity">Quantidade</td>
+							<td class="quantity">Frete</td>
 							<td class="total">Total</td>
 							<td></td>
 						</tr>
@@ -50,11 +51,17 @@
 									</td>
 									<td class="ids-pedidos">
 										<p th:text="${pedido.id}"></p>
+									</td>	
+									<td class="cart_quantity">
+										<p th:text="${pedido.frete}"></p>
 									</td>									 
 									<td class="cart_total">
 										<p class="cart_total_price" th:text="${pedido.valorTotal}"></p>
 									</td>
-								</th:block>
+									<td class="cart_delete">
+										<a th:data-objeto="${pedido.id}" class="cart_quantity_delete"><i class="fa fa-times"></i></a>
+									</td>
+								</th:block>								
 							</tr>
 						</th:block>
 					</tbody>

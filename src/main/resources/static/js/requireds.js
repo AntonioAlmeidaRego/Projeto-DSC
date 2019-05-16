@@ -77,6 +77,10 @@ $(document).ready(function () {
         exe = extensao;
     }
 
+    if($("#aux-Preco").length){
+        clearfield.hide("aux-Preco");
+    }
+
     /* Esconder as divs de cadastro */
 
     clearfield.hide("father-login");
@@ -528,10 +532,18 @@ $("#peso-livro").keyup(function (event) {
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","5");
     }
+    if(!validacao.validacaoFieldValors(this, 0)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "O peso não pode ser inferior a 0");
+        $("#cadastro-livro").attr("disabled", true);
+    }else{
+        $("#cadastro-livro").attr("disabled", false);
+    }
 });
 
 $("#comprimento-livro").keyup(function (event) {
     let validacao = new ValidacaoController();
+
 
     if(!validacao.keyCodeNumber(event)){
         clearfield.show(this.id+"-div");
@@ -542,6 +554,14 @@ $("#comprimento-livro").keyup(function (event) {
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","5");
     }
+    if(!validacao.validacaoFieldValors(this, 16.0)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "O comprimento não pode ser inferior a 16 cm");
+        $("#cadastro-livro").attr("disabled", true);
+    }else{
+        $("#cadastro-livro").attr("disabled", false);
+    }
+
 });
 
 $("#largura-livro").keyup(function (event) {
@@ -556,6 +576,14 @@ $("#largura-livro").keyup(function (event) {
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","5");
     }
+    if(!validacao.validacaoFieldValors(this, 11.0)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "A largura não pode ser inferior a 11.cm");
+        $("#cadastro-livro").attr("disabled", true);
+    }else{
+        $("#cadastro-livro").attr("disabled", false);
+    }
+
 });
 
 $("#altura-livro").keyup(function (event) {
@@ -569,6 +597,13 @@ $("#altura-livro").keyup(function (event) {
     if(validacao.validacaoFieldLength(5, this)){
         clearfield.hide(this.id+"-div");
         $(this).attr("maxlength","5");
+    }
+    if(!validacao.validacaoFieldValors(this,2.0)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "A altura não pode ser inferior a 2 cm");
+        $("#cadastro-livro").attr("disabled", true);
+    }else{
+        $("#cadastro-livro").attr("disabled", false);
     }
 });
  
@@ -636,18 +671,31 @@ $("#promocao-desconto").keyup(function (event) {
 });
 
 /* Calcular Desconto do Livro */
+
+const auxPreco = document.getElementById("aux-Preco");
+
+$("#preco-livro").keyup(function (event) {
+    let val = new ValidacaoController();
+
+    if(!val.keyCodeBackspaceAndDelete(event)){
+        auxPreco.textContent = $("#preco-livro").val();
+    }else{
+        auxPreco.textContent = "";
+    }
+});
+
 $("#descontos").click(function (event) {
+
     if(($("#preco-livro").val() == "") && ($("#preco-livro").val().length == 0)){
         alert("Preencha o valor do livro!");
         $("#descontos:first-child").val($("#descontos:first-child").val());
     }else{
         if(this[this.selectedIndex].textContent != "Sem desconto"){
-            let calc = new Calculadora(parseFloat($("#preco-livro").val()));
+            let calc = new Calculadora(parseFloat(auxPreco.textContent));
             let result = calc.calcularDesconto(parseInt(this[this.selectedIndex].textContent));
             $("#preco-livro").val(parseFloat(result));
         }else{
-            alert("Livro sem Desconto. Por favor preencha novamente o preço do Livro!");
-            $("#preco-livro").val("");
+            $("#preco-livro").val(parseFloat(auxPreco.textContent));
         }
     }
 });

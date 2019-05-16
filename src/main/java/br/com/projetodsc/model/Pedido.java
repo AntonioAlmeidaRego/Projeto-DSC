@@ -14,8 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pedido implements Serializable{
@@ -36,14 +35,18 @@ public class Pedido implements Serializable{
 	private int quantidade;
 	@Column(unique=false)
 	private boolean finalizouCompra;
+	@Column(unique=false)
+	private boolean cancelouCompra;
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	@Column(nullable=false)
 	private Date dataEntrega;
+	private double frete;
 	@ManyToMany
 	@JoinTable(name="itens_pedidos")
 	private List<Livro> livros = new ArrayList<Livro>(); 
+	
 	
 	
 	public Long getId() {
@@ -102,5 +105,17 @@ public class Pedido implements Serializable{
 	}
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
-	} 
+	}
+	public boolean isCancelouCompra() {
+		return cancelouCompra;
+	}
+	public void setCancelouCompra(boolean cancelouCompra) {
+		this.cancelouCompra = cancelouCompra;
+	}
+	public double getFrete() {
+		return frete;
+	}
+	public void setFrete(double frete) {
+		this.frete = frete;
+	}
 }

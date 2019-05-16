@@ -14,6 +14,13 @@ class ValidacaoController {
     	return false;
     }
 
+    validacaoFieldValors(element, valor){
+        if((element.value) > valor){
+            return true;
+        }
+        return false;
+    }
+
 
     keyCodeNumber(event){
     	console.log(event.which);

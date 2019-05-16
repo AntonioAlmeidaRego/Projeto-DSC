@@ -37,6 +37,7 @@
 		                                            <td th:text="${pedido.valorTotal}"></td>
 		                                            <td th:text="${pedido.data}"></td>
 		                                            <td th:text="${pedido.codigo}"></td>
+		                                            <td th:text="${pedido.quantidade}"></td>
 		                                            <td th:text="${pedido.usuario.nome}"></td>
 		                                            <th:block th:each="livro : ${pedido.livros}">
 		                                            	<td th:text="${livro.titulo}"></td>
