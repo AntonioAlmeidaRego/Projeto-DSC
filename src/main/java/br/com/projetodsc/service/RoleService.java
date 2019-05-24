@@ -13,6 +13,14 @@ public class RoleService {
 	@Autowired
 	private RoleRepository repository;
 	
+	public void add(Role role) {
+		repository.saveAndFlush(role);
+	}
+	
+	public Role getNome(String nome) {
+		return repository.findByNome(nome);
+	}
+	
 	public List<Role> buscarTodos(){
 		return repository.findAll();
 	}

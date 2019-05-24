@@ -1,5 +1,8 @@
 package br.com.projetodsc.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
+import br.com.projetodsc.model.Role;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.RoleService;
@@ -50,6 +52,12 @@ public class UsuarioController {
 	
 	@PostMapping("/saveUsuario")
 	public ModelAndView saveUsuario(Usuario usuario) {
+		Role role = serviceRole.getNome("Cliente");
+		if(role == null) {
+			role = new Role();
+			role.setNome("Cliente");
+			serviceRole.add(role);
+		}
 		Usuario usuario2 = service.getEmail(usuario.getEmail());
 		ModelAndView view = new ModelAndView("login");
 		if(usuario2 != null) {
@@ -62,6 +70,7 @@ public class UsuarioController {
 				view.addObject("error", "Email já está cadastrado no sistema!");
 			}
 		}else {
+			usuario.getRole().add(role);
 			service.add(usuario);
 			view.addObject("mensagem", "Usuário cadastrado com sucesso!");
 		}

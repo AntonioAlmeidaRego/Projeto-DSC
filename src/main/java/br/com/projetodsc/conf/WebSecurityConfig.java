@@ -39,12 +39,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/h2/**").permitAll()
+		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/administrador/portal-admin").hasRole("Admin")
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/pedidos/**").permitAll()
+		/* Métodos POST */
 		.antMatchers(HttpMethod.POST, "/usuario/saveUsuario").permitAll()
+		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and().formLogin().loginPage("/entrar").permitAll()
 		.successForwardUrl("/usuario/portal-user").and().logout().permitAll()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/entrar");
@@ -62,4 +65,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	 
 }

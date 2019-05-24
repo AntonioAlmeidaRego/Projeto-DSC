@@ -53,7 +53,7 @@ public class Usuario implements UserDetails{
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
-	private Set<Role> role;
+	private Set<Role> role = new HashSet<Role>();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
@@ -87,9 +87,7 @@ public class Usuario implements UserDetails{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
-	}
+	 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -99,9 +97,7 @@ public class Usuario implements UserDetails{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenha() {
-		return senha;
-	}
+	 
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -145,12 +141,12 @@ public class Usuario implements UserDetails{
 	
 	@Override
 	public String getPassword() {
-		return getPassword();
+		return this.senha;
 	}
 	
 	@Override
 	public String getUsername() {
-		return getNome();
+		return this.nome;
 	}
 	
 	@Override
@@ -218,6 +214,14 @@ public class Usuario implements UserDetails{
 		this.enabled = enabled;
 	}
 	
+	public String getNome() {
+		return nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
 	public String getRoleString() {
 		String txt="";
 		if(role!=null) {

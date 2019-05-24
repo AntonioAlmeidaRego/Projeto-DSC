@@ -45,12 +45,13 @@ public class IndexController{
 	
 	@PostMapping("/login")
 	public ModelAndView login(String email, String senha) {
-		Usuario usuario = serviceUsuario.findByEmailAndSenha(email, senha);
+		Usuario usuarioByEmail = serviceUsuario.getEmail(email);
+		
 		if(email.equals("antonio.alm1020@gmail.com") && senha.equals("123456")) {
 			return new ModelAndView("/administrador/portal-admin");
-		}else if(usuario != null) {
+		}else if(usuarioByEmail != null && serviceUsuario.verificarSenha(senha, usuarioByEmail)) {
 			ModelAndView view = new ModelAndView("/usuario/portal-user");
-			view.addObject("usuario", usuario);
+			view.addObject("usuario", usuarioByEmail);
 			view.addObject("categorias", service.findAll());
 			view.addObject("livros", serviceLivro.findAll());
 			return view;
