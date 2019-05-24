@@ -1,24 +1,35 @@
 package br.com.projetodsc.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Usuario implements Serializable{
+public class Usuario implements UserDetails{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -39,6 +50,36 @@ public class Usuario implements Serializable{
 	private String municipio;
 	@Column(nullable=false, length=100)
 	private String estado;
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
+	private Set<Role> role;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataUpdate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date ultimoAcesso;
+	
+
+	private boolean accountNonExpired;
+
+	private boolean accountNonLocked;
+
+	private boolean credentialsNonExpired;
+
+	private boolean enabled;
+	
+	public Usuario() {
+		this.dataCriacao = Calendar.getInstance().getTime();
+		this.enabled = true;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+		this.credentialsNonExpired = true;
+	}
 	
 	public Long getId() {
 		return id;
@@ -76,9 +117,6 @@ public class Usuario implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -98,5 +136,95 @@ public class Usuario implements Serializable{
 		this.estado = estado;
 	}
 	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		authorities.addAll(getRole());
+		return authorities;
+	}
 	
+	@Override
+	public String getPassword() {
+		return getPassword();
+	}
+	
+	@Override
+	public String getUsername() {
+		return getNome();
+	}
+	
+	@Override
+	public boolean isAccountNonExpired() {
+		return this.accountNonExpired;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return this.accountNonLocked;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return this.credentialsNonExpired;
+	}
+	@Override
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public Set<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(Set<Role> role) {
+		this.role = role;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataUpdate() {
+		return dataUpdate;
+	}
+
+	public void setDataUpdate(Date dataUpdate) {
+		this.dataUpdate = dataUpdate;
+	}
+
+	public Date getUltimoAcesso() {
+		return ultimoAcesso;
+	}
+
+	public void setUltimoAcesso(Date ultimoAcesso) {
+		this.ultimoAcesso = ultimoAcesso;
+	}
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	public String getRoleString() {
+		String txt="";
+		if(role!=null) {
+			for(Role r: role) {
+				txt+= r.getNome() + ", "; 
+			}
+		}
+		return txt;
+	}
 }

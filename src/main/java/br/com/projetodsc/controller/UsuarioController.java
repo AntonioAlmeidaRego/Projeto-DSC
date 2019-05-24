@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CompraService;
+import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -21,11 +22,16 @@ public class UsuarioController {
 	private UsuarioService service;
 	@Autowired
 	private CompraService serviceCompra;
+	@Autowired
+	private RoleService serviceRole;
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
-		return new ModelAndView("/usuario/portal-user").addObject("usuario", usuario);
+		return new ModelAndView("/usuario/portal-user")
+				.addObject("usuario", usuario)
+				.addObject("roles", serviceRole.buscarTodos());
 	}
+	
 	@GetMapping("/cadastro-user")
 	public ModelAndView cadastroUser(Usuario usuario) {
 		ModelAndView view = new ModelAndView("/usuario/cadastro-user");
@@ -38,6 +44,7 @@ public class UsuarioController {
 		Usuario usuario = service.getOne(id);
 		ModelAndView view = new ModelAndView("/usuario/mydados");
 		view.addObject("usuario", usuario);
+		view.addObject("roles", serviceRole.buscarTodos());
 		return view;
 	}
 	
@@ -87,6 +94,7 @@ public class UsuarioController {
 	public ModelAndView findAll(){
 		ModelAndView mv = new ModelAndView("/usuario/lista-usuarios");
 		mv.addObject("usuarios", service.findAll());
+		mv.addObject("roles", serviceRole.buscarTodos());
 		return mv;
 	}
 	
@@ -94,6 +102,7 @@ public class UsuarioController {
 	public ModelAndView findAllComprasUsuario(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("/usuario/lista-compras-user");
 		view.addObject("compras", serviceCompra.findAllCompraUsuario(id));
+		view.addObject("roles", serviceRole.buscarTodos());
 		return view;
 	}
 	
