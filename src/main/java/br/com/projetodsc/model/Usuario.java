@@ -139,9 +139,7 @@ public class Usuario implements UserDetails{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
-	
+
 	@Override
 	public String getPassword() {
 		return this.senha;
