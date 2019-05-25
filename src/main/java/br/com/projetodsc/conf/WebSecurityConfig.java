@@ -38,16 +38,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/h2/**").permitAll()
+		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/h2/**", "/StarAdmin/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
 		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/compra/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/compra/**").permitAll()
 		.antMatchers("/editora/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/livro/**").permitAll()
 		.antMatchers("/pedido/**").permitAll()
 		.antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/usuario/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/**").permitAll()
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
@@ -62,11 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "http://api.postmon.com.br/v1/cep/**").permitAll()
 		.antMatchers(HttpMethod.GET, "http://localhost:9000/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuariojson/usuario").permitAll()
+		.antMatchers(HttpMethod.GET, "/livrojson/livros/finalizar-compra").permitAll()
 		/* Métodos POST */
 		
-		.antMatchers(HttpMethod.POST, "/pedido/savePedido").hasRole("CLIENTE")
-		.antMatchers(HttpMethod.POST, "/livrojson/livroJaAdd").hasRole("CLIENTE")
-		.antMatchers(HttpMethod.POST, "/compra/saveCompra").hasRole("CLIENTE")
+		.antMatchers(HttpMethod.POST, "/pedido/savePedido").permitAll()
+		.antMatchers(HttpMethod.POST, "/livrojson/livroJaAdd").permitAll()
+		.antMatchers(HttpMethod.POST, "/compra/saveCompra").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuario/saveUsuario").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and().formLogin().loginPage("/entrar").permitAll()
