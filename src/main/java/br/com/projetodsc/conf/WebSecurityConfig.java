@@ -39,12 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/h2/**").permitAll()
+		.antMatchers("/fragmentos/**").hasRole("CLIENTE")
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/administrador/portal-admin").hasRole("Admin")
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/pedidos/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/usuario/mydados/**").hasRole("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/pedido/myPedidos/**").hasRole("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/usuario/listaComprasUsuario/**").hasRole("CLIENTE")
 		/* Métodos POST */
 		.antMatchers(HttpMethod.POST, "/usuario/saveUsuario").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()

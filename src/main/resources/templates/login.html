@@ -19,9 +19,9 @@ layout:decorate="~{layout-site}"
 						<div id="father-login" class="alert alert-danger">
 
 						</div>
-						<th:block th:if="${invalido != null}">
+						<th:block th:if="${param.error}">
 							<div id="error-usuario" class="alert alert-danger">
-						  		<span id="usuario-invalido" th:text="${invalido}"></span> 
+						  		<span id="usuario-invalido">Usuário e/ou inválidos!</span> 
 							</div>
 						</th:block>	
 						<div class="login-form"><!--login form-->
@@ -52,7 +52,7 @@ layout:decorate="~{layout-site}"
 						</div>
 						<div class="signup-form"><!--sign up form-->
 							<h2>Cadastra-se na Livraria</h2>
-						<!--  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
+						  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
 								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
 								<div class="alert alert-danger" id="nome-div"></div>
 								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>
@@ -79,7 +79,6 @@ layout:decorate="~{layout-site}"
 								</div>
 								<button id="cadastro-usuario" class="btn btn-default">Signup</button>
 							</form>
-							-->
 						</div><!--/sign up form-->
 						
 					</div>

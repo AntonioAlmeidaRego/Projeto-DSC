@@ -58,10 +58,10 @@ public class IndexController{
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,path= {"/entrar"})
-	public String entrar() {
-		/*Usuario usuario = new Usuario();
+	public ModelAndView entrar() {
+		Usuario usuario = new Usuario();
 		ModelAndView view = new ModelAndView("login");
-		view.addObject("usuario", usuario);*/
-		return "login";
+		view.addObject("usuario", usuario);
+		return view;
 	}
 }
