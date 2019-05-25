@@ -8,7 +8,7 @@ class ApiSoap {
             if(cep.length == 9){
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:9000/"+cep+"/"+peso
+                    url: "https://api-correios-soap.herokuapp.com/"+cep+"/"+peso
                         +"/"+comprimento+"/"+altura+"/"+largura
                         +"/"+valor,
                     failure: function (response) {

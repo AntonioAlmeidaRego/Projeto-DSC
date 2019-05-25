@@ -72,9 +72,9 @@
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
 	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
                 let randomPedido = Math.random();
-                let submit = new SubmitRequest("post", "http://localhost:8080/pedido/savePedido");
+                let submit = new SubmitRequest("post", "/pedido/savePedido");
                 let request = new RequestController();
-                let objeto = request.getJsonLivro("http://localhost:8080/livrojson/livroJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
+                let objeto = request.getJsonLivro("/livrojson/livroJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
 
                 objeto.then(function (data) {
                     if(data == "pedido adicionado com sucesso"){
