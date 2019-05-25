@@ -26,9 +26,9 @@ layout:decorate="~{layout-site}"
 						</th:block>	
 						<div class="login-form"><!--login form-->
 							<h2>Faça login na sua conta</h2>
-							<form th:action="@{/login}" method="post">
-								<input type="text" id="email-login" name="email" placeholder="Email" />
-								<input type="password" id="senha-login" name="senha" placeholder="senha" />
+							<form action="/entrar" method="post">
+								<input type="text" id="email-login" name="username" placeholder="Email" />
+								<input type="password" id="senha-login" name="password" placeholder="senha" />
 								<button id="login" class="btn btn-default">Login</button>
 							</form>
 						</div><!--/login form-->
@@ -52,7 +52,7 @@ layout:decorate="~{layout-site}"
 						</div>
 						<div class="signup-form"><!--sign up form-->
 							<h2>Cadastra-se na Livraria</h2>
-							<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
+						<!--  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
 								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
 								<div class="alert alert-danger" id="nome-div"></div>
 								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>
@@ -79,7 +79,9 @@ layout:decorate="~{layout-site}"
 								</div>
 								<button id="cadastro-usuario" class="btn btn-default">Signup</button>
 							</form>
+							-->
 						</div><!--/sign up form-->
+						
 					</div>
 				</div>
 			</div>

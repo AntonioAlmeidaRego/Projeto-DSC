@@ -11,7 +11,8 @@
 <link rel="stylesheet" type="text/css" th:href="@{/assets/demo/demo.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style-main.css}"/>
-<title>Admin</title>
+<title sec:authorize="hasAuthority('ADMINISTRADOR')">Admin</title>
+<title sec:authorize="hasAuthority('Cliente')">User</title>
 </head>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script th:src="@{/app/model/Session.js}"></script>
@@ -24,12 +25,21 @@
     <div class="wrapper ">
 
 
-    <!--	<div th:replace="fragmentos/fragmentos-admin/menu-esquerdo :: menu-esquerdo">
-		</div>	-->
+    	<div sec:authorize="hasAuthority('Cliente')">
+    		<div th:replace="/fragmentos/menu-user :: menu-user-esquerdo">
+    		</div>
+		</div>
 
-		<div th:replace="/fragmentos/menu-admin :: menu-esquerdo"></div>
+		<div sec:authorize="hasAuthority('ADMINISTRADOR')"
+		 th:replace="/fragmentos/menu-admin :: menu-esquerdo"></div>
 		<div class="main-panel">
-			<div class="content-wrapper" layout:fragment="corpo"></div>
+			<div class="content-wrapper" layout:fragment="corpo">
+				<th:block if="${succes != null}">
+					<div class="alert alert-success">
+						<span th:text="${succes}"></span>
+					</div>
+				</th:block>
+			</div>
 		</div>
     </div>
     <!-- End Navbar -->

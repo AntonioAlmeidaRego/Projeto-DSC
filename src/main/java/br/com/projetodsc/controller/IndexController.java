@@ -4,11 +4,13 @@ package br.com.projetodsc.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientCodecCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Usuario;
@@ -43,31 +45,23 @@ public class IndexController{
 		return view;
 	}
 	
-	@PostMapping("/login")
-	public ModelAndView login(String email, String senha) {
-		Usuario usuarioByEmail = serviceUsuario.getEmail(email);
+	@RequestMapping(method=RequestMethod.POST, path= {"/usuario/portal-user"})
+	public ModelAndView login() {
 		
-		if(email.equals("antonio.alm1020@gmail.com") && senha.equals("123456")) {
-			return new ModelAndView("/administrador/portal-admin");
-		}else if(usuarioByEmail != null && serviceUsuario.verificarSenha(senha, usuarioByEmail)) {
-			ModelAndView view = new ModelAndView("/usuario/portal-user");
-			view.addObject("usuario", usuarioByEmail);
-			view.addObject("categorias", service.findAll());
-			view.addObject("livros", serviceLivro.findAll());
-			return view;
-		}
+		Usuario usuarioByEmail = serviceUsuario.getEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 		
-		ModelAndView view = new ModelAndView("login");
-		view.addObject("invalido", "Email inválido ou senha");
-		view.addObject("usuario", new Usuario());
+		ModelAndView view = new ModelAndView("/usuario/portal-user");
+		view.addObject("usuario", usuarioByEmail);
+		view.addObject("categorias", service.findAll());
+		view.addObject("livros", serviceLivro.findAll());
 		return view;
 	}
 	
-	@GetMapping("/entrar")
-	public ModelAndView entrar() {
-		Usuario usuario = new Usuario();
+	@RequestMapping(method=RequestMethod.GET,path= {"/entrar"})
+	public String entrar() {
+		/*Usuario usuario = new Usuario();
 		ModelAndView view = new ModelAndView("login");
-		view.addObject("usuario", usuario);
-		return view;
+		view.addObject("usuario", usuario);*/
+		return "login";
 	}
 }

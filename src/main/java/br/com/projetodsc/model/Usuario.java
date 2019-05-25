@@ -30,6 +30,15 @@ public class Usuario implements UserDetails{
 	/**
 	 * 
 	 */
+	
+	public Usuario() {
+		this.dataCriacao = Calendar.getInstance().getTime();
+		this.enabled = true;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+		this.credentialsNonExpired = true;
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -53,7 +62,7 @@ public class Usuario implements UserDetails{
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
-	private Set<Role> role = new HashSet<Role>();
+	private Set<Role> role;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
@@ -73,12 +82,11 @@ public class Usuario implements UserDetails{
 
 	private boolean enabled;
 	
-	public Usuario() {
-		this.dataCriacao = Calendar.getInstance().getTime();
-		this.enabled = true;
-		this.accountNonExpired = true;
-		this.accountNonLocked = true;
-		this.credentialsNonExpired = true;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		authorities.addAll(getRole());
+		return authorities;
 	}
 	
 	public Long getId() {
@@ -132,12 +140,7 @@ public class Usuario implements UserDetails{
 		this.estado = estado;
 	}
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		authorities.addAll(getRole());
-		return authorities;
-	}
+	
 	
 	@Override
 	public String getPassword() {
@@ -146,7 +149,7 @@ public class Usuario implements UserDetails{
 	
 	@Override
 	public String getUsername() {
-		return this.nome;
+		return this.email;
 	}
 	
 	@Override

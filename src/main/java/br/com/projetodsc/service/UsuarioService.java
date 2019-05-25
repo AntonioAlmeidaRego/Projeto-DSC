@@ -26,16 +26,36 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails user = repository.findByEmail(username);
+		org.springframework.security.core.userdetails.User userFinal = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getPermissoes(user));
+		System.out.println(userFinal.getAuthorities());
+		return userFinal;
+	}
+	
+	
+	private Collection<? extends GrantedAuthority> getPermissoes(UserDetails usuario) {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		
+		Set<Role> permissoes =  ((Usuario) usuario).getRole();
+		for(Role r : permissoes ) {
+			 authorities.add(new SimpleGrantedAuthority(r.getNome().toUpperCase()));
+		}
+		
+		return authorities;
+	}
+	
+	public boolean verificarSenha(String senha, Usuario usuario) {
+		return passwordEncoder.matches(senha, usuario.getPassword());
+	}
 	
 	public void add(Usuario usuario) {
 		usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
 		usuario.setDataCriacao(new Date());
 		usuario.setEnabled(true);
 		repository.saveAndFlush(usuario);
-	}
-	
-	public boolean verificarSenha(String senha, Usuario usuario) {
-		return passwordEncoder.matches(senha, usuario.getPassword());
 	}
 	
 	public void delete(Long id) {
@@ -57,24 +77,6 @@ public class UsuarioService implements UserDetailsService{
 	public Usuario findByEmailAndSenha(String email, String senha) {
 		return repository.findByEmailAndSenha(email, senha);
 	}
-	
-	private Collection<? extends GrantedAuthority> getPermissoes(UserDetails usuario) {
-		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-			
-		Set<Role> permissoes =  ((Usuario) usuario).getRole();
-		for(Role r : permissoes ) {
-			 authorities.add(new SimpleGrantedAuthority(r.getNome().toUpperCase()));
-		}
-		
-		
-		return authorities;
-	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails user = repository.findByNome(username);
-		org.springframework.security.core.userdetails.User userFinal = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getPermissoes(user));
-		System.out.println(userFinal.getAuthorities());
-		return userFinal;
-	}
+
 }
