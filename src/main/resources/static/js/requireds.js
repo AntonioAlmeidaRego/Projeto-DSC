@@ -50,7 +50,6 @@ $(document).ready(function () {
 
     /* formularios de todos os cadastros */
  
-
     if($("#form1").length){
     	esconderDiv(document.getElementById("form1"), 0, document.getElementById("form1").length);
     }
@@ -148,7 +147,7 @@ $("#login").click(function (event) {
 
             if($("#email-login").val() != "antonio.alm1020@gmail.com"){
                let request = new RequestController();
-               let objeto = request.getJsonUsuario("http://localhost:8080/usuariojson/usuario", "post"
+               let objeto = request.getJsonUsuario("/usuariojson/usuario", "get"
                    ,$("#email-login").val(), $("#senha-login").val());
                objeto.then(function (data) {
                    if(data != "ERROR"){
