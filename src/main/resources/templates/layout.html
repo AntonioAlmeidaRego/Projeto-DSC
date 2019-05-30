@@ -14,7 +14,8 @@
 <title sec:authorize="hasAuthority('ADMINISTRADOR')">Admin</title>
 <title sec:authorize="hasAuthority('CLIENTE')">User</title>
 </head>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script th:src="@{/assets/js/core/jquery.min.js}"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script th:src="@{/app/model/Session.js}"></script>
     <script th:src="@{/app/controller/SessionController.js}"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>

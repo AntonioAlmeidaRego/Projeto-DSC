@@ -34,7 +34,7 @@ public class LivroController {
 	@Autowired
 	private PromocaoService servicePromocao;
 	private Random random;
-	private String url = "images/capas-livros/";
+	private String url = "https://github.com/AntonioAlmeidaRego/Projeto-DSC/tree/master/src/main/resources/static/images/capas-livros/";
 	private String urlDestino = "images/capas-livros/";
 	
 	@GetMapping("/lista-livros-categoria/{id}")

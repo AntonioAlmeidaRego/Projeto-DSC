@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**",
-				"/mysql/**", "/StarAdmin/**").permitAll()
+				"/StarAdmin/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
 		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
