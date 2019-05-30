@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/mysql/**", "/StarAdmin/**").permitAll()
+		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**",
+				"/mysql/**", "/StarAdmin/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
 		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
@@ -48,8 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/pedido/**").permitAll()
 		.antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/usuario/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/**").permitAll()
 		/* Métodos GET */
+		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/favicon.ico").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
