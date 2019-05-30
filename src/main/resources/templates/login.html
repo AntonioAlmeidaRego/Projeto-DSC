@@ -52,7 +52,7 @@ layout:decorate="~{layout-site}"
 						</div>
 						<div class="signup-form"><!--sign up form-->
 							<h2>Cadastra-se na Livraria</h2>
-						  	<form id="form1" th:action="@{usuario/saveUsuario}" th:object="${usuario}" method="post">
+						  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
 								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
 								<div class="alert alert-danger" id="nome-div"></div>
 								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>

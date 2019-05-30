@@ -61,16 +61,16 @@
                                             </th:block>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{livro/updateLivro/{id}(id=${livro.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{/livro/updateLivro/{id}(id=${livro.id})}"
                                                     >Editar</a> <a
                                                         class="delete btn btn-sm btn-danger"
-                                                        th:href="@{livro/deleteLivro/{id}(id=${livro.id})}">Excluir</a>
+                                                        th:href="@{/livro/deleteLivro/{id}(id=${livro.id})}">Excluir</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-primary" th:href="@{livro/cadastro-livro}">Adiciona Novo Livro</a>
+                                    <a class="btn btn-primary" th:href="@{/livro/cadastro-livro}">Adiciona Novo Livro</a>
                                 </div>
                             </div>
                         </div>

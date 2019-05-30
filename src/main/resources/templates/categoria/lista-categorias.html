@@ -42,15 +42,15 @@
                                             <td th:text="${categoria.nome}"></td>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{categoria/updateCategoria/{id}(id=${categoria.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{/categoria/updateCategoria/{id}(id=${categoria.id})}"
                                                     >Editar</a> <a class="delete btn btn-sm btn-danger"
-                                                        th:href="@{categoria/deleteCategoria/{id}(id=${categoria.id})}">Excluir</a>
+                                                        th:href="@{/categoria/deleteCategoria/{id}(id=${categoria.id})}">Excluir</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-primary" th:href="@{categoria/cadastro-categoria}">Adiciona Nova Categoria</a>
+                                    <a class="btn btn-primary" th:href="@{/categoria/cadastro-categoria}">Adiciona Nova Categoria</a>
                                 </div>
                             </div>
                         </div>

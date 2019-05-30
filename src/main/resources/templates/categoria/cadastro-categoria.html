@@ -30,7 +30,7 @@
                             	</div>
                             	
                             	<div class="card-body">
-                                	<form th:object="${categoria}" id="form-categoria" th:action="@{categoria/saveCategoria}" method="POST">
+                                	<form th:object="${categoria}" id="form-categoria" th:action="@{/categoria/saveCategoria}" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">
