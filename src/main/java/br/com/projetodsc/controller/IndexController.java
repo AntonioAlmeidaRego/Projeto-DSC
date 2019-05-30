@@ -64,4 +64,9 @@ public class IndexController{
 		view.addObject("usuario", usuario);
 		return view;
 	}
+	
+	@GetMapping("/favicon.ico")
+	public ModelAndView favicon() {
+		return new ModelAndView("index");
+	}
 }
