@@ -57,14 +57,14 @@ public class PedidoController {
 	
 	@GetMapping("/listaPedidos")
 	public ModelAndView findAll() {
-		ModelAndView view = new ModelAndView("/pedido/listaPedidos");
+		ModelAndView view = new ModelAndView("pedido/listaPedidos");
 		view.addObject("pedidos", service.findAll());
 		return view;
 	}
 	
 	@GetMapping("/myPedidos/{id}")
 	public ModelAndView findMyPedidos(@PathVariable Long id) {
-		ModelAndView view = new ModelAndView("/pedido/meusPedidosUser");
+		ModelAndView view = new ModelAndView("pedido/meusPedidosUser");
 		view.addObject("myPedidos", service.carinhoPedidos(id));
 		return view;
 	}
@@ -83,7 +83,7 @@ public class PedidoController {
 	
 	@GetMapping("/pedidos/{id}")
 	public ModelAndView findAllPedidos(@PathVariable Long id) {
-		ModelAndView view = new ModelAndView("/pedido/carinho_compras");
+		ModelAndView view = new ModelAndView("pedido/carinho_compras");
 		view.addObject("pedidos", service.carinhoPedidos(id));
 		view.addObject("livros", serviceLivro.carinhoCompras(id));
 		return view;

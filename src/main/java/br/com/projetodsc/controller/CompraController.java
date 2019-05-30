@@ -44,7 +44,7 @@ public class CompraController {
 	
 	@GetMapping("/listaCompras")
 	public ModelAndView findAllCompras() {
-		ModelAndView view = new ModelAndView("/compra/lista-compras");
+		ModelAndView view = new ModelAndView("compra/lista-compras");
 		view.addObject("compras", service.findAll());
 		return view;
 	}

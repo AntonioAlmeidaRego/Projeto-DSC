@@ -20,14 +20,14 @@ public class EditoraController {
 	
 	@GetMapping("/cadastro-editora")
 	public ModelAndView cadastroEditora(Editora editora) {
-		ModelAndView mv = new ModelAndView("/editora/cadastro-editora");
+		ModelAndView mv = new ModelAndView("editora/cadastro-editora");
 		mv.addObject(editora);
 		return mv;
 	}
 	
 	@GetMapping("/listaEditora")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/editora/lista-editoras");
+		ModelAndView mv = new ModelAndView("editora/lista-editoras");
 		mv.addObject("editoras", service.findAll());
 		return mv;
 	}

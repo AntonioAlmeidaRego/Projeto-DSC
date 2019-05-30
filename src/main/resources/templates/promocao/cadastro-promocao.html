@@ -26,7 +26,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${promocao}" th:action="@{/promocao/savePromocao}" id="form-promocao" method="POST">
+                                	<form th:object="${promocao}" th:action="@{promocao/savePromocao}" id="form-promocao" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">

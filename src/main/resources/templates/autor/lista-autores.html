@@ -50,17 +50,17 @@
                                             </th:block>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{/autor/updateAutor/{id}(id=${autor.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{autor/updateAutor/{id}(id=${autor.id})}"
                                                     >Editar</a> <a
                                                         class="delete btn btn-sm btn-danger"
-                                                        th:href="@{/autor/deleteAutor/{id}(id=${autor.id})}">Excluir</a>
+                                                        th:href="@{autor/deleteAutor/{id}(id=${autor.id})}">Excluir</a>
                                                 </div>
                                             </td>
 
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-primary" th:href="@{/autor/cadastro-autor}">Adiciona Novo Autor</a>
+                                    <a class="btn btn-primary" th:href="@{autor/cadastro-autor}">Adiciona Novo Autor</a>
                                 </div>
                             </div>
                         </div>

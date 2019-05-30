@@ -31,7 +31,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${usuario}" th:action="@{/usuario/saveUsuarioUpdate}" id="form-update-user" method="POST">
+                                	<form th:object="${usuario}" th:action="@{usuario/saveUsuarioUpdate}" id="form-update-user" method="POST">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                        <div class="row">

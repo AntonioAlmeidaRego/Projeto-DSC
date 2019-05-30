@@ -19,7 +19,7 @@ public class PromocaoController {
 	
 	@GetMapping("/cadastro-promocao")
 	public ModelAndView cadastroPromocao(Promocao promocao) {
-		ModelAndView view = new ModelAndView("/promocao/cadastro-promocao");
+		ModelAndView view = new ModelAndView("promocao/cadastro-promocao");
 		view.addObject("promocao", promocao);
 		return view;
 	}
@@ -37,7 +37,7 @@ public class PromocaoController {
 	
 	@GetMapping("/listaPromocao")
 	public ModelAndView findAll() {
-		ModelAndView view = new ModelAndView("/promocao/lista-promocao");
+		ModelAndView view = new ModelAndView("promocao/lista-promocao");
 		view.addObject("promocoes", service.findAll());
 		return view;
 	}

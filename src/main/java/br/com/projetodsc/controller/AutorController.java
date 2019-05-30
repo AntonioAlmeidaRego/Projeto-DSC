@@ -27,14 +27,14 @@ public class AutorController {
  
 	@GetMapping("/cadastro-autor")
 	public ModelAndView cadastroAutor(Autor autor) {
-		ModelAndView mv = new ModelAndView("/autor/cadastro-autor");
+		ModelAndView mv = new ModelAndView("autor/cadastro-autor");
 		mv.addObject("livros", serviceLivro.findAll());
 		mv.addObject("autor", autor);
 		return mv;
 	}
 	@GetMapping("/listaAutor")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/autor/lista-autores");
+		ModelAndView mv = new ModelAndView("autor/lista-autores");
 		mv.addObject("autores", service.findAll());
 		return mv;
 	}

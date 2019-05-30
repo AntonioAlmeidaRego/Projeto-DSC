@@ -14,7 +14,7 @@ layout:decorate="~{layout-site}"
 	<div layout:fragment="corpo-site">
 		<section>
 				<div class="container">
-						<div th:replace="/fragmentos/site/menu_vertical :: menu-vertical"></div>
+						<div th:replace="fragmentos/site/menu_vertical :: menu-vertical"></div>
 							<div class="col-sm-9 padding-right">
 							<div class="features_items"><!--features_items-->
 								<h2 class="title text-center">Livros</h2>
@@ -34,7 +34,7 @@ layout:decorate="~{layout-site}"
 																	<div class="overlay-content">
 																		<h2 th:text="${livro.preco}"></h2>
 																		<p th:text="${livro.titulo}"></p>
-																		<a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+																		<a th:href="@{livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
 																	</div>
 																</div>
 															

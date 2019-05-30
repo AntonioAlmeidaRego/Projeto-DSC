@@ -50,7 +50,7 @@ public class IndexController{
 		
 		Usuario usuarioByEmail = serviceUsuario.getEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 		
-		ModelAndView view = new ModelAndView("/usuario/portal-user");
+		ModelAndView view = new ModelAndView("usuario/portal-user");
 		view.addObject("usuario", usuarioByEmail);
 		view.addObject("categorias", service.findAll());
 		view.addObject("livros", serviceLivro.findAll());
@@ -65,8 +65,4 @@ public class IndexController{
 		return view;
 	}
 	
-	@GetMapping("/favicon.ico")
-	public ModelAndView favicon() {
-		return new ModelAndView("index");
-	}
 }

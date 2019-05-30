@@ -19,13 +19,13 @@ public class CategoriaController {
 
 	@GetMapping("/cadastro-categoria")
 	public ModelAndView cadastroCategoria(Categoria categoria) {
-		ModelAndView mv = new ModelAndView("/categoria/cadastro-categoria");
+		ModelAndView mv = new ModelAndView("categoria/cadastro-categoria");
 		mv.addObject("categoria",categoria);
 		return mv;
 	}
 	@GetMapping("/listaCategorias")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/categoria/lista-categorias");
+		ModelAndView mv = new ModelAndView("categoria/lista-categorias");
 		mv.addObject("categorias", service.findAll());
 		return mv;
 	}

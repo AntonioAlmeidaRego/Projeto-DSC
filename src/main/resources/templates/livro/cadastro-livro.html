@@ -26,7 +26,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form-livro" method="POST" enctype="multipart/form-data">
+                                	<form th:object="${livro}" th:action="@{livro/saveLivro}" id="form-livro" method="POST" enctype="multipart/form-data">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
                                       <div class="row">

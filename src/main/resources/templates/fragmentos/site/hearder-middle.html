@@ -31,14 +31,14 @@
 
 								<input type="hidden" id="idUsuario" value="${usuario.id}"/>
 									<li><a href="#" th:text="${usuario.nome}"><i class="fa fa-user"></i></a></li>
-								<li><a th:href="@{/pedido/pedidos/{id}(id=${usuario.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
-								<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a th:href="@{pedido/pedidos/{id}(id=${usuario.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+								<li><a th:href="@{entrar}"><i class="fa fa-lock"></i> Login</a></li>
 								</th:block>
 
 								<th:block th:if="${usuario == null}">
 									<div id="menu-horizontal">
 										<li><a id="url"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
-										<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i>Login</a></li>
+										<li><a th:href="@{entrar}"><i class="fa fa-lock"></i>Login</a></li>
 									</div>
 								</th:block>
 							</ul>
@@ -57,10 +57,10 @@
 									if(session != null){
 										if(session.getSession("user") != null) {
 											var id = session.getSession("user")._idUsuario;
-											window.open("/pedido/pedidos/" + id);
+											window.open("pedido/pedidos/" + id);
 										}else{
 											alert("USUÁRIO NÃO AUTENTICADO!");
-											window.location.replace("/entrar");
+											window.location.replace("entrar");
 										}
 									}
 								});

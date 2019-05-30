@@ -44,16 +44,16 @@
                                             <td th:text="${editora.cidade}"></td>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{/editora/updateEditora/{id}(id=${editora.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{editora/updateEditora/{id}(id=${editora.id})}"
                                                     >Editar</a> <a
                                                         class="delete btn btn-sm btn-danger"
-                                                        th:href="@{/editora/deleteEditora/{id}(id=${editora.id})}">Excluir</a>
+                                                        th:href="@{editora/deleteEditora/{id}(id=${editora.id})}">Excluir</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-primary" th:href="@{/editora/cadastro-editora}">Adiciona Nova Editora</a>
+                                    <a class="btn btn-primary" th:href="@{editora/cadastro-editora}">Adiciona Nova Editora</a>
                                 </div>
                             </div>
                         </div>

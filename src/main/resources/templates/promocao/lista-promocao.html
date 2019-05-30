@@ -42,16 +42,16 @@
                                             <td th:text="${promocao.desconto}"></td>
                                             <td>
                                                 <div class="btn-group pull-right">
-                                                    <a class="btn btn-sm btn-success" th:href="@{/promocao/updatePromocao/{id}(id=${promocao.id})}"
+                                                    <a class="btn btn-sm btn-success" th:href="@{promocao/updatePromocao/{id}(id=${promocao.id})}"
                                                     >Editar</a> <a
                                                         class="delete btn btn-sm btn-danger"
-                                                        th:href="@{/promocao/deletePromocao/{id}(id=${promocao.id})}">Excluir</a>
+                                                        th:href="@{promocao/deletePromocao/{id}(id=${promocao.id})}">Excluir</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-primary" th:href="@{/promocao/cadastro-promocao}">Adiciona Nova Promoção</a>
+                                    <a class="btn btn-primary" th:href="@{promocao/cadastro-promocao}">Adiciona Nova Promoção</a>
                                 </div>
                             </div>
                         </div>

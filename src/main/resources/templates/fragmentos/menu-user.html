@@ -21,7 +21,7 @@
         <ul class="nav">
 
           <li class="nav-item"><a data-togle="collapse" class="nav-link"
-                                  th:href="@{/usuario/portal-user}">
+                                  th:href="@{usuario/portal-user}">
 				<i
                   class="material-icons">home</i>
             <p>Home</p>
@@ -91,7 +91,7 @@
 					$("#url-my-dados").click(function () {
 						if(session.getSession("user") != null) {
 							var id = session.getSession("user")._idUsuario;
-                          window.location.replace("/usuario/mydados/" + id);
+                          window.location.replace("usuario/mydados/" + id);
 						}else{
                           window.location.replace("/");
 						}
@@ -101,7 +101,7 @@
 						 					
 						if(session.getSession("user") != null){
 							var id = session.getSession("user")._idUsuario;
-                            window.location.replace("/pedido/myPedidos/"+id);
+                            window.location.replace("pedido/myPedidos/"+id);
 						}else{
                           window.location.replace("/");
 						}
@@ -110,7 +110,7 @@
 					$("#url-my-compras").click(function(){
 						if(session.getSession("user") != null){
 							var id = session.getSession("user")._idUsuario;
-	                        window.location.replace("/usuario/listaComprasUsuario/"+id);
+	                        window.location.replace("usuario/listaComprasUsuario/"+id);
 						}else{
                           window.location.replace("/");
 						}

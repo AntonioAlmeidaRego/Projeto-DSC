@@ -29,13 +29,13 @@ public class UsuarioController {
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
-		return new ModelAndView("/usuario/portal-user")
+		return new ModelAndView("usuario/portal-user")
 				.addObject("usuario", usuario);
 	}
 	
 	@GetMapping("/cadastro-user")
 	public ModelAndView cadastroUser(Usuario usuario) {
-		ModelAndView view = new ModelAndView("/usuario/cadastro-user");
+		ModelAndView view = new ModelAndView("usuario/cadastro-user");
 		view.addObject("usuario", usuario);
 		return view;
 	}
@@ -43,7 +43,7 @@ public class UsuarioController {
 	@GetMapping("/mydados/{id}")
 	public ModelAndView meusDados(@PathVariable Long id) {
 		Usuario usuario = service.getOne(id);
-		ModelAndView view = new ModelAndView("/usuario/mydados");
+		ModelAndView view = new ModelAndView("usuario/mydados");
 		view.addObject("usuario", usuario);
 		return view;
 	}
@@ -85,9 +85,9 @@ public class UsuarioController {
 	public ModelAndView saveUsuarioUpdate(Usuario usuario) {
 		Usuario usuario2 = service.getEmail(usuario.getEmail());
 		System.out.println(usuario.getEmail());
-		ModelAndView view = new ModelAndView("/usuario/cadastro-user");
+		ModelAndView view = new ModelAndView("usuario/cadastro-user");
 		if(usuario2 == null) {
-			ModelAndView view2 = new ModelAndView("/usuario/portal-user");
+			ModelAndView view2 = new ModelAndView("usuario/portal-user");
 			service.add(usuario);
 			view2.addObject("success", "Usuário alterou seus dados com sucesso!");
 			return view2;
@@ -99,14 +99,14 @@ public class UsuarioController {
 	
 	@GetMapping("/listaUsuario")
 	public ModelAndView findAll(){
-		ModelAndView mv = new ModelAndView("/usuario/lista-usuarios");
+		ModelAndView mv = new ModelAndView("usuario/lista-usuarios");
 		mv.addObject("usuarios", service.findAll());
 		return mv;
 	}
 	
 	@GetMapping("/listaComprasUsuario/{id}")
 	public ModelAndView findAllComprasUsuario(@PathVariable Long id) {
-		ModelAndView view = new ModelAndView("/usuario/lista-compras-user");
+		ModelAndView view = new ModelAndView("usuario/lista-compras-user");
 		view.addObject("compras", serviceCompra.findAllCompraUsuario(id));
 		return view;
 	}
