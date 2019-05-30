@@ -40,12 +40,12 @@
 </head><!--/head-->
 
 <body>
-	<div th:replace="/fragmentos/site/header-top :: header_top"></div>
-	<div th:replace="/fragmentos/site/hearder-middle :: header_middle"></div>
-	<div th:replace="/fragmentos/site/menu :: menu-horizontal"></div>
-	<div th:replace="/fragmentos/site/slides :: slider"></div>
+	<div th:replace="fragmentos/site/header-top :: header_top"></div>
+	<div th:replace="fragmentos/site/hearder-middle :: header_middle"></div>
+	<div th:replace="fragmentos/site/menu :: menu-horizontal"></div>
+	<div th:replace="fragmentos/site/slides :: slider"></div>
 	<div layout:fragment="corpo-site"></div>
-	<div th:replace="/fragmentos/site/footer-site :: footer"></div>
+	<div th:replace="fragmentos/site/footer-site :: footer"></div>
     
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery.scrollUp.min.js}"></script>

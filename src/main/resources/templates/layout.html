@@ -26,12 +26,12 @@
 
 
     	<div sec:authorize="hasAuthority('CLIENTE')">
-    		<div th:replace="/fragmentos/menu-user :: menu-user-esquerdo">
+    		<div th:replace="fragmentos/menu-user :: menu-user-esquerdo">
     		</div>
 		</div>
 
 	  	<div sec:authorize="hasAuthority('ADMINISTRADOR')"
-		 th:replace="/fragmentos/menu-admin :: menu-esquerdo"></div>
+		 th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
 		<div class="main-panel">
 			<div class="content-wrapper" layout:fragment="corpo">
 				<th:block if="${succes != null}">
