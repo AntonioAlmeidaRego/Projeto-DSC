@@ -30,7 +30,7 @@ public class IndexController{
 	@Autowired
 	private PromocaoService servicePromocao;
 	
-	@RequestMapping("/")
+	@RequestMapping(method = RequestMethod.GET, path = {"/"})
 	public ModelAndView index() {
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("categorias", service.findAll());
