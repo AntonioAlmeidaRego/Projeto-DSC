@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -44,8 +45,10 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
 	private String peso;
-	@Column(nullable=false)
-	private String urlImagem;
+	//@Column(nullable=false)
+	//private String urlImagem;
+	@Lob
+	private byte[] imagem;
 	@Column(nullable=false, length=100)
 	private String preco;
 	@Column(nullable=false, length=20)
@@ -136,12 +139,20 @@ public class Livro implements Serializable{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public String getUrlImagem() {
-		return urlImagem;
+
+	/*
+	 * public String getUrlImagem() { return urlImagem; } public void
+	 * setUrlImagem(String urlImagem) { this.urlImagem = urlImagem; }
+	 */
+	
+	public byte[] getImagem() {
+		return imagem;
 	}
-	public void setUrlImagem(String urlImagem) {
-		this.urlImagem = urlImagem;
+	
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
+	
 	public String getPreco() {
 		return preco;
 	}

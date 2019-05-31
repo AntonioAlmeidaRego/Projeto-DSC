@@ -15,7 +15,7 @@ layout:decorate="~{layout-site}"
 		<section>
 			<div class="container">
 		        <div class="row">
-		            <div th:replace="fragmentos/site/menu_vertical :: menu-vertical"></div>
+		            <div th:insert="fragmentos/site/menu_vertical :: menu-vertical"></div>
 		
 		            <div class="col-sm-9 padding-right">
 		                <div class="features_items"><!--features_items-->
@@ -25,7 +25,7 @@ layout:decorate="~{layout-site}"
 			                        <div class="product-image-wrapper">
 			                            <div class="single-products">
 			                                <div class="productinfo text-center">
-			                                    <img th:src="@{${livro.urlImagem}}" width="206px" height="400px" alt="" />
+			                                    <img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="206px" height="400px" alt="" />
 												<h2 th:text="${livro.preco}"></h2>
 												<p th:text="${livro.titulo}"></p>
 											    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
@@ -73,7 +73,7 @@ layout:decorate="~{layout-site}"
 						                            <div class="product-image-wrapper">
 						                                <div class="single-products">
 						                                    <div class="productinfo text-center">
-						                                        <img th:src="@{${livro.urlImagem}}" width="90px" height="300px" alt="" />
+						                                        <img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="90px" height="300px" alt="" />
 						                                        <h2 th:text="${livro.preco}"></h2>
 						                                        <p th:text="${livro.titulo}"></p>
 						                                        <a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
@@ -90,7 +90,7 @@ layout:decorate="~{layout-site}"
 							                        <div class="product-image-wrapper">
 							                            <div class="single-products">
 							                                <div class="productinfo text-center">
-							                                    <img th:src="@{${livro.urlImagem}}" width="90px" height="300px" alt="" />
+							                                    <img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="90px" height="300px" alt="" />
 							                                    <h2 th:text="${livro.preco}"></h2>
 							                                    <p th:text="${livro.titulo}"></p>
 							                                    <a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>

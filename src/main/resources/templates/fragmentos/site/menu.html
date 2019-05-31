@@ -22,7 +22,7 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a th:href="@{/}">Home</a></li>
-								<li><a th:href="@{livro/listaAll/0/6}">Livros</a></li>
+								<li><a th:href="@{/livro/listaAll/0/6}">Livros</a></li>
 								<li class="dropdown">
 
                                 </li> 
@@ -34,7 +34,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="pull-right">
-							<form th:action="@{livro/searchLivro}" method="post">
+							<form th:action="@{/livro/searchLivro}" method="post">
 								<input type="text" placeholder="Buscar livro" class="input-search" id="search-livro" name="search">
       							<button class="botao-search" id="buscar-livro"><i class="fa fa-search"></i></button>
 							</form>

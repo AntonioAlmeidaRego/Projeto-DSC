@@ -16,7 +16,7 @@ function waitEvent(element, event) {
     if(event.length === undefined){
         let tags = new TagsView();
         let request = new RequestController();
-        let objeto = request.getJsonLivrosCategoria("http://localhost:8080/livrojson/livros/"+element.id, "GET", element.id);
+        let objeto = request.getJsonLivrosCategoria("/livrojson/livros/"+element.id, "GET", element.id);
         objeto.then(function (data) {
             clearTags();
             criarTags(data, tags);
@@ -27,7 +27,7 @@ function waitEvent(element, event) {
 function startEvent(element) {
     let tags = new TagsView();
     let request = new RequestController();
-    let objeto = request.getJsonLivrosCategoria("http://localhost:8080/livrojson/livros/"+element.id, "GET", element.id);
+    let objeto = request.getJsonLivrosCategoria("/livrojson/livros/"+element.id, "GET", element.id);
     objeto.then(function (data) {
         clearTags();
         criarTags(data, tags);
@@ -45,7 +45,7 @@ function criarTags(data, tags) {
         let p = tags.criarElementNoClassAndNoId("p", element4);
         let a = tags.criarElement("a", "btn btn-default add-to-cart", element4, Math.random());
         let i = tags.criarElement("i", "fa fa-shopping-cart", a, Math.random());
-        img.setAttribute("src", "http://localhost:8080"+info.urlImagem);
+        img.setAttribute("src", "livro/imagem/"+info.id);
 
         h2.textContent = info.preco;
         p.textContent = info.titulo;

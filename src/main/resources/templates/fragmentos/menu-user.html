@@ -91,17 +91,16 @@
 					$("#url-my-dados").click(function () {
 						if(session.getSession("user") != null) {
 							var id = session.getSession("user")._idUsuario;
-                          window.location.replace("usuario/mydados/" + id);
+                          window.location.replace("/usuario/mydados/" + id);
 						}else{
                           window.location.replace("/");
 						}
 					});
 					
 					$("#url-my-pedido").click(function(){
-						 					
 						if(session.getSession("user") != null){
 							var id = session.getSession("user")._idUsuario;
-                            window.location.replace("pedido/myPedidos/"+id);
+                            window.location.replace("/pedido/myPedidos/"+id);
 						}else{
                           window.location.replace("/");
 						}
@@ -110,15 +109,17 @@
 					$("#url-my-compras").click(function(){
 						if(session.getSession("user") != null){
 							var id = session.getSession("user")._idUsuario;
-	                        window.location.replace("usuario/listaComprasUsuario/"+id);
+	                        window.location.replace("/usuario/listaComprasUsuario/"+id);
 						}else{
                           window.location.replace("/");
 						}
 					});
 					
-					$("#sair").click(function(){
-						session.clearSession("user");
-						window.location.replace("/");
+					$("#sair").click(function(event){
+						if(event.length === undefined){
+							session.clearSession("user");
+							window.location.replace("/logout");
+						}
 					});
 				//});
 			</script>

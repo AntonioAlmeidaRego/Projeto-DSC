@@ -31,22 +31,22 @@
                                            th:value="*{id}">
                                       <div class="row">
                                        		<div class="col-md-12">
-                                       			<th:block th:if="${livro.urlImagem == null}">
+                                       			<th:block th:if="${livro.imagem == null}">
                                        					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
                                        					<br/>
-		                                       			<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa" />
-		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
+		                                       			<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa" />
+		                                       			<!--  <input type="hidden" id="urlCapa" th:field="*{urlImagem}"> !-->
 		                                       			<div class="alert alert-danger" id="file-capa-div">
 
                                             			</div>
                                        			</th:block>
-                                       			<th:block th:if="${livro.urlImagem != null}">
+                                       			<th:block th:if="${livro.imagem != null}">
                                        					<label class="bmd-label-floating">Capa do Livro</label>
                                        					<br/> 
-                                  						<img id="imagem-capa" th:src="@{${livro.urlImagem}}" width="100"/>
+                                  						<img id="imagem-capa" th:src="@{${livro.imagem}}" width="100"/>
                                        					<br />
-                                       					<input accept="image/png, image/jpeg" class="btn btn-primary" type="file" id="file-capa"  />
-		                                       			<input type="hidden" id="urlCapa" th:field="*{urlImagem}">
+                                       					<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa"  />
+		                                       			<!-- <input type="hidden" id="urlCapa" th:field="*{urlImagem}"> !-->
 	                                       				<div class="alert alert-danger" id="file-capa-div">
 	
 	                                           			</div> 

@@ -24,7 +24,7 @@ layout:decorate="~{layout-site}"
 											<div class="product-image-wrapper">
 												<div class="single-products">
 														<div class="productinfo text-center">
-															<img th:src="@{${livro.urlImagem}}" width="206px" height="400px" alt="" />
+															<img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="206px" height="400px" alt="" />
 															<h2 th:text="${livro.preco}"></h2>
 															<p th:text="${livro.titulo}"></p>
 															<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
@@ -57,7 +57,7 @@ layout:decorate="~{layout-site}"
 									let a = document.createElement("a");
 									inicio = length;
 									length = length + 6;
-									a.setAttribute("href", "livro/listaAll/"+inicio+"/"+length);
+									a.setAttribute("href", "/livro/listaAll/"+inicio+"/"+length);
 									a.textContent = j;
 
 									li.appendChild(a);

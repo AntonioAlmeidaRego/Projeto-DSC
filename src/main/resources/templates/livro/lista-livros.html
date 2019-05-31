@@ -48,7 +48,7 @@
                                         <tbody>
                                         <tr th:each="livro : ${livros}">
                                             <td th:text="${livro.id}"></td>
-                                            <td><img width="100" th:src="@{${livro.urlImagem}}"></td>
+                                            <td><img width="100" th:src="@{/livro/imagem/{id}(id=${livro.id})}"></td>
                                             <td th:text="${livro.titulo}"></td>
                                             <td th:text="${livro.ano}"></td>
                                             <td th:text="${livro.sinopsie}"></td>

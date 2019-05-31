@@ -1,14 +1,18 @@
 package br.com.projetodsc.controller;
 
-import java.io.IOException;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Categoria;
@@ -19,8 +23,6 @@ import br.com.projetodsc.service.CategoriaService;
 import br.com.projetodsc.service.EditoraService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
-import br.com.projetodsc.util.Arquivo;
-import br.com.projetodsc.util.ArquivoImg;
 
 @Controller
 @RequestMapping("/livro")
@@ -34,8 +36,8 @@ public class LivroController {
 	@Autowired
 	private PromocaoService servicePromocao;
 	private Random random;
-	private String url = "https://github.com/AntonioAlmeidaRego/Projeto-DSC/tree/master/src/main/resources/static/images/capas-livros/";
-	private String urlDestino = "images/capas-livros/";
+	private String url = "/home/antonioalmeida/git/teste-spring/demo/src/main/resources/static/images/capas-livros/";
+	private String urlDestino = "/images/capas-livros/";
 	
 	@GetMapping("/lista-livros-categoria/{id}")
 	public ModelAndView findLivrosCategoria(@PathVariable long id) {
@@ -95,15 +97,16 @@ public class LivroController {
 		return view;
 	}
 
-	private void saveAndupdate(Livro livro,int width, int height, String tipo) {
-		random = new Random();
-		int valor = random.nextInt();
-		Arquivo arquivo = new ArquivoImg(width, height, tipo);
+	private void saveAndupdate(Livro livro,int width, int height, String tipo, MultipartFile file) {
+		/*
+		 * random = new Random(); int valor = random.nextInt(); Arquivo arquivo = new
+		 * ArquivoImg(width, height, tipo); try {
+		 * arquivo.creatFile(livro.getUrlImagem()); arquivo.writeFile(url+valor+".jpg");
+		 * livro.setUrlImagem(urlDestino+valor+".jpg"); } catch (Exception e) {
+		 * e.printStackTrace(); }
+		 */
 		try {
-			arquivo.creatFile(livro.getUrlImagem());
-			arquivo.writeFile(url+valor+".jpg");
-			livro.setUrlImagem(urlDestino+valor+".jpg");
-			arquivo.reloadFile(url);
+			livro.setImagem(file.getBytes());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -138,10 +141,10 @@ public class LivroController {
 	}
 	
 	@PostMapping("/saveLivro")
-	public ModelAndView saveLivro(Livro livro, String ids) {
+	public ModelAndView saveLivro(Livro livro, @RequestParam("file") MultipartFile file, String ids) {
 		Livro livro2 = service.getLivroIsbnAndTitulo(livro.getIsbn(), livro.getTitulo());
 		if(livro2 == null) {
-			saveAndupdate(livro, 100, 100, "jpg");
+			saveAndupdate(livro, 100, 100, "jpg", file);
 			relacionarLivroCategoria(livro, ids);
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
@@ -151,7 +154,7 @@ public class LivroController {
 			}
 			
 		}else if(livro2.getId() == livro.getId()) {
-			saveAndupdate(livro, 100, 100, "jpg");
+			saveAndupdate(livro, 100, 100, "jpg", file);
 			relacionarLivroCategoria(livro, ids);
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
@@ -227,5 +230,13 @@ public class LivroController {
 		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
 		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
 		return view;
+	}
+	@RequestMapping(path = {"/imagem/{id}"}, produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<byte[]> getImagem(@PathVariable("id") Long id){
+		Livro livro = service.getOne(id);
+		byte[] imagem = livro.getImagem();
+		final org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		return new ResponseEntity<byte[]>(imagem, headers, HttpStatus.OK);
 	}
 }
