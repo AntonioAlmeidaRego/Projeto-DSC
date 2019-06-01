@@ -45,7 +45,7 @@ function criarTags(data, tags) {
         let p = tags.criarElementNoClassAndNoId("p", element4);
         let a = tags.criarElement("a", "btn btn-default add-to-cart", element4, Math.random());
         let i = tags.criarElement("i", "fa fa-shopping-cart", a, Math.random());
-        img.setAttribute("src", "livro/imagem/"+info.id);
+        img.setAttribute("src", "/livro/imagem/"+info.id);
 
         h2.textContent = info.preco;
         p.textContent = info.titulo;

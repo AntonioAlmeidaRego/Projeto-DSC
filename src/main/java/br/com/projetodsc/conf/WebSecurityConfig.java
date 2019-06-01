@@ -38,8 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**",
-				"/StarAdmin/**").permitAll()
+		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
 		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
@@ -51,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/usuario/**").permitAll()
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/").permitAll()
-		.antMatchers(HttpMethod.GET, "/favicon.ico").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/pedidos/**").permitAll()
@@ -62,8 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/livro/detalheLivro/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/cancelaPedido/**").hasRole("CLIENTE")
 		.antMatchers(HttpMethod.GET, "http://api.postmon.com.br/v1/cep/**").permitAll()
-		.antMatchers(HttpMethod.GET, "http://localhost:9000/**").permitAll()
+		.antMatchers(HttpMethod.GET, "https://api-correios-soap.herokuapp.com/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuariojson/usuario").permitAll()
+		.antMatchers(HttpMethod.GET, "/livro/lista-livros-categoria/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livrojson/livros/finalizar-compra").permitAll()
 		/* Métodos POST */
 		
