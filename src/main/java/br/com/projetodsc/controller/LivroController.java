@@ -23,10 +23,11 @@ import br.com.projetodsc.service.CategoriaService;
 import br.com.projetodsc.service.EditoraService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
+import br.com.projetodsc.util.SaveImg;
 
 @Controller
 @RequestMapping("/livro")
-public class LivroController {
+public class LivroController implements SaveImg<Livro>{
 	@Autowired
 	private LivroService service;
 	@Autowired
@@ -238,5 +239,11 @@ public class LivroController {
 		final org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_JPEG);
 		return new ResponseEntity<byte[]>(imagem, headers, HttpStatus.OK);
+	}
+
+	@Override
+	public void saveImg(MultipartFile file, Livro obj, Livro aux) {
+		// TODO Auto-generated method stub
+		
 	}
 }

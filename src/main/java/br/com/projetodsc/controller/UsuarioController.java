@@ -1,14 +1,12 @@
 package br.com.projetodsc.controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Role;
@@ -16,10 +14,11 @@ import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.UsuarioService;
+import br.com.projetodsc.util.SaveImg;
 
 @Controller
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements SaveImg<Usuario>{
 	@Autowired
 	private UsuarioService service;
 	@Autowired
@@ -109,6 +108,12 @@ public class UsuarioController {
 		ModelAndView view = new ModelAndView("usuario/lista-compras-user");
 		view.addObject("compras", serviceCompra.findAllCompraUsuario(id));
 		return view;
+	}
+
+	@Override
+	public void saveImg(MultipartFile file, Usuario obj, Usuario aux) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

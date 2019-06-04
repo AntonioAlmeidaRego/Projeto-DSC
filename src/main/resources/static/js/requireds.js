@@ -515,7 +515,6 @@ $("#cadastro-livro").click(function (event) {
             tags.updateElement(document.getElementById("sinopsie-livro-div"), "span", "campo obrigatório!");
         }
         if(exe != extensao){
-
             clearfield.show("file-capa-div");
             tags.updateElement(document.getElementById("file-capa-div"), "span", "campo obrigatório!");
         }

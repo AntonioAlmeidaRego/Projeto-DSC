@@ -1,25 +1,23 @@
 package br.com.projetodsc.controller;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Autor;
 import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.service.AutorService;
 import br.com.projetodsc.service.LivroService;
-import br.com.projetodsc.util.Arquivo;
-import br.com.projetodsc.util.ArquivoImg;
+import br.com.projetodsc.util.SaveImg;
 
 @Controller
 @RequestMapping("/autor")
-public class AutorController {
+public class AutorController implements SaveImg<Autor>{
 	@Autowired
 	private AutorService service;
 	@Autowired
@@ -87,5 +85,10 @@ public class AutorController {
 		} catch (Exception e) {
 			return findAll().addObject("error", "Autor(a) não pode ser removido. Consulte o suporte de TI!");
 		}
+	}
+	@Override
+	public void saveImg(MultipartFile file, Autor obj, Autor aux) {
+		// TODO Auto-generated method stub
+		
 	}
 }

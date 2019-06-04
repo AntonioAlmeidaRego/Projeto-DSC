@@ -33,8 +33,8 @@ public class Autor implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Email do autor é uma informação obrigatória!")
 	private String email;
-	/*@Column(nullable=false)
-	private String urlImagem;*/
+	@Column(nullable=false)
+	private byte[] imagem;
 	@ManyToMany
 	@JoinTable(name="livros_autores")
 	private List<Livro> livros = new ArrayList<Livro>();
@@ -72,10 +72,10 @@ public class Autor implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/*public String getUrlImagem() {
-		return urlImagem;
+	public byte[] getImagem() {
+		return imagem;
 	}
-	public void setUrlImagem(String urlImagem) {
-		this.urlImagem = urlImagem;
-	}*/
+	public void setimagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
 }

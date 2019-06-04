@@ -27,10 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Usuario implements UserDetails{
-	/**
-	 * 
-	 */
-	
+ 
 	public Usuario() {
 		this.dataCriacao = Calendar.getInstance().getTime();
 		this.enabled = true;
@@ -52,6 +49,8 @@ public class Usuario implements UserDetails{
 	private String rua;
 	@Column(nullable = false, length = 255)
 	private String bairro;
+	@Column(nullable = false)
+	private byte[] imagem;
 	@OneToMany(mappedBy="usuario")
 	@JsonIgnore
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -231,5 +230,13 @@ public class Usuario implements UserDetails{
 			}
 		}
 		return txt;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 }

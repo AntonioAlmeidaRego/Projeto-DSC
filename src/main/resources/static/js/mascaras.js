@@ -49,7 +49,6 @@ $("#cep").keyup(function (event){
     if(mascara.keyCodeBackspaceAndDelete(event)){
         $("#cidade").val("");
         $("#estado").val("");
-        //$("#estado").attr("type", "reset");
         $("#bairro").attr("disabled", false);
         if($("#bairro").val() != ""){
             $("#bairro").val("");
