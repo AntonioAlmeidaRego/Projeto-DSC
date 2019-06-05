@@ -35,11 +35,11 @@
 		 th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
 		<div class="main-panel">
 			<div class="content-wrapper" layout:fragment="corpo">
-				<th:block if="${succes != null}">
-					<div class="alert alert-success">
-						<span th:text="${succes}"></span>
-					</div>
-				</th:block>
+				<th:block th:if="${success != null}">
+               		<div class="alert alert-success">
+               			<span th:text="${success}"></span>
+            		</div>
+           		</th:block>
 			</div>
 		</div>
     </div>

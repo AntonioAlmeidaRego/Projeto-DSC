@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Compra;
 import br.com.projetodsc.model.Pedido;
+import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.PedidoService;
+import br.com.projetodsc.service.SessionService;
 
 @Controller
 @RequestMapping("/compra")
@@ -22,6 +24,8 @@ public class CompraController {
 	private CompraService service;
 	@Autowired
 	private PedidoService servicePedido;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 	
 	@PostMapping("/saveCompra")
 	public ModelAndView saveCompra(String idsPedidos, String valorCompra, boolean finalizouPedido, Date date) {
@@ -45,7 +49,7 @@ public class CompraController {
 	@GetMapping("/listaCompras")
 	public ModelAndView findAllCompras() {
 		ModelAndView view = new ModelAndView("compra/lista-compras");
-		view.addObject("compras", service.findAll());
+		view.addObject("compras", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	

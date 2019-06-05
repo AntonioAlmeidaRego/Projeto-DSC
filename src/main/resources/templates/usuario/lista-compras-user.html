@@ -15,38 +15,55 @@
                             <div class="card-header card-header-success">
                                 <h4 class="card-title">Lista de Compras</h4>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <tbody th:each="compra : ${compras}">
-	                                        <tr>
-	                                        	<td>ID</td>
-                                            	<td colspan="3" th:text="${compra.id}"></td>
-                                            	<td colspan="3">VALOR COMPRA</td>
-	                                            <td colspan="3" th:text="${compra.valorCompra}"></td> 	                                            
-	                                        </tr>    
-	                                        <tr>
-	                                        	<td>DATE COMPRA</td>
-	                                            <td colspan="5" th:text="${compra.date}"></td>	                                            
-	                                        </tr>
-	                                        <tr>
-	                                        	<td >DATE ENTREGA PREVISTA</td>
-	                                            <th:block th:each="pedido : ${compra.pedidos}">
-	                                            	<td colspan="5" th:text="${pedido.dataEntrega}"></td>
-	                                            </th:block>
-	                                        </tr>
-	                                        <tr>
-	                                        	<td>TÍTULO LIVRO</td>
-	                                        	 <th:block th:each="pedido : ${compra.pedidos}">
-	                                            	<th:block th:each="livro : ${pedido.livros}">
-			                                            <td colspan="5" th:text="${livro.titulo}"></td>
-	                                            	</th:block>	     
-                                      		 	</th:block>
-	                                        </tr>                                    	
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <th:block th:if="${!#lists.isEmpty(compras)}">
+	                            <div class="card-body">
+	                                <div class="table-responsive">
+	                                    <table class="table table-striped">
+	                                        <tbody th:each="compra : ${compras}">
+		                                        <tr>
+		                                        	<td>ID</td>
+	                                            	<td colspan="3" th:text="${compra.id}"></td>
+	                                            	<td colspan="3">VALOR COMPRA</td>
+		                                            <td colspan="3" th:text="${compra.valorCompra}"></td> 	                                            
+		                                        </tr>    
+		                                        <tr>
+		                                        	<td>DATE COMPRA</td>
+		                                            <td colspan="5" th:text="${compra.date}"></td>	                                            
+		                                        </tr>
+		                                        <tr>
+		                                        	<td >DATE ENTREGA PREVISTA</td>
+		                                            <th:block th:each="pedido : ${compra.pedidos}">
+		                                            	<td colspan="5" th:text="${pedido.dataEntrega}"></td>
+		                                            </th:block>
+		                                        </tr>
+		                                        <tr>
+		                                        	<td>TÍTULO LIVRO</td>
+		                                        	 <th:block th:each="pedido : ${compra.pedidos}">
+		                                            	<th:block th:each="livro : ${pedido.livros}">
+				                                            <td colspan="5" th:text="${livro.titulo}"></td>
+		                                            	</th:block>	     
+	                                      		 	</th:block>
+		                                        </tr>                                    	
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+	                            </div>
+	                      </th:block>
+	                      <th:block th:if="${#lists.isEmpty(compras)}"> 
+	                      	<div class="card-body">
+	                                <div class="table-responsive">
+	                                    <table class="table table-striped">
+	                                        <thead>
+	                                        </thead>
+	                                        <tbody>
+	                                         <tr>	
+	                                         	<td>Sem Compras!</td>
+	                                         </tr>
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+	                            </div>  
+	                      </th:block>   
                         </div>
                     </div>
                 </div>

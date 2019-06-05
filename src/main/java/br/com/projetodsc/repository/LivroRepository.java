@@ -23,8 +23,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	@Query(value=
 			"select * from livro l\n" + 
 			"where l.id in (select ip.livros_id from usuario u \n" + 
-			"inner join pedido p on(p.usuario_id = u.id)\n" + 
-			"inner join itens_pedidos ip on(l.id = ip.livros_id)\n" + 
+			"inner join pedido p on(p.usuario_id = u.id)\n" +
+			"inner join livro ll " +
+			"inner join itens_pedidos ip on(ll.id = ip.livros_id)\n" + 
 			" \n" + 
 			"where u.id = ?)\n",		
 			nativeQuery=true)

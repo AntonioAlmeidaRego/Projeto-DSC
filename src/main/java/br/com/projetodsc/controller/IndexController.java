@@ -17,6 +17,7 @@ import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CategoriaService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
+import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -27,6 +28,8 @@ public class IndexController{
 	private LivroService serviceLivro;
 	@Autowired
 	private UsuarioService serviceUsuario;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 	@Autowired
 	private PromocaoService servicePromocao;
 	
@@ -42,6 +45,7 @@ public class IndexController{
 		view.addObject("count60And100", serviceLivro.countLivrosIntervalosValores(60.00, 100.00));
 		view.addObject("count120And150", serviceLivro.countLivrosIntervalosValores(120.00, 150.00));
 		view.addObject("countMaior150", serviceLivro.countLivroMaiorValor(150.00));
+		view.addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
@@ -51,18 +55,33 @@ public class IndexController{
 		Usuario usuarioByEmail = serviceUsuario.getEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 		
 		ModelAndView view = new ModelAndView("usuario/portal-user");
+		serviceSession.criarSession("usuario-logado", usuarioByEmail);
 		view.addObject("usuario", usuarioByEmail);
 		view.addObject("categorias", service.findAll());
 		view.addObject("livros", serviceLivro.findAll());
+		view.addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,path= {"/entrar"})
 	public ModelAndView entrar() {
-		Usuario usuario = new Usuario();
 		ModelAndView view = new ModelAndView("login");
-		view.addObject("usuario", usuario);
+		if(serviceSession.getSession("usuario-logado") != null) {
+			ModelAndView view2 = new ModelAndView("usuario/portal-user");
+			view2.addObject("logado", serviceSession.getSession("usuario-logado"));
+			return view2;
+		}else {
+			Usuario usuario = new Usuario();
+			view.addObject("usuario", usuario);
+		}
 		return view;
+	}
+	
+	@GetMapping("/deslogar")
+	public ModelAndView deslogar() {
+		serviceSession.clearSession();
+		Usuario usuario = new Usuario();
+		return new ModelAndView("login").addObject("usuario", usuario);
 	}
 	
 }

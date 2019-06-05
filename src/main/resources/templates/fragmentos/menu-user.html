@@ -19,16 +19,17 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-
+		  <li class="nav-item">
+		  		<a data-togle="collapse" class="nav-link" th:href="@{/usuario/mydados/{id}(id=${logado.id})}">
+                <p th:text="${logado.nome}"></p>  
+		  </a></li>
           <li class="nav-item"><a data-togle="collapse" class="nav-link"
                                   th:href="@{/usuario/portal-user}">
 				<i
                   class="material-icons">home</i>
             <p>Home</p>
           </a></li>
-          <li class="nav-item"><a id="url-my-dados" data-togle="collapse" class="nav-link"
-                                  >
-
+          <li class="nav-item"><a th:href="@{/usuario/mydados/{id}(id=${logado.id})}" id="url-my-dados" data-togle="collapse" class="nav-link">
             <p>Meus Dados</p>
           </a></li>
           
@@ -59,12 +60,12 @@
             <div id="collapseTwo" class="collapse"
                  aria-labelledby="headingOne" data-parent="#accordion">
               <ul class="nav">
-                <li class="nav-item"><a id="url-my-pedido" data-togle="collapse"
+                <li class="nav-item"><a th:href="@{/pedido/myPedidos/{id}(id=${logado.id})}" id="url-my-pedido" data-togle="collapse"
                                         class="nav-link">
 
                   <p>Listar Pedidos</p>
                 </a></li>
-                <li class="nav-item"><a id="url-my-compras" data-togle="collapse"
+                <li class="nav-item"><a th:href="@{/usuario/listaComprasUsuario/{id}(id=${logado.id})}" id="url-my-compras" data-togle="collapse"
                                         class="nav-link">
 
                   <p>Listar Compras</p>
@@ -90,8 +91,8 @@
 					}
 					$("#url-my-dados").click(function () {
 						if(session.getSession("user") != null) {
-							var id = session.getSession("user")._idUsuario;
-                          window.location.replace("/usuario/mydados/" + id);
+						//	var id = session.getSession("user")._idUsuario;
+                        //  window.location.replace("/usuario/mydados/" + id);
 						}else{
                           window.location.replace("/");
 						}
@@ -99,17 +100,17 @@
 					
 					$("#url-my-pedido").click(function(){
 						if(session.getSession("user") != null){
-							var id = session.getSession("user")._idUsuario;
-                            window.location.replace("/pedido/myPedidos/"+id);
+							//var id = session.getSession("user")._idUsuario;
+                            //window.location.replace("/pedido/myPedidos/"+id);
 						}else{
-                          window.location.replace("/");
+                          	window.location.replace("/");
 						}
 					});
 					
 					$("#url-my-compras").click(function(){
 						if(session.getSession("user") != null){
-							var id = session.getSession("user")._idUsuario;
-	                        window.location.replace("/usuario/listaComprasUsuario/"+id);
+							//var id = session.getSession("user")._idUsuario;
+	                        //window.location.replace("/usuario/listaComprasUsuario/"+id);
 						}else{
                           window.location.replace("/");
 						}
@@ -118,7 +119,7 @@
 					$("#sair").click(function(event){
 						if(event.length === undefined){
 							session.clearSession("user");
-							window.location.replace("/logout");
+							window.location.replace("/deslogar");
 						}
 					});
 				//});

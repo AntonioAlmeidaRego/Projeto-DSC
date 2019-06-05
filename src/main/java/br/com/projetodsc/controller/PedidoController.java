@@ -20,6 +20,7 @@ import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.FreteService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PedidoService;
+import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -31,6 +32,8 @@ public class PedidoController {
 	private LivroService serviceLivro;
 	@Autowired
 	private UsuarioService serviceUsuario;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
  
 	
 	@PostMapping("/savePedido")
@@ -58,14 +61,14 @@ public class PedidoController {
 	@GetMapping("/listaPedidos")
 	public ModelAndView findAll() {
 		ModelAndView view = new ModelAndView("pedido/listaPedidos");
-		view.addObject("pedidos", service.findAll());
+		view.addObject("pedidos", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
 	@GetMapping("/myPedidos/{id}")
 	public ModelAndView findMyPedidos(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("pedido/meusPedidosUser");
-		view.addObject("myPedidos", service.carinhoPedidos(id));
+		view.addObject("myPedidos", service.carinhoPedidos(id)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
@@ -85,7 +88,7 @@ public class PedidoController {
 	public ModelAndView findAllPedidos(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("pedido/carinho_compras");
 		view.addObject("pedidos", service.carinhoPedidos(id));
-		view.addObject("livros", serviceLivro.carinhoCompras(id));
+		view.addObject("livros", serviceLivro.carinhoCompras(id)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	 

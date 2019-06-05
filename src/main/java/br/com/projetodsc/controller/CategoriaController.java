@@ -9,24 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Categoria;
+import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CategoriaService;
+import br.com.projetodsc.service.SessionService;
 
 @Controller
 @RequestMapping("/categoria")
 public class CategoriaController {
 	@Autowired
 	private CategoriaService service;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 
 	@GetMapping("/cadastro-categoria")
 	public ModelAndView cadastroCategoria(Categoria categoria) {
 		ModelAndView mv = new ModelAndView("categoria/cadastro-categoria");
-		mv.addObject("categoria",categoria);
+		mv.addObject("categoria",categoria).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	@GetMapping("/listaCategorias")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("categoria/lista-categorias");
-		mv.addObject("categorias", service.findAll());
+		mv.addObject("categorias", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	@PostMapping("/saveCategoria")

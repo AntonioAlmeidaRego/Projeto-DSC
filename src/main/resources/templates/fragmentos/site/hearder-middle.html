@@ -27,17 +27,17 @@
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 
-								<th:block th:if="${usuario != null}">
+								<th:block th:if="${logado != null}">
 
 								<input type="hidden" id="idUsuario" value="${usuario.id}"/>
-									<li><a href="#" th:text="${usuario.nome}"><i class="fa fa-user"></i></a></li>
-								<li><a th:href="@{/pedido/pedidos/{id}(id=${usuario.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+									<li><a href="#" th:text="${logado.nome}"><i class="fa fa-user"></i></a></li>
+								<li><a th:href="@{/pedido/pedidos/{id}(id=${logado.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
 								<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i> Login</a></li>
 								</th:block>
 
-								<th:block th:if="${usuario == null}">
+								<th:block th:if="${logado == null}">
 									<div id="menu-horizontal">
-										<li><a id="url"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+										<li><a th:href="@{/entrar}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
 										<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i>Login</a></li>
 									</div>
 								</th:block>

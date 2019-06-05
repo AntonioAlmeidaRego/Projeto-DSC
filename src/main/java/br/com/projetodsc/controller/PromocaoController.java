@@ -9,18 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Promocao;
+import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.PromocaoService;
+import br.com.projetodsc.service.SessionService;
 
 @Controller
 @RequestMapping("/promocao")
 public class PromocaoController {
 	@Autowired
 	private PromocaoService service;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 	
 	@GetMapping("/cadastro-promocao")
 	public ModelAndView cadastroPromocao(Promocao promocao) {
 		ModelAndView view = new ModelAndView("promocao/cadastro-promocao");
-		view.addObject("promocao", promocao);
+		view.addObject("promocao", promocao).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
@@ -38,7 +42,7 @@ public class PromocaoController {
 	@GetMapping("/listaPromocao")
 	public ModelAndView findAll() {
 		ModelAndView view = new ModelAndView("promocao/lista-promocao");
-		view.addObject("promocoes", service.findAll());
+		view.addObject("promocoes", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	

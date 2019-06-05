@@ -11,8 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Autor;
 import br.com.projetodsc.model.Livro;
+import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.AutorService;
 import br.com.projetodsc.service.LivroService;
+import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.util.SaveImg;
 
 @Controller
@@ -22,18 +24,20 @@ public class AutorController implements SaveImg<Autor>{
 	private AutorService service;
 	@Autowired
 	private LivroService serviceLivro;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
  
 	@GetMapping("/cadastro-autor")
 	public ModelAndView cadastroAutor(Autor autor) {
 		ModelAndView mv = new ModelAndView("autor/cadastro-autor");
 		mv.addObject("livros", serviceLivro.findAll());
-		mv.addObject("autor", autor);
+		mv.addObject("autor", autor).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	@GetMapping("/listaAutor")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("autor/lista-autores");
-		mv.addObject("autores", service.findAll());
+		mv.addObject("autores", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	

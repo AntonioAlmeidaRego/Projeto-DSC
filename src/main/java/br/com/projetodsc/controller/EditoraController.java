@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Editora;
+import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.EditoraService;
+import br.com.projetodsc.service.SessionService;
 import groovyjarjarpicocli.CommandLine.ParentCommand;
 
 @Controller
@@ -17,18 +19,20 @@ import groovyjarjarpicocli.CommandLine.ParentCommand;
 public class EditoraController {
 	@Autowired
 	private EditoraService service;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 	
 	@GetMapping("/cadastro-editora")
 	public ModelAndView cadastroEditora(Editora editora) {
 		ModelAndView mv = new ModelAndView("editora/cadastro-editora");
-		mv.addObject(editora);
+		mv.addObject(editora).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	
 	@GetMapping("/listaEditora")
 	public ModelAndView findAll() {
 		ModelAndView mv = new ModelAndView("editora/lista-editoras");
-		mv.addObject("editoras", service.findAll());
+		mv.addObject("editoras", service.findAll()).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return mv;
 	}
 	

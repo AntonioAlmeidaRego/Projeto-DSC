@@ -31,12 +31,12 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${email}" th:action="@{/email/sendEmailTemplate}" id="form-livro" method="POST">
+                                	<form th:object="${email}" th:action="@{/email/sendEmailTemplate}" method="POST">
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">
-                                                   <label class="bmd-label-floating">Texto<span style="color: red"> *</span></label>
-                                                   <textarea type="text" th:field="*{text}" class="form-input"></textarea>
+                                                   <label class="bmd-label-floating">Titulo<span style="color: red"> *</span></label>
+                                                   <input type="text" name="titulo" class="form-input"/>
                                                </div>
                                            </div>
                                            <div class="col-md-6">
@@ -62,7 +62,14 @@
                                                </div>
                                            </div>                                         
                                        </div>
-                                        
+                                       <div class="row">
+                                      		<div class="col-md-6">
+                                      			<div class="form-group">
+                                      			   <label class="bmd-label-floating">Descrição<span style="color: red"> *</span></label>
+                                                   <input  type="text" name="descricao" class="form-input" />
+                                      			</div>
+                                      		</div>
+                                       </div> 
                                     <button class="btn btn-success pull-right">Send Email</button>
                                     <button type="reset" id="reset-autor" class="btn btn-danger pull-right">Limpar Campos</button>
                                     <div class="clearfix"></div>

@@ -19,7 +19,10 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-
+  		  <li class="nav-item">
+		  		<a data-togle="collapse" class="nav-link">
+                <p th:text="${logado.nome}"></p>  
+		  </a></li>
           <li class="nav-item"><a data-togle="collapse" class="nav-link"
                                   th:href="@{/usuario/portal-user}">
 			<i
@@ -119,10 +122,15 @@
             <li class="nav-item"><a data-togle="collapse" class="nav-link"
                                   th:href="@{/email/send-email}">
 			 
-            <p>Send Email</p>
+            <p>Send Email Text</p>
+          	</a></li>
+          	<li class="nav-item"><a data-togle="collapse" class="nav-link"
+                                  th:href="@{/email/send-email-template}">
+			 
+            <p>Send Email Template</p>
           	</a></li>
             <li class="nav-item"><a data-togle="collapse" class="nav-link"
-                                  th:href="@{/logout}">
+                                  th:href="@{/deslogar}">
 			 
             <p>Sair</p>
           </a></li>
