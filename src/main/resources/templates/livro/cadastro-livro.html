@@ -43,7 +43,7 @@
                                        			<th:block th:if="${livro.imagem != null}">
                                        					<label class="bmd-label-floating">Capa do Livro</label>
                                        					<br/> 
-                                  						<img id="imagem-capa" th:src="@{${livro.imagem}}" width="100"/>
+                                  						<img id="imagem-capa" th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="100"/>
                                        					<br />
                                        					<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa"  />
 		                                       			<!-- <input type="hidden" id="urlCapa" th:field="*{urlImagem}"> !-->
