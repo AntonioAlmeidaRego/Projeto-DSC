@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.projetodsc.model.Email;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.EmailService;
+import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Controller
@@ -20,11 +21,13 @@ public class EnviarEmailController {
 	private EmailService serviceEmail;
 	@Autowired
 	private UsuarioService serviceUsuario;
+	@Autowired
+	private SessionService<Usuario> serviceSession;
 	
 	@PostMapping("/sendEmail")
 	public ModelAndView enviarEmail(Email email) {
 		serviceEmail.sendEmailText(email, email.getText());
-		return success();
+		return success().addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	@PostMapping("/sendEmailTemplate")
@@ -36,21 +39,21 @@ public class EnviarEmailController {
 		email.getMap().put("conteudo", email.getContent());
 		email.setFrom("gestaoescolaronline1.0@gmail.com");
 		serviceEmail.sendEmailTemplate(email, "email-template-feliz-aniversario.ftl", "");
-		return success();
+		return success().addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	@GetMapping("/send-email")
 	public ModelAndView sendEmail(Email email) {
-		return new ModelAndView("email/send-email").addObject("usuarios", serviceUsuario.findAll()).addObject("email", email);
+		return new ModelAndView("email/send-email").addObject("usuarios", serviceUsuario.findAll()).addObject("email", email).addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	@GetMapping("/send-email-template")
 	public ModelAndView sendEmailTemplate(Email email) {
-		return new ModelAndView("email/send-email-template").addObject("usuarios", serviceUsuario.findAll()).addObject("email", email);
+		return new ModelAndView("email/send-email-template").addObject("usuarios", serviceUsuario.findAll()).addObject("email", email).addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	public ModelAndView success() {
-		ModelAndView view = new ModelAndView("/usuario/portal-user");
+		ModelAndView view = new ModelAndView("usuario/portal-user");
 		view.addObject("success", "Email Enviado com Sucesso!");
 		return view;
 	}

@@ -31,7 +31,7 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${email}" th:action="@{/email/sendEmailTemplate}" id="form-livro" method="POST">
+                                	<form th:object="${email}" th:action="@{/email/sendEmail}" id="form-livro" method="POST">
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">
