@@ -34,12 +34,13 @@
 	  	<div sec:authorize="hasAuthority('ADMINISTRADOR')"
 		 th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
 		<div class="main-panel">
-			<div class="content-wrapper" layout:fragment="corpo">
-				<th:block th:if="${success != null}">
+			<th:block th:if="${success != null}">
                		<div class="alert alert-success">
                			<span th:text="${success}"></span>
             		</div>
            		</th:block>
+			<div class="content-wrapper" layout:fragment="corpo">
+				
 			</div>
 		</div>
     </div>
