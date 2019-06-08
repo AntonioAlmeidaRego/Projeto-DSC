@@ -1,11 +1,13 @@
 package br.com.projetodsc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -117,6 +119,49 @@ public class UsuarioController implements SaveImg<Usuario>{
 	@Override
 	public void saveImg(MultipartFile file, Usuario obj, Usuario aux) {
 		
+	}
+	
+	@GetMapping("/alterarSenha")
+	public ModelAndView mudarSenha() {
+		return new ModelAndView("usuario/mudar-senha");
+	}
+	
+	@GetMapping("/formAlterar/{link}")
+	public ModelAndView formAlterar(@PathVariable("link") String link) {
+		Usuario usuario = service.findByStatusLink(true);
+		if((usuario != null) && (service.verificarLink(usuario, link))) {
+			return new ModelAndView("usuario/formAlterar");
+		}
+		return new ModelAndView("login").addObject("error", "Link inválido!");
+	}
+	
+	@PostMapping("/updateSenha")
+	public ModelAndView updateSenha(String senha, String link) {
+		Usuario usuario = service.findUsuarioLink(link);
+		service.alterarSenhaUsuario(usuario);
+		return new ModelAndView("login").addObject("success", "Usuario alterou sua senha com sucesso!");
+	}
+	
+	@PostMapping("/enviarLinkAlterarSenha")
+	public ModelAndView enviarLinkSenha(@RequestParam("email") String email) {
+		System.out.println("ENTROU! ");
+		Usuario usuario = service.getEmail(email);
+		ModelAndView view = new ModelAndView("usuario/mudar-senha");
+		if(usuario != null) {
+			System.out.println("EMAIL VALIDO! ");
+			service.createLink(usuario);
+			Email email2 = new Email();
+			email2.setContent("Alterar Senha");
+			email2.setSubject("Alterar Senha");
+			email2.setTo(email);
+			email2.setFrom("gestaoescolaronline1.0@gmail.com");
+			sendEmail.sendEmailText(email2, "http//localhost:8080/formAlterar/"+usuario.getLinkAlterarSenha());
+			view.addObject("success", "Enviado o Link para alterar a senha para o email " + usuario.getEmail());
+		}else {
+			System.out.println("EMAIL INVALIDO! ");
+			view.addObject("error", "Email não está cadastrado no sistema!");	
+		}
+		return view;
 	}
 	
 }

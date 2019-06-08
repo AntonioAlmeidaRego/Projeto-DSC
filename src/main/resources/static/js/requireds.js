@@ -107,6 +107,13 @@ function loginSemSesion(idBotao) {
     $(idBotao).submit();
 }
 
+/* Alterar Senha */
+
+$("#alterarSenha").click(function(event) {
+	event.preventDefault();
+	window.location.replace("/usuario/alterarSenha");
+});
+
 /* Verificar se o email é válido */
 function verificarEmail(id){
     let requerid = new RequiredController(document.getElementById(id));

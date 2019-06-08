@@ -1,28 +1,17 @@
 package br.com.projetodsc.conf;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)
@@ -40,15 +29,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
-		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/compra/**").permitAll()
-		.antMatchers("/editora/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/livro/**").permitAll()
-		.antMatchers("/pedido/**").permitAll()
-		.antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/email/**").hasAnyAuthority("ADMINISTRADOR")
-		.antMatchers("/usuario/**").permitAll()
+				/*
+				 * .antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
+				 * .antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
+				 * .antMatchers("/compra/**").permitAll()
+				 * .antMatchers("/editora/**").hasAnyAuthority("ADMINISTRADOR")
+				 * .antMatchers("/livro/**").permitAll() .antMatchers("/pedido/**").permitAll()
+				 * .antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
+				 * .antMatchers("/email/**").hasAnyAuthority("ADMINISTRADOR")
+				 * .antMatchers("/usuario/**").permitAll()
+				 */
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
@@ -65,8 +55,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/usuariojson/usuario").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/lista-livros-categoria/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livrojson/livros/finalizar-compra").permitAll()
+		.antMatchers(HttpMethod.GET, "/usuario/alterarSenha").permitAll()
+		.antMatchers(HttpMethod.GET, "/formAlterar/**").permitAll()
 		/* Métodos POST */
-		
+		.antMatchers(HttpMethod.POST, "/usuario/enviarLinkAlterarSenha").permitAll()
+		.antMatchers(HttpMethod.POST, "/usuario/updateSenha").permitAll()
 		.antMatchers(HttpMethod.POST, "/pedido/savePedido").permitAll()
 		.antMatchers(HttpMethod.POST, "/livrojson/livroJaAdd").permitAll()
 		.antMatchers(HttpMethod.POST, "/compra/saveCompra").permitAll()

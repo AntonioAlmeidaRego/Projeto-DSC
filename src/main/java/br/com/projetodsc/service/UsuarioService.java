@@ -26,7 +26,6 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails user = repository.findByEmail(username);
@@ -49,6 +48,10 @@ public class UsuarioService implements UserDetailsService{
 	
 	public boolean verificarSenha(String senha, Usuario usuario) {
 		return passwordEncoder.matches(senha, usuario.getPassword());
+	}
+	
+	public void createLink(Usuario usuario) {
+		usuario.setLinkAlterarSenha(passwordEncoder.encode(usuario.getEmail()));
 	}
 	
 	public void add(Usuario usuario) {
@@ -77,6 +80,22 @@ public class UsuarioService implements UserDetailsService{
 	public Usuario findByEmailAndSenha(String email, String senha) {
 		return repository.findByEmailAndSenha(email, senha);
 	}
+	
+	public Usuario findByStatusLink(boolean status) {
+		return repository.findByStatusLink(status);
+	}
+	
+	public boolean verificarLink(Usuario usuario, String link) {
+		return passwordEncoder.matches(link, usuario.getLinkAlterarSenha());
+	}
+	
+	public Usuario findUsuarioLink(String link) {
+		return repository.findByLinkAlterarSenha(link);
+	}
 
+	public void alterarSenhaUsuario(Usuario usuario) {
+		usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+		repository.saveAndFlush(usuario);
+	}
 
 }

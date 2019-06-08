@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -34,6 +35,7 @@ public class Usuario implements UserDetails{
 		this.accountNonExpired = true;
 		this.accountNonLocked = true;
 		this.credentialsNonExpired = true;
+		this.statusLink = false;
 	}
 	
 	@Id
@@ -49,7 +51,7 @@ public class Usuario implements UserDetails{
 	private String rua;
 	@Column(nullable = false, length = 255)
 	private String bairro;
-	@Column(nullable = false)
+	@Lob
 	private byte[] imagem;
 	@OneToMany(mappedBy="usuario")
 	@JsonIgnore
@@ -58,7 +60,9 @@ public class Usuario implements UserDetails{
 	private String municipio;
 	@Column(nullable=false, length=100)
 	private String estado;
-	
+	@Column(nullable = true)
+	private String linkAlterarSenha;
+	private boolean statusLink;
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
 	private Set<Role> role = new HashSet<Role>();
@@ -71,7 +75,6 @@ public class Usuario implements UserDetails{
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimoAcesso;
-	
 
 	private boolean accountNonExpired;
 
@@ -239,4 +242,21 @@ public class Usuario implements UserDetails{
 	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
+
+	public String getLinkAlterarSenha() {
+		return linkAlterarSenha;
+	}
+
+	public void setLinkAlterarSenha(String linkAlterarSenha) {
+		this.linkAlterarSenha = linkAlterarSenha;
+	}
+
+	public boolean isStatusLink() {
+		return statusLink;
+	}
+
+	public void setStatusLink(boolean statusLink) {
+		this.statusLink = statusLink;
+	}
+	
 }
