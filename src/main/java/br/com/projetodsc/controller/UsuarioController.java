@@ -21,6 +21,7 @@ import br.com.projetodsc.service.EmailService;
 import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.UsuarioService;
+import br.com.projetodsc.util.Conversor;
 import br.com.projetodsc.util.SaveImg;
 
 @Controller
@@ -131,31 +132,31 @@ public class UsuarioController implements SaveImg<Usuario>{
 	@GetMapping("/formAlterar/{link}")
 	public ModelAndView formAlterar(@PathVariable String link) {
 		Usuario usuario = service.findByStatusLink(true);
-		System.out.println(link + " " + usuario.getLinkAlterarSenha());
 		if((usuario != null) && (link.equals(usuario.getLinkAlterarSenha()))) {
-			return new ModelAndView("usuario/formAlterar");
+			return new ModelAndView("usuario/formAlterar").addObject("usuario", usuario);
 		}
 		return new ModelAndView("usuario/mudar-senha").addObject("error", "Link inválido!");
 	}
 	
 	@PostMapping("/updateSenha")
-	public ModelAndView updateSenha(String senha, String link) {
-		Usuario usuario = service.findUsuarioLink(link);
+	public ModelAndView updateSenha(@RequestParam("senha") String senha, @RequestParam("id") Long id) {
+		Usuario usuario = service.getOne(id);
 		if(usuario != null) {
+			usuario.setStatusLink(false);
+			usuario.setSenha(senha);
 			service.alterarSenhaUsuario(usuario);
-			return new ModelAndView("login").addObject("success", "Usuario alterou sua senha com sucesso!");
+			return new ModelAndView("login").addObject("successUpdateSenha", "Usuario alterou sua senha com sucesso!").addObject("usuario", new Usuario());
 		}
-		return new ModelAndView("login").addObject("error", "Erro ao alterar a senha!");
+		return new ModelAndView("login").addObject("errorUpdateSenha", "Erro ao alterar a senha!").addObject("usuario", new Usuario());
 	}
 	
 	@PostMapping("/enviarLinkAlterarSenha")
 	public ModelAndView enviarLinkSenha(@RequestParam("email") String email) {
-		System.out.println("ENTROU! ");
 		Usuario usuario = service.getEmail(email);
 		ModelAndView view = new ModelAndView("usuario/mudar-senha");
 		if(usuario != null) {
+			Conversor conversor = new Conversor();
 			usuario.setStatusLink(true);
-			System.out.println("EMAIL VALIDO! ");
 			service.createLink(usuario);
 			Email email2 = new Email();
 			email2.setContent("Alterar Senha");
@@ -164,11 +165,10 @@ public class UsuarioController implements SaveImg<Usuario>{
 			email2.setFrom("gestaoescolaronline1.0@gmail.com");
 			email2.getMap().put("link", usuario.getLinkAlterarSenha());
 			email2.getMap().put("name", usuario.getNome());
-			email2.getMap().put("data", new Date());
+			email2.getMap().put("data", conversor.converteData(new Date()));
 			sendEmail.sendEmailTemplate(email2, "email-template-mudar-senha.ftl", "");
 			view.addObject("success", "Enviado o Link para alterar a senha para o email " + usuario.getEmail());
 		}else {
-			System.out.println("EMAIL INVALIDO! ");
 			view.addObject("error", "Email não está cadastrado no sistema!");	
 		}
 		return view;

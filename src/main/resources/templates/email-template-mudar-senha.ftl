@@ -55,7 +55,7 @@
 																	class="conteudo-principal-texto conteudo-editavel"
 																	style="font-family: Georgia, serif; font-size: 16px; padding: 25px 0 0 0;">
 																	Você solicitou a redefinição de sua
-																	senha de acesso ao Livraria DSC ás ${data} 
+																	senha de acesso ao Livraria DSC. ${data} . 
 																	Click no link para alterar sua senha <a
 																	href="http://localhost:8080/usuario/formAlterar/${link}">http://localhost:8080/usuario/formAlterar/${link}</a>.
 																</td>

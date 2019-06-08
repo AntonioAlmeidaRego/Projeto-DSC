@@ -10,6 +10,16 @@
 <body>
 	<div layout:fragment="corpo-site">
 		<section><!--form-->
+			<th:block th:if="${successUpdateSenha != null}">
+				<div id="success" class="alert alert-success">
+					<span id="teste" th:text="${successUpdateSenha}"></span>
+				</div>
+			</th:block>
+			<th:block th:if="${errorUpdateSenha != null}">
+			<div id="error" class="alert alert-danger">
+				<span id="teste2" th:text="${errorUpdateSenha}"></span>
+			</div>
+			</th:block>
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-1">

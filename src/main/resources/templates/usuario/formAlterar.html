@@ -26,6 +26,7 @@
 						<div class="login-form"><!--login form-->
 							<h2>Update Senha</h2>
 							<form th:action="@{/usuario/updateSenha}" method="post">
+								<input type="hidden" name="id" th:value="${usuario.id}" />
 								<input type="password" id="senha" name="senha" placeholder="Nova senha" />
 								<input type="password" id="confirma-senha" name="confirma-senha" placeholder="Confirmar Senha" />
 								<button class="btn btn-default">Update Senha</button>

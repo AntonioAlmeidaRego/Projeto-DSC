@@ -51,7 +51,16 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	public void createLink(Usuario usuario) {
-		usuario.setLinkAlterarSenha(passwordEncoder.encode(usuario.getEmail()));
+		String link = "";
+		String array[] = passwordEncoder.encode(usuario.getEmail()).split(""); 
+		for(int i = 0; i<array.length;i++) {
+			if(array[i].equals("/")) {
+				array[i] = ""+i;
+				link += array[i];
+			}
+			link += array[i];
+		}
+		usuario.setLinkAlterarSenha(link);
 		repository.saveAndFlush(usuario);
 	}
 	
