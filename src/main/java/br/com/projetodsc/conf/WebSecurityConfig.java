@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/livro/lista-livros-categoria/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livrojson/livros/finalizar-compra").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuario/alterarSenha").permitAll()
-		.antMatchers(HttpMethod.GET, "/formAlterar/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/usuario/formAlterar/**").permitAll()
 		/* Métodos POST */
 		.antMatchers(HttpMethod.POST, "/usuario/enviarLinkAlterarSenha").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuario/updateSenha").permitAll()

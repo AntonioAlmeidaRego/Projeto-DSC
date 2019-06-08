@@ -1,5 +1,7 @@
 package br.com.projetodsc.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -125,21 +127,25 @@ public class UsuarioController implements SaveImg<Usuario>{
 	public ModelAndView mudarSenha() {
 		return new ModelAndView("usuario/mudar-senha");
 	}
-	
+ 
 	@GetMapping("/formAlterar/{link}")
-	public ModelAndView formAlterar(@PathVariable("link") String link) {
+	public ModelAndView formAlterar(@PathVariable String link) {
 		Usuario usuario = service.findByStatusLink(true);
-		if((usuario != null) && (service.verificarLink(usuario, link))) {
+		System.out.println(link + " " + usuario.getLinkAlterarSenha());
+		if((usuario != null) && (link.equals(usuario.getLinkAlterarSenha()))) {
 			return new ModelAndView("usuario/formAlterar");
 		}
-		return new ModelAndView("login").addObject("error", "Link inválido!");
+		return new ModelAndView("usuario/mudar-senha").addObject("error", "Link inválido!");
 	}
 	
 	@PostMapping("/updateSenha")
 	public ModelAndView updateSenha(String senha, String link) {
 		Usuario usuario = service.findUsuarioLink(link);
-		service.alterarSenhaUsuario(usuario);
-		return new ModelAndView("login").addObject("success", "Usuario alterou sua senha com sucesso!");
+		if(usuario != null) {
+			service.alterarSenhaUsuario(usuario);
+			return new ModelAndView("login").addObject("success", "Usuario alterou sua senha com sucesso!");
+		}
+		return new ModelAndView("login").addObject("error", "Erro ao alterar a senha!");
 	}
 	
 	@PostMapping("/enviarLinkAlterarSenha")
@@ -148,6 +154,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 		Usuario usuario = service.getEmail(email);
 		ModelAndView view = new ModelAndView("usuario/mudar-senha");
 		if(usuario != null) {
+			usuario.setStatusLink(true);
 			System.out.println("EMAIL VALIDO! ");
 			service.createLink(usuario);
 			Email email2 = new Email();
@@ -155,7 +162,10 @@ public class UsuarioController implements SaveImg<Usuario>{
 			email2.setSubject("Alterar Senha");
 			email2.setTo(email);
 			email2.setFrom("gestaoescolaronline1.0@gmail.com");
-			sendEmail.sendEmailText(email2, "http//localhost:8080/formAlterar/"+usuario.getLinkAlterarSenha());
+			email2.getMap().put("link", usuario.getLinkAlterarSenha());
+			email2.getMap().put("name", usuario.getNome());
+			email2.getMap().put("data", new Date());
+			sendEmail.sendEmailTemplate(email2, "email-template-mudar-senha.ftl", "");
 			view.addObject("success", "Enviado o Link para alterar a senha para o email " + usuario.getEmail());
 		}else {
 			System.out.println("EMAIL INVALIDO! ");
