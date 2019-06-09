@@ -1,11 +1,15 @@
 package br.com.projetodsc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,10 +55,11 @@ public class AutorController implements SaveImg<Autor>{
 	}
 	
 	@PostMapping("/saveAutor")
-	public ModelAndView saveAutor(Autor autor, String ids) {
+	public ModelAndView saveAutor(Autor autor, String ids, @RequestParam("file") MultipartFile file) {
 		Autor autor2 = service.findByNomeOrCpfOrEmail(autor.getNome(), autor.getCpf(), autor.getEmail());
 		if(autor2 == null) {
 			if((!ids.equals(""))) {
+				saveImg(file, autor, autor2);
 				relacionarAutorLivro(autor, ids);
 				service.add(autor);
 			}else {
@@ -63,6 +68,7 @@ public class AutorController implements SaveImg<Autor>{
 			
 		}else if(autor2.getId() == autor.getId()) {
 			if((!ids.equals(""))) {
+				saveImg(file, autor, autor2);
 				relacionarAutorLivro(autor, ids);
 				service.add(autor);
 				return findAll().addObject("success", "Autor(a) alterado com sucesso!");
@@ -90,9 +96,29 @@ public class AutorController implements SaveImg<Autor>{
 			return findAll().addObject("error", "Autor(a) não pode ser removido. Consulte o suporte de TI!");
 		}
 	}
+	
+	@RequestMapping(path = {"/imagem/{id}"}, produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<byte[]> getImagem(@PathVariable("id") Long id){
+		Autor autor = service.getOne(id);
+		byte[] imagem = autor.getImagem();
+		final org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		return new ResponseEntity<byte[]>(imagem, headers, HttpStatus.OK);
+	}
+	
 	@Override
 	public void saveImg(MultipartFile file, Autor obj, Autor aux) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if(file.getOriginalFilename().isEmpty() || file.getOriginalFilename().equals("")) {
+				byte[] imagem = aux.getImagem();
+				System.out.println("EDITAR IMG");
+				obj.setImagem(imagem);
+			}else {
+				System.out.println("SALVAR IMG");
+				obj.setImagem(file.getBytes());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

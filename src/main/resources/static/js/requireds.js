@@ -419,23 +419,21 @@ $("#cadastro-autor").click(function(event) {
     let inputs = document.getElementsByTagName("input");
     let inputsCheck = document.getElementsByClassName("checkbox-autores");
 
-    console.log(inputsCheck);
-
-    if((!required.required(1, formAutor)) && /*(exeAutor == extensao) && */ (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
+    if((!required.required(2, formAutor)) && (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
         && (isInputCheckBox(inputsCheck, required))){
     	$(this).submit();
     }else{
         event.preventDefault();
-    	for(let j = 1; j < formAutor.length;j++){
-            for(let i = 1; i < inputs.length;i++){
-               /* if(formAutor[j].id != "urlFotoAutor" && formAutor[j].id != "file-foto-autor"){*/
+    	for(let j = 1; j < formAutor.length-1;j++){
+            for(let i = 1; i < inputs.length-1;i++){
+                if(formAutor[j].id != "file-capa"){
                     if(inputs[i].id == formAutor[j].id){
                         if(required.requiredInput(inputs[i].id)){
                             clearfield.show(formAutor[j].id+"-div");
                             tags.updateElement(document.getElementById(formAutor[j].id+"-div"), "span", "campo obrigatório!");
                         }
                     }
-               //}
+               }
             }
         }
         if(!verificarEmail("email-autor")){
@@ -447,10 +445,10 @@ $("#cadastro-autor").click(function(event) {
             clearfield.show("idLivros-autor-div");
             tags.updateElement(document.getElementById("idLivros-autor-div"), "span", "campo obrigatório!");
         }
-       /* if(exeAutor != extensao){
-            clearfield.show("file-foto-autor-div");
-            tags.updateElement(document.getElementById("file-foto-autor-div"), "span", "campo obrigatório!");
-        }*/
+        if(exe != extensao){
+            clearfield.show("file-capa-div");
+            tags.updateElement(document.getElementById("file-capa-div"), "span", "campo obrigatório!");
+        }
     }
 });
 
@@ -492,7 +490,7 @@ $("#cadastro-livro").click(function (event) {
         (!$("#peso-livro").val() == "") && (!$("#preco-livro").val() == "")
         && (!$("#isbn-livro").val() == "") && (!$("#edicao-livro").val() == "")
         && (!$("#ano-livro").val() == "") && (isInputCheckBox(inputsCheck, required)) && (select.value != "")
-        && (!$("#sinopsie-livro").val() == "") && (exe == extensao) && (!$("#comprimento-livro").val() == "")
+        && (!$("#sinopsie-livro").val() == "") && (!$("#comprimento-livro").val() == "")
         && (!$("#largura-livro").val() == "") && (!$("#altura-livro").val() == "")){
         selectEmpty = false;
         $("#cadastro-livro").submit();
@@ -501,7 +499,7 @@ $("#cadastro-livro").click(function (event) {
 
         for(let j = 1; j < formLivro.length-1;j++){
             for(let i = 1; i < inputs.length;i++){
-                if(formLivro[j].id != "urlCapa" && formLivro[j].id != "file-capa"){
+                if(formLivro[j].id != "file-capa"){
                     if((inputs[i].id == formLivro[j].id)){
                         if(required.requiredInput(inputs[i].id)){
 

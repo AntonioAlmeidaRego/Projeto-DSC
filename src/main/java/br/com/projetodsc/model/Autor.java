@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
@@ -33,7 +34,7 @@ public class Autor implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Email do autor é uma informação obrigatória!")
 	private String email;
-	@Column(nullable=false)
+	@Lob
 	private byte[] imagem;
 	@ManyToMany
 	@JoinTable(name="livros_autores")
@@ -75,7 +76,8 @@ public class Autor implements Serializable{
 	public byte[] getImagem() {
 		return imagem;
 	}
-	public void setimagem(byte[] imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
+	 
 }

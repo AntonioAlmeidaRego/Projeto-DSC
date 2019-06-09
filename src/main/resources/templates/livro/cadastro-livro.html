@@ -35,7 +35,6 @@
                                        					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
                                        					<br/>
 		                                       			<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa" />
-		                                       			<!--  <input type="hidden" id="urlCapa" th:field="*{urlImagem}"> !-->
 		                                       			<div class="alert alert-danger" id="file-capa-div">
 
                                             			</div>
@@ -46,7 +45,6 @@
                                   						<img id="imagem-capa" th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="100"/>
                                        					<br />
                                        					<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa"  />
-		                                       			<!-- <input type="hidden" id="urlCapa" th:field="*{urlImagem}"> !-->
 	                                       				<div class="alert alert-danger" id="file-capa-div">
 	
 	                                           			</div> 

@@ -27,9 +27,31 @@
                                 	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
                             	</div>
                             	<div class="card-body">
-                                	<form th:object="${autor}" th:data-objeto="${autor}" th:action="@{/autor/saveAutor}" id="form-autor" method="POST">
+                                	<form th:object="${autor}" th:data-objeto="${autor}" th:action="@{/autor/saveAutor}" id="form-autor" method="POST" enctype="multipart/form-data">
                                     	<input id="id" name="id" type="hidden" th:field="*{id}"
                                            th:value="*{id}">
+                                           <div class="row">
+                                           		<div class="col-md-12">
+	                                           		<th:block th:if="${autor.imagem == null}">
+	                                       					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
+	                                       					<br/>
+			                                       			<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa" />
+			                                       			<div class="alert alert-danger" id="file-capa-div">
+	
+	                                            			</div>
+	                                       			</th:block>
+	                                       			<th:block th:if="${autor.imagem != null}">
+	                                       					<label class="bmd-label-floating">Capa do Livro</label>
+	                                       					<br/> 
+	                                  						<img id="imagem-capa" th:src="@{/autor/imagem/{id}(id=${autor.id})}" width="100"/>
+	                                       					<br />
+	                                       					<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa"  />
+		                                       				<div class="alert alert-danger" id="file-capa-div">
+		
+		                                           			</div> 
+	                                       			</th:block>
+	                                       		</div>	
+                                           </div>
                                        <div class="row">
                                            <div class="col-md-6">
                                                <div class="form-group">

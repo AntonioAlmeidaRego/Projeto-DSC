@@ -33,6 +33,7 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>IMG</th>
                                             <th>Nome</th>
                                             <th>Email</th>
                                             <th>CPF</th>
@@ -42,6 +43,7 @@
                                         <tbody>
                                         <tr th:each="autor : ${autores}">
                                             <td th:text="${autor.id}"></td>
+                                            <td><img width="100" th:src="@{/autor/imagem/{id}(id=${autor.id})}"></td>
                                             <td th:text="${autor.nome}"></td>
                                             <td th:text="${autor.email}"></td>
                                             <td th:text="${autor.cpf}"></td>

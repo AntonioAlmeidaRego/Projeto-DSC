@@ -100,21 +100,6 @@ public class LivroController implements SaveImg<Livro>{
 		return view;
 	}
 
-	private void saveAndupdate(Livro livro,int width, int height, String tipo, MultipartFile file) {
-		/*
-		 * random = new Random(); int valor = random.nextInt(); Arquivo arquivo = new
-		 * ArquivoImg(width, height, tipo); try {
-		 * arquivo.creatFile(livro.getUrlImagem()); arquivo.writeFile(url+valor+".jpg");
-		 * livro.setUrlImagem(urlDestino+valor+".jpg"); } catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
-		try {
-			livro.setImagem(file.getBytes());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-	
 	private void relacionarLivroCategoria(Livro livro, String ids) {
 		if(!ids.equals("")) {
 			String getIds[] = ids.split(",");
@@ -147,7 +132,7 @@ public class LivroController implements SaveImg<Livro>{
 	public ModelAndView saveLivro(Livro livro, @RequestParam("file") MultipartFile file, String ids) {
 		Livro livro2 = service.getLivroIsbnAndTitulo(livro.getIsbn(), livro.getTitulo());
 		if(livro2 == null) {
-			saveAndupdate(livro, 100, 100, "jpg", file);
+			saveImg(file, livro, livro2);
 			relacionarLivroCategoria(livro, ids);
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
@@ -157,7 +142,7 @@ public class LivroController implements SaveImg<Livro>{
 			}
 			
 		}else if(livro2.getId() == livro.getId()) {
-			saveAndupdate(livro, 100, 100, "jpg", file);
+			saveImg(file, livro, livro2);
 			relacionarLivroCategoria(livro, ids);
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
@@ -245,7 +230,16 @@ public class LivroController implements SaveImg<Livro>{
 
 	@Override
 	public void saveImg(MultipartFile file, Livro obj, Livro aux) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if(file.getOriginalFilename().isEmpty() || file.getOriginalFilename().equals("")) {
+				byte[] imagem = aux.getImagem();
+				System.out.println(imagem);
+				obj.setImagem(imagem);
+			}else {
+				obj.setImagem(file.getBytes());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
