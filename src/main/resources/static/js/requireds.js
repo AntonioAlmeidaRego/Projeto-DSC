@@ -162,10 +162,7 @@ $("#login").click(function (event) {
                        if((session.getSession("user")._idUsuario !== undefined) && (session.getSession("user") != null)){
                            $(this).submit();
                        }
-                   }else{
-                       event.preventDefault();
-                       alert("Error no servidor!");
-                   }
+                   } 
                });
             }else{
                 loginSemSesion("#login");

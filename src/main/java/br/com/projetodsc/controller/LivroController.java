@@ -40,7 +40,6 @@ public class LivroController implements SaveImg<Livro>{
 	private PromocaoService servicePromocao;
 	@Autowired
 	private SessionService<Usuario> serviceSession;
-	private Random random;
 	
 	@GetMapping("/lista-livros-categoria/{id}")
 	public ModelAndView findLivrosCategoria(@PathVariable long id) {
@@ -233,7 +232,6 @@ public class LivroController implements SaveImg<Livro>{
 		try {
 			if(file.getOriginalFilename().isEmpty() || file.getOriginalFilename().equals("")) {
 				byte[] imagem = aux.getImagem();
-				System.out.println(imagem);
 				obj.setImagem(imagem);
 			}else {
 				obj.setImagem(file.getBytes());
