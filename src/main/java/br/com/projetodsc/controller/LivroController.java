@@ -1,6 +1,7 @@
 package br.com.projetodsc.controller;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import br.com.projetodsc.service.EditoraService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
 import br.com.projetodsc.service.SessionService;
+import br.com.projetodsc.service.UsuarioService;
 import br.com.projetodsc.util.SaveImg;
 
 @Controller
@@ -40,6 +42,18 @@ public class LivroController implements SaveImg<Livro>{
 	private PromocaoService servicePromocao;
 	@Autowired
 	private SessionService<Usuario> serviceSession;
+	@Autowired
+	private UsuarioService serviceUsuario;
+	
+	@PostMapping("/addFavorito")
+	public ModelAndView addFavorito(Long idLivro) {
+		System.out.println("ENTROU");
+		Livro livro = service.getOne(idLivro);
+		Usuario usuario = serviceSession.getSession("usuario-logado");
+		livro.getUsuarios().add(usuario);
+		service.add(livro);
+		return new ModelAndView("index");
+	}
 	
 	@GetMapping("/lista-livros-categoria/{id}")
 	public ModelAndView findLivrosCategoria(@PathVariable long id) {
@@ -170,6 +184,34 @@ public class LivroController implements SaveImg<Livro>{
 			return findAll().addObject("error", "Livro não pode ser removido. Consulte o suporte de TI!");
 		}
 	}
+	
+	@GetMapping("/deleteLivroFavorito/{idLivro}")
+	public ModelAndView deletarLivroFavorito(@PathVariable Long idLivro) {
+		try {
+			Livro livro = service.getOne(idLivro);
+			Usuario usuario = serviceSession.getSession("usuario-logado");
+			Long idUsuario = usuario.getId();
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			for(Usuario usuario2 : livro.getUsuarios()) {
+				usuarios.add(usuario2);
+			}
+			
+			for(int i = 0; i<usuarios.size();i++) {
+				if(usuarios.get(i).getId().equals(idUsuario)) {
+					System.out.println("ANTES\n"+usuarios);
+					usuarios.remove(usuarios.get(i));
+					System.out.println("DEPOIS\n"+usuarios);
+				}
+			}
+			
+			livro.setUsuarios(usuarios);
+			service.add(livro);
+			return listaLivrosFavoritos().addObject("success", "Livro removido dos favoritos com sucesso!");
+		} catch (Exception e) {
+			return listaLivrosFavoritos().addObject("error", "Erro ao remover livro dos favoritos!");
+		}
+	}
+	
 	@GetMapping("/detalheLivro/{id}")
 	public ModelAndView detalheLivro(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("livro/detalhesLivro");
@@ -239,5 +281,14 @@ public class LivroController implements SaveImg<Livro>{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@GetMapping("/listaLivroFavoritos")
+	public ModelAndView listaLivrosFavoritos() {
+		ModelAndView view = new ModelAndView("livro/livro-favoritos");
+		Usuario usuario = serviceSession.getSession("usuario-logado");
+		view.addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("livros", service.listaLivrosFavoritos(usuario.getId()));
+		return view;
 	}
 }

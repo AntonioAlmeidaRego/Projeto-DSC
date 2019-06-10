@@ -30,6 +30,15 @@ public class LivroJsonController {
 		return ResponseEntity.ok(livro);
 	}
 	
+	@PostMapping("/livroFavoritoJaAdd")
+	public ResponseEntity<Livro> livroFavoritoJaAdd(Long idLivro, Long idUsuario) {
+		Livro livro = service.livroFavoritoJaAdd(idLivro, idUsuario);
+		if(livro != null) {
+			return ResponseEntity.notFound().build(); 
+		}
+		return ResponseEntity.ok(livro);
+	}
+	
 	@GetMapping("/livros/{id}")
 	public List<Livro> findLivrosCategoria(@PathVariable Long id) {
 		return service.findAllCategoriaId(id);

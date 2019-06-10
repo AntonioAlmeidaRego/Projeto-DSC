@@ -73,7 +73,7 @@
 	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
                 let randomPedido = Math.random();
                 let submit = new SubmitRequest("post", "/pedido/savePedido");
-                let request = new RequestController();
+                let request = new RequestController;
                 let objeto = request.getJsonLivro("/livrojson/livroJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
 
                 objeto.then(function (data) {
@@ -113,4 +113,23 @@
 	      }
 	   });
 
+       $("#addFavorito").click(function (event) {
+           event.preventDefault();
+           if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
+               let submit = new SubmitRequest("post", "/livro/addFavorito");
+               let request = new RequestController;
+               let objeto = request.getJsonLivroFavorito("/livrojson/livroFavoritoJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
+               objeto.then(function (data) {
+                   if(data == "livro adicionado como favorito"){
+                       request.submitFavorito(submit, $("#idLivro").val());
+                       alert("Livro adicionado como favorito");
+                   }else{
+                       alert("Este livro já foi adicionado como favorito!");
+                   }
+               });
+           }else{
+               alert("Usuário não autenticado!");
+               window.location.replace("/entrar");
+           }
+       });
 

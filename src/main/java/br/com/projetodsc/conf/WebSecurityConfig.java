@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,30 +30,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
-				/*
-				 * .antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
-				 * .antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
-				 * .antMatchers("/compra/**").permitAll()
-				 * .antMatchers("/editora/**").hasAnyAuthority("ADMINISTRADOR")
-				 * .antMatchers("/livro/**").permitAll() .antMatchers("/pedido/**").permitAll()
-				 * .antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
-				 * .antMatchers("/email/**").hasAnyAuthority("ADMINISTRADOR")
-				 * .antMatchers("/usuario/**").permitAll()
-				 */
+		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/compra/**").permitAll()
+		.antMatchers("/editora/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/pedido/**").permitAll()
+		.antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/email/**").hasAnyAuthority("ADMINISTRADOR")
+		.antMatchers("/usuario/**").permitAll()
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/pedidos/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/usuario/mydados/**").hasRole("CLIENTE")
-		.antMatchers(HttpMethod.GET, "/pedido/myPedidos/**").hasRole("CLIENTE")
-		.antMatchers(HttpMethod.GET, "/usuario/listaComprasUsuario/**").hasRole("CLIENTE")
+		.antMatchers(HttpMethod.POST, "/livro/addFavorito").permitAll()
+		.antMatchers(HttpMethod.GET, "/usuario/mydados/**").hasAnyAuthority("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/pedido/myPedidos/**").hasAnyAuthority("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/usuario/listaComprasUsuario/**").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "/livrojson/livros/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/livro/imagem/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/livrojson/livroFavoritoJaAdd/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/detalheLivro/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/pedido/cancelaPedido/**").hasRole("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/pedido/cancelaPedido/**").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "http://api.postmon.com.br/v1/cep/**").permitAll()
 		.antMatchers(HttpMethod.GET, "https://api-correios-soap.herokuapp.com/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuariojson/usuario").permitAll()
+		.antMatchers(HttpMethod.GET, "/livro/updateLivro/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers(HttpMethod.GET, "/livro/lista-livros-categoria/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livrojson/livros/finalizar-compra").permitAll()
 		.antMatchers(HttpMethod.GET, "/usuario/alterarSenha").permitAll()

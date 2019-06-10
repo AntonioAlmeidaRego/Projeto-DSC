@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -36,6 +38,7 @@ public class Usuario implements UserDetails{
 		this.accountNonLocked = true;
 		this.credentialsNonExpired = true;
 		this.statusLink = false;
+		//this.ativarConta = false;
 	}
 	
 	@Id
@@ -56,6 +59,9 @@ public class Usuario implements UserDetails{
 	@OneToMany(mappedBy="usuario")
 	@JsonIgnore
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	@ManyToMany(mappedBy = "usuarios")
+	@JsonIgnore
+	private List<Livro> livros = new ArrayList<Livro>();
 	@Column(nullable =false, length=100)
 	private String municipio;
 	@Column(nullable=false, length=100)
@@ -63,6 +69,7 @@ public class Usuario implements UserDetails{
 	@Column(nullable = true)
 	private String linkAlterarSenha;
 	private boolean statusLink;
+	//private boolean ativarConta;
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
 	private Set<Role> role = new HashSet<Role>();
@@ -257,6 +264,19 @@ public class Usuario implements UserDetails{
 
 	public void setStatusLink(boolean statusLink) {
 		this.statusLink = statusLink;
+	}
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nome + " " + this.email;
 	}
 	
 }

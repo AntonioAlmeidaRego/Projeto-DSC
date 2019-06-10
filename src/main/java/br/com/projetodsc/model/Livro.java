@@ -45,8 +45,6 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
 	private String peso;
-	//@Column(nullable=false)
-	//private String urlImagem;
 	@Lob
 	private byte[] imagem;
 	@Column(nullable=false, length=100)
@@ -57,7 +55,9 @@ public class Livro implements Serializable{
 	private String largura;
 	@Column(nullable=false, length=20)
 	private String altura;
-	
+	@ManyToMany
+	@JoinTable(name="favoritos")
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	@ManyToOne
 	@JoinColumn(name="promocao_id", nullable=true)
 	@JsonIgnore
@@ -139,12 +139,6 @@ public class Livro implements Serializable{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
-	/*
-	 * public String getUrlImagem() { return urlImagem; } public void
-	 * setUrlImagem(String urlImagem) { this.urlImagem = urlImagem; }
-	 */
-	
 	public byte[] getImagem() {
 		return imagem;
 	}
@@ -189,4 +183,11 @@ public class Livro implements Serializable{
 	public void setAltura(String altura) {
 		this.altura = altura;
 	}
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
 }

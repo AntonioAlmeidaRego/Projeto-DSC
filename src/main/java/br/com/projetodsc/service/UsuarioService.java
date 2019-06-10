@@ -71,6 +71,10 @@ public class UsuarioService implements UserDetailsService{
 		repository.saveAndFlush(usuario);
 	}
 	
+	public void update(Usuario usuario) {
+		repository.saveAndFlush(usuario);
+	}
+	
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}

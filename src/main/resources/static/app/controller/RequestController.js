@@ -22,6 +22,16 @@ class RequestController {
         });
     }
 
+    submitFavorito(submitRequest, idLivro){
+        $.ajax({
+            url: submitRequest.getUrl(),
+            method: submitRequest.getMethod(),
+            data:{
+                idLivro: idLivro,
+            }
+        });
+    }
+
     cancelePedido(submitRequest, idUsuario, idPedido){
         $.ajax({
            url: submitRequest.getUrl() + "/"+idUsuario+"/"+idPedido,
@@ -93,6 +103,23 @@ class RequestController {
         });
     }
 
+    _addFavorito(url, method, idLivro, idUsuario){
+        return new Promise(resolve => {
+            $.ajax({
+                url: url,
+                method: method,
+                data:{
+                    idLivro: idLivro,
+                    idUsuario: idUsuario
+                }
+            }).done(function () {
+                resolve("livro adicionado como favorito");
+            }).fail(function () {
+                resolve("livro já adicionado!");
+            });
+        });
+    }
+
     async getJsonLivro(url, method, idLivro, idUsuario){
         return await this._getLivro(url, method, idLivro, idUsuario);
     }
@@ -103,5 +130,9 @@ class RequestController {
 
     async getJsonLivrosCategoria(url, method){
         return await this._getCategoriaLivros(url, method);
+    }
+
+    async getJsonLivroFavorito(url, method, idLivro, idUsuario){
+        return await this._addFavorito(url, method, idLivro, idUsuario);
     }
 }

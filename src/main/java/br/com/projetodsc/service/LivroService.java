@@ -80,4 +80,16 @@ public class LivroService {
 	public List<Livro> listaLivroSearch(String search){
 		return repository.listaLivrosSearch(search);
 	}
+	
+	public Livro livroFavoritoJaAdd(Long idLivro, Long idUsuario) {
+		return repository.livroFavoritoJaAdd(idLivro, idUsuario);
+	}
+	
+	public List<Livro> listaLivrosFavoritos(Long idUsuario){
+		return repository.listaLivrosFavoritos(idUsuario);
+	}
+	
+	public void deleteLivroFavorito(Long idUsuario) {
+		repository.deleteLivroFavorito(idUsuario);
+	}
 }

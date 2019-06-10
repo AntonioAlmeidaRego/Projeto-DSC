@@ -20,6 +20,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	@Query(value="select * from livro l order by l.id desc limit ?", nativeQuery=true)
 	public List<Livro> findAllLimit(int limit);
 	
+	@Query(value="DELETE FROM favoritos WHERE usuarios_id =?", nativeQuery = true)
+	public void deleteLivroFavorito(Long idUsuario);
+	
 	@Query(value=
 			"select * from livro l\n" + 
 			"where l.id in (select ip.livros_id from usuario u \n" + 
@@ -38,6 +41,10 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"where l.id = ? and u.id = ? and p.cancelou_compra = false;", nativeQuery=true)
 	public Livro livroJaAdd(Long idLivro, Long idUsuario);
 	
+	@Query(value="SELECT * FROM favoritos f inner join usuario u on(f.usuarios_id = u.id)\n" + 
+			"inner join livro l on(f.livros_id = l.id) where l.id = ? and u.id = ?;", nativeQuery = true)
+	public Livro livroFavoritoJaAdd(Long idLivro, Long idUsuario);
+	
 	@Query(value="select * from livro l\n" + 
 			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
 			"order by p.id limit ?", nativeQuery = true)
@@ -47,6 +54,10 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
 			"order by p.id desc limit ?", nativeQuery=true)
 	public List<Livro> listaTresUltimos(int limit);
+	
+	@Query(value="SELECT * FROM livro l inner join favoritos f on(f.livros_id = l.id)\n" + 
+			"inner join usuario u on(f.usuarios_id = u.id) where u.id = ?;", nativeQuery = true)
+	public List<Livro> listaLivrosFavoritos(Long idUsuario);
 	
 	@Query
 	public Livro findByIsbnAndTitulo(String isbn, String titulo);
