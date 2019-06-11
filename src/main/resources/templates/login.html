@@ -65,6 +65,9 @@
 						  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
 								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
 								<div class="alert alert-danger" id="nome-div"></div>
+								<input type="text" th:field="*{dataNascimento}" id="date" placeholder="__/__/____">
+								<div class="alert alert-danger" id="date-div">
+								</div>
 								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>
 								<div class="alert alert-danger" id="email-div"></div>
 								<input type="password" id="senha" th:field="*{senha}" placeholder="Password"/>
@@ -76,11 +79,7 @@
 	                            <p id="alert-numero-cep"></p>
 								<div class="alert alert-danger" id="cep-div"></div>
 								<input type="text" th:field="*{municipio}" id="cidade">
-								<div class="alert alert-danger" id="cidade-div">
-	                            </div>
 								<input type="text" th:field="*{estado}" id="estado">
-								<div class="alert alert-danger" id="estado-div">
-	                            </div>
 								<input type="text" th:field="*{rua}" placeholder="Rua"/>
 								<div class="alert alert-danger" id="rua-div">
 								</div>

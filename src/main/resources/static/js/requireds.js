@@ -115,9 +115,9 @@ $("#alterarSenha").click(function(event) {
 });
 
 /* Verificar se o email é válido */
-function verificarEmail(id){
+function verificarEmail(id, event){
     let requerid = new RequiredController(document.getElementById(id));
-    return requerid.requiredEmail();
+    return requerid.requiredEmail(event);
 }
 
 /* Evento para o cadastro de promocao */
@@ -281,30 +281,68 @@ $("#update-user-cep").keyup(function (event){
     }
 });
 
+function isValiddataAniversario(dataAniver){
+    let validacao = new ValidacaoController;
+    console.log(dataAniver);
+    return validacao.validacaoDateNascimento(dataAniver, new Date().getFullYear());
+}
+
+$("#date").keyup(function () {
+    let dataNascimento = $(this).val().split("/");
+    if(!isValiddataAniversario(dataNascimento[2])){
+        clearfield.show("date-div");
+        tags.updateElement(document.getElementById("date-div"), "span", "Date inválida!");
+    }else{
+        clearfield.hide("date-div");
+    }
+});
+
+$("input").keyup(function(event) {
+	if(this.id == "email"){
+		let valid = new ValidacaoController;
+		if(!valid.keyCodeCaractere(event) || valid.keyCodeTecla(event)){
+			if(verificarEmail(this.id, event)){
+				clearfield.hide(this.id+"-div");
+				if($("#cadastro-usuario").length){
+					$("#cadastro-usuario").attr("disabled", false);
+				} 
+			}else{
+				clearfield.show(this.id+"-div");
+				tags.updateElement(document.getElementById(this.id+"-div"), "span", "Email inválido. São aceitos: email@hotmail.com, email@gmail.com e/ou email@outlook.com");
+				if($("#cadastro-usuario").length){
+					$("#cadastro-usuario").attr("disabled", true);
+				} 
+			}
+		}else{
+			$(this).val("");
+		}		
+	}
+});
+
 $("#cadastro-usuario").click(function (event) {
-    //event.preventDefault();
     let requerid = new RequiredController(this);
     let form = document.getElementById("form1");
     let inputs = document.getElementsByTagName("input");
-    //event.preventDefault();
+    let dataNascimento = document.getElementById("date").value.split("/");
 
-    if((!requerid.requiredAll(event, form, form.length-1)) && (requerid.requiredSenha("senha", "senha-confirmar"))){
+    if((!requerid.requiredAll(event, form, form.length-1)) && (requerid.requiredSenha("senha", "senha-confirmar"))
+     && isValiddataAniversario(dataNascimento[2])){
         $("#cidade").attr("disabled", false);
         $("#bairro").attr("disabled", false);
         $("#estado").attr("disabled", false);
         clearfield.hide("father-cadastro");
-        emailEmpty = true;
         $("#cadastro").submit();
-         
     } else{
         event.preventDefault();
         for(let i = 0; i < form.length-1;i++){
-            if(requerid.required(i, form)){
-                if(form[i].id == "email"){
-                    emailEmpty = true;
+            if(form[i].id != "estado" && form[i].id != "cidade"){
+                if((requerid.required(i, form))){
+                    if(form[i].id == "email"){
+                        emailEmpty = true;
+                    }
+                    clearfield.show(form[i].id+"-div");
+                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
                 }
-                clearfield.show(form[i].id+"-div");
-                tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
             }
         }
 
@@ -319,7 +357,6 @@ $("#cadastro-usuario").click(function (event) {
                  tags.updateElement(document.getElementById("father-cadastro"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
              }
          }
-
     }
 
 

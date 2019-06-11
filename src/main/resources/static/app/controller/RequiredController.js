@@ -32,16 +32,17 @@ class RequiredController {
     }
 
 
-    requiredEmail(){
-        let array = this._input.value.split("");
+    requiredEmail(event){
+    	console.log(event.which);
+    	let array = this._input.value.split("");
     	for(let i = 0;i< array.length;i++){
-			if(array[i] == "@"){
-				var res = this._input.value.substring(i, this._input.value.length.length);
-				console.log(res);
-				if((res == "@hotmail.com") || (res == "@gmail.com") || (res == "@outlook.com")){
-					return true;
-				}
-			}
+            if(array[i] == "@"){
+                var res = this._input.value.substring(i, this._input.value.length.length);
+                console.log(res);
+                if((res == "@hotmail.com") || (res == "@gmail.com") || (res == "@outlook.com")){
+                    return true;
+                }
+            }
     	}
     	return false;
     }
@@ -81,6 +82,5 @@ class RequiredController {
         }
         return false;
     }
-
 
 }

@@ -47,7 +47,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 	@GetMapping("/cadastro-user")
 	public ModelAndView cadastroUser(Usuario usuario) {
 		ModelAndView view = new ModelAndView("usuario/cadastro-user");
-		view.addObject("usuario", usuario);
+		view.addObject("usuario", usuario).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
@@ -86,7 +86,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 	@GetMapping("/updateUsuario/{id}")
 	public ModelAndView updateUsuario(@PathVariable Long id) {
 		Usuario usuario2 = service.getOne(id);
-		return cadastroUser(usuario2);
+		return cadastroUser(usuario2).addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	@PostMapping("/saveUsuarioUpdate")
