@@ -1,5 +1,7 @@
 package br.com.projetodsc.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Usuario findByStatusLink(boolean status);
 	@Query
 	public Usuario findByLinkAlterarSenha(String link);
-	
+	@Query(value="SELECT * FROM usuario order by data_nascimento;", nativeQuery = true)
+	public List<Usuario> findAllOrderByDataNascimento();
 }

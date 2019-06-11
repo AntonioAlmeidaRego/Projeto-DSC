@@ -112,4 +112,7 @@ public class UsuarioService implements UserDetailsService{
 		repository.saveAndFlush(usuario);
 	}
 
+	public List<Usuario> findAllOrderByDataNascimento(){
+		return repository.findAllOrderByDataNascimento();
+	}
 }

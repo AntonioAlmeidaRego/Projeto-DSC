@@ -54,6 +54,8 @@ public class Usuario implements UserDetails{
 	private String rua;
 	@Column(nullable = false, length = 255)
 	private String bairro;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataNascimento;
 	@Lob
 	private byte[] imagem;
 	@OneToMany(mappedBy="usuario")
@@ -276,7 +278,15 @@ public class Usuario implements UserDetails{
 	
 	@Override
 	public String toString() {
-		return this.nome + " " + this.email;
+		return this.nome + " " + this.email + " " + this.dataNascimento;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }
