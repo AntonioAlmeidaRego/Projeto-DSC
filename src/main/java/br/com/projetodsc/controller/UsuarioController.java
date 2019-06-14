@@ -40,8 +40,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
-		return new ModelAndView("usuario/portal-user")
-				.addObject("usuario", usuario).addObject("logado", serviceSession.getSession("usuario-logado"));
+		return new ModelAndView("usuario/portal-user").addObject("usuario", usuario).addObject("logado", serviceSession.getSession("usuario-logado"));
 	}
 	
 	@GetMapping("/cadastro-user")
@@ -74,6 +73,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 			return view;
 		}else {
 			usuario.getRole().add(role);
+			service.createLinkAtivarConta(usuario);
 			service.add(usuario);
 			view.addObject("mensagem", "Usuário cadastrado com sucesso!");
 			Email email = new Email();
@@ -127,6 +127,16 @@ public class UsuarioController implements SaveImg<Usuario>{
 	@GetMapping("/alterarSenha")
 	public ModelAndView mudarSenha() {
 		return new ModelAndView("usuario/mudar-senha");
+	}
+	@GetMapping("/ativarConta/{link}")
+	public ModelAndView ativarConta(@PathVariable String link) {
+		Usuario usuario = service.findByAtivarConta(true);
+		if((usuario != null) && (link.equals(usuario.getLinkAtivarConta()))) {
+			usuario.setLinkAtivarConta("");
+			service.update(usuario);
+			return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
+		}
+		return new ModelAndView("usuario/ativarConta").addObject("error", "Link inválido!");
 	}
  
 	@GetMapping("/formAlterar/{link}")

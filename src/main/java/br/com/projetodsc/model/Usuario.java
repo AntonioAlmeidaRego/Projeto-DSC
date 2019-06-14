@@ -289,5 +289,20 @@ public class Usuario implements UserDetails{
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
+	public String getLinkAtivarConta() {
+		return linkAtivarConta;
+	}
+
+	public void setLinkAtivarConta(String linkAtivarConta) {
+		this.linkAtivarConta = linkAtivarConta;
+	}
+
+	public boolean isAtivarConta() {
+		return ativarConta;
+	}
+
+	public void setAtivarConta(boolean ativarConta) {
+		this.ativarConta = ativarConta;
+	}
 }

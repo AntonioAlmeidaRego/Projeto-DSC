@@ -11,6 +11,8 @@ import br.com.projetodsc.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query
+	public Usuario findByEmailAndLinkAtivarConta(String email, String link);
+	@Query
 	public Usuario findByEmail(String email);
 	@Query
 	public Usuario findByEmailAndSenha(String email, String senha);
@@ -18,6 +20,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Usuario findByNome(String nome);
 	@Query
 	public Usuario findByStatusLink(boolean status);
+	@Query
+	public Usuario findByAtivarConta(boolean status);
 	@Query
 	public Usuario findByLinkAlterarSenha(String link);
 	@Query(value="SELECT * FROM usuario order by data_nascimento;", nativeQuery = true)

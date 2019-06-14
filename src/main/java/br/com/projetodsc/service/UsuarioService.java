@@ -28,7 +28,7 @@ public class UsuarioService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails user = repository.findByEmail(username);
+		UserDetails user = repository.findByEmailAndLinkAtivarConta(username, "");
 		org.springframework.security.core.userdetails.User userFinal = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getPermissoes(user));
 		System.out.println(userFinal.getAuthorities());
 		return userFinal;
@@ -64,10 +64,25 @@ public class UsuarioService implements UserDetailsService{
 		repository.saveAndFlush(usuario);
 	}
 	
+	public void createLinkAtivarConta(Usuario usuario) {
+		String link = "";
+		String array[] = passwordEncoder.encode(usuario.getEmail()).split(""); 
+		for(int i = 0; i<array.length;i++) {
+			if(array[i].equals("/")) {
+				array[i] = ""+i;
+				link += array[i];
+			}
+			link += array[i];
+		}
+		usuario.setLinkAtivarConta(link);
+		repository.saveAndFlush(usuario);
+	}
+	
 	public void add(Usuario usuario) {
 		usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
 		usuario.setDataCriacao(new Date());
 		usuario.setEnabled(true);
+		usuario.setAtivarConta(true);
 		repository.saveAndFlush(usuario);
 	}
 	
@@ -97,6 +112,10 @@ public class UsuarioService implements UserDetailsService{
 	
 	public Usuario findByStatusLink(boolean status) {
 		return repository.findByStatusLink(status);
+	}
+	
+	public Usuario findByAtivarConta(boolean status) {
+		return repository.findByAtivarConta(status);
 	}
 	
 	public boolean verificarLink(Usuario usuario, String link) {

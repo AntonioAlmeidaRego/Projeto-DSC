@@ -56,6 +56,12 @@
 																	entrada do usuário logo após o cadastro pelo
 																	site: <a href="https://livraria-ifrn.herokuapp.com/">https://livraria-ifrn.herokuapp.com/</a>.</td>
 															</tr>
+															<tr>
+																<td>
+																	<p>Ativar conta!
+																	<a href="http://localhost:8080/usuario/ativarConta/${link}">http://localhost:8080/usuario/ativarConta/${link}</a></p>
+																</td>
+															</tr>
 														</tbody>
 													</table>
 												</td>
