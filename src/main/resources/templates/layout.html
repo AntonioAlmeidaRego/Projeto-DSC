@@ -34,9 +34,9 @@
 	  	<div sec:authorize="hasAuthority('ADMINISTRADOR')"
 		 th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
 		<div class="main-panel">
-			<th:block th:if="${success_email != null}">
+			<th:block th:if="${emailSuccess != null}">
                		<div class="alert alert-success">
-               			<span th:text="${success_email}"></span>
+               			<span th:text="${emailSuccess}"></span>
             		</div>
            		</th:block>
 			<div class="content-wrapper" layout:fragment="corpo">

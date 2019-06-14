@@ -23,8 +23,8 @@ public class ContatoController {
 	
 	@PostMapping("/sendEmailContato")
 	public ModelAndView sendContatoAdmin(Email email) {
-		emailService.sendEmailText(email, email.getText());
-		return successSend();
+		emailService.sendEmailText(email, email.getText() + " de " + sessionService.getSession("usuario-logado").getEmail());
+		return successSend().addObject("emailSuccess", "Email enviado com sucesso!");
 	}
 	
 	@GetMapping("/sendSuccess")
