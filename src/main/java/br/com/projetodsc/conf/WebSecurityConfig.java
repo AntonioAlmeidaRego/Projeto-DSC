@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/usuario/mydados/**").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "/pedido/myPedidos/**").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "/usuario/listaComprasUsuario/**").hasAnyAuthority("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/contato/sendEmail").hasAnyAuthority("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/contato/sendSuccess").hasAnyAuthority("CLIENTE")
 		/* Métodos POST */
 		.antMatchers(HttpMethod.POST, "/usuario/enviarLinkAlterarSenha").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuario/updateSenha").permitAll()
@@ -70,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.POST, "/livrojson/livroJaAdd").permitAll()
 		.antMatchers(HttpMethod.POST, "/compra/saveCompra").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuario/saveUsuario").permitAll()
+		.antMatchers(HttpMethod.POST, "/contato/sendEmailContato").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and().formLogin().loginPage("/entrar").permitAll()
 		.successForwardUrl("/usuario/portal-user").and().logout().permitAll()

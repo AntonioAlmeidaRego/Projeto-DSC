@@ -37,7 +37,7 @@ public class Usuario implements UserDetails{
 		this.accountNonLocked = true;
 		this.credentialsNonExpired = true;
 		this.statusLink = false;
-		//this.ativarConta = false;
+		this.ativarConta = false;
 	}
 	
 	@Id
@@ -69,8 +69,10 @@ public class Usuario implements UserDetails{
 	private String estado;
 	@Column(nullable = true)
 	private String linkAlterarSenha;
+	@Column(nullable = false)
+	private String linkAtivarConta;
 	private boolean statusLink;
-	//private boolean ativarConta;
+	private boolean ativarConta;
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
 	private Set<Role> role = new HashSet<Role>();
