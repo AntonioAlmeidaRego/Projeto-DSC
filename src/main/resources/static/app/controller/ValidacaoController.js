@@ -14,6 +14,13 @@ class ValidacaoController {
     	return false;
     }
 
+    validacaoDate(data, dataAtual){
+        if((data > 2000) && (data <= dataAtual)){
+            return true;
+        }
+        return false;
+    }
+
     _calcularAniversario(dataAtual, dataAnv){
         return dataAtual - dataAnv;
     }

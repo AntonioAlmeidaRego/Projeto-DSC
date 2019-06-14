@@ -32,7 +32,7 @@ public class Compra implements Serializable{
 	@JoinTable(name="compra_pedidos")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	@Column(nullable=false)
-	private Date date;
+	private Date data;
 	public Long getId() {
 		return id;
 	}
@@ -55,10 +55,10 @@ public class Compra implements Serializable{
 		return serialVersionUID;
 	}
 	public Date getDate() {
-		return date;
+		return data;
 	}
 	public void setDate(Date date) {
-		this.date = date;
+		this.data = date;
 	}
 	
 }

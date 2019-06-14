@@ -38,8 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/promocao/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/email/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/usuario/**").permitAll()
+		.antMatchers("/relatorio/**").hasAnyAuthority("ADMINISTRADOR")
 		/* Métodos GET */
 		.antMatchers(HttpMethod.GET, "/").permitAll()
+		.antMatchers(HttpMethod.GET, "/relatoriojson/gerarRelatorio/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers(HttpMethod.GET, "/livro/listaAll/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/livro/buscaValoresIntervalors/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedido/pedidos/**").permitAll()

@@ -1,3 +1,4 @@
+var json = new JsonController;
 class TagsView {
 
     constructor(){
@@ -21,6 +22,16 @@ class TagsView {
     criarElementNoClassAndNoId(tagName, pai){
         if(tagName != "input"){
             this._pai = document.getElementById(pai.id);
+            let element = document.createElement(tagName);
+            this._element = element;
+            this._pai.appendChild(element);
+            return element;
+        }
+    }
+
+    criarElementFatherNoClassAndNoId(tagName, pai){
+        if(tagName != "input"){
+            this._pai = pai;
             let element = document.createElement(tagName);
             this._element = element;
             this._pai.appendChild(element);

@@ -47,8 +47,6 @@ public class Pedido implements Serializable{
 	@JoinTable(name="itens_pedidos")
 	private List<Livro> livros = new ArrayList<Livro>(); 
 	
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -118,4 +116,6 @@ public class Pedido implements Serializable{
 	public void setFrete(double frete) {
 		this.frete = frete;
 	}
+ 
+	
 }

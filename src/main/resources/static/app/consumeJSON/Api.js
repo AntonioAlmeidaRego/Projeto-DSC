@@ -8,6 +8,23 @@ class Api {
         this._view = new TagsView();
     }
 
+    _getRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra){
+        return new Promise(resolve => {
+            $.getJSON("/relatoriojson/gerarRelatorio/"+anoPedido+"/"+mesPedido+"/"+diaPedido
+                +"/"+anoCompra+"/"+mesCompra+"/"+diaCompra)
+            .done(function (data) {
+                resolve(data);
+            })
+            .fail(function () {
+                resolve("Erro");
+            });
+        });
+    }
+
+    async apiRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra){
+        return await this._getRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra);
+    }
+
     apiCep(cep, form){        
         var view = this._view;
         $.getJSON("http://api.postmon.com.br/v1/cep/"+cep)
@@ -58,22 +75,4 @@ class Api {
             }); 
     }
 
-    apiCorreios(cep_destino, peso, valor){
-        if(cep_destino.length == 9){
-            $.ajax({
-                url: "https://www.sgpweb.com.br/novo/api/consulta-precos-prazos?chave_integracao=90c067ea2d608e044af5d34790f82365",
-                method: "post",
-                timeout: 0,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: "{" +
-                    "\n\t\"identificador\": 1,\n\t\"cep_origem\": \"80230-110\",\n\tcep_destino: \\"+cep_destino+"\,\n\t\"formato\": \"1\",\n\t\"peso\": \\"+peso+
-                    ",\n\t\"comprimento\": \"25\",\n\t\"altura\": \"40\",\n\t\"largura\": " +
-                    "\"11\",\n\t\"mao_propria\": \"S\",\n\t\"aviso_recebimento\": \"S\",\n\t\"valor_declarado\": \\"+valor+"\",\n\t\"servicos\": [\"04162\", \"04669\"]\n}",
-            }).done(function (response) {
-                console.log(response);
-            });
-        }
-    }
 }
