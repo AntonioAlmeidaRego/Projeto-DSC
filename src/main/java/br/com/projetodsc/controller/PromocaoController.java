@@ -32,8 +32,13 @@ public class PromocaoController {
 	public ModelAndView savePromocao(Promocao promocao) {
 		Promocao promocao2 = service.getPromocao(promocao.getDesconto());
 		if(promocao2 == null) {
+			promocao.setStatus(true);
 			service.add(promocao);
 			return findAll().addObject("success", "Promoção adicionada com sucesso!");
+		}else if(promocao2.getId() == promocao.getId()) {
+			promocao.setStatus(true);
+			service.add(promocao);
+			return findAll().addObject("success", "Promoção alterada com sucesso!");
 		}else {
 			return findAll().addObject("error", "Esta promoção já foi adicionada. Por favor tente outra!");
 		}
@@ -56,7 +61,7 @@ public class PromocaoController {
 		}
 	}
 	
-	@GetMapping("/updatePromocao")
+	@GetMapping("/updatePromocao/{id}")
 	public ModelAndView updatePromocao(@PathVariable Long id) {
 		Promocao promocao = service.getOne(id);
 		return cadastroPromocao(promocao);

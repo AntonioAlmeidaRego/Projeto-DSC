@@ -26,6 +26,13 @@ public class Promocao implements Serializable{
 	private int desconto;
 	@OneToMany(mappedBy="promocao")
 	private List<Livro> livros = new ArrayList<Livro>();
+	private boolean status;
+	
+	
+	public Promocao() {
+		super();
+		status = false;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +51,13 @@ public class Promocao implements Serializable{
 	public void setLivros(List<Livro> livros) {
 		this.livros = livros;
 	}
-	
-	
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

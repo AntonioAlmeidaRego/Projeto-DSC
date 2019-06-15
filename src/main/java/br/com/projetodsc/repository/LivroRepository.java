@@ -46,12 +46,13 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	public Livro livroFavoritoJaAdd(Long idLivro, Long idUsuario);
 	
 	@Query(value="select * from livro l\n" + 
-			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
+			"inner join  promocao p on(p.id = l.promocao_id) "
+			+ " where p.status = true\n" + 
 			"order by p.id limit ?", nativeQuery = true)
 	public List<Livro> listaTresPrimeiros(int limit);
 	
 	@Query(value="select * from livro l \n" + 
-			"inner join  promocao p on(p.id = l.promocao_id) \n" + 
+			"inner join  promocao p on(p.id = l.promocao_id) where p.status = true \n" + 
 			"order by p.id desc limit ?", nativeQuery=true)
 	public List<Livro> listaTresUltimos(int limit);
 	
