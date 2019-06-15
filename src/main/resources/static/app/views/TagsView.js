@@ -1,4 +1,3 @@
-var json = new JsonController;
 class TagsView {
 
     constructor(){

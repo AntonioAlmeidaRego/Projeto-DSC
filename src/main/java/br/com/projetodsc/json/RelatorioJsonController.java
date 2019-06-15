@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.projetodsc.model.Compra;
 import br.com.projetodsc.model.Pedido;
+import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.PedidoService;
 
 @RestController
@@ -18,16 +20,28 @@ public class RelatorioJsonController {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	@Autowired
+	private CompraService compraService;
 	
-	@GetMapping("/gerarRelatorio/{anoPedido}/{mesPedido}/{diaPedido}/{anoCompra}/{mesCompra}/{diaCompra}")
-	public ResponseEntity<List<Pedido>> gerarRelatorio(@PathVariable int anoPedido, @PathVariable int mesPedido, @PathVariable int diaPedido, @PathVariable int anoCompra, @PathVariable int mesCompra, @PathVariable int diaCompra) {
-		List<Pedido> listaPedido = pedidoService.relatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra);
+	@GetMapping("/gerarRelatorio/{ano}/{mes}/{dia}")
+	public ResponseEntity<List<Pedido>> gerarRelatorioPedido(@PathVariable int ano, @PathVariable int mes, @PathVariable int dia) {
+		List<Pedido> listaPedido = pedidoService.relatorio(ano, mes, dia);
+		
 		if(listaPedido.isEmpty()) {
-			System.out.println(listaPedido);
 			return ResponseEntity.notFound().build();
 		}else {
 			System.out.println(listaPedido);
 			return ResponseEntity.ok(listaPedido);
+		}
+	}
+	
+	@GetMapping("/gerarRelatorioCompra/{ano}/{mes}/{dia}")
+	public ResponseEntity<List<Compra>> gerarRelatorioCompra(@PathVariable int ano, @PathVariable int mes, @PathVariable int dia){
+		List<Compra> compras = compraService.relatorioDiario(ano, mes, dia);
+		if(compras.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(compras);
 		}
 	}
 }

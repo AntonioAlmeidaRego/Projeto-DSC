@@ -28,4 +28,8 @@ public class CompraService {
 	public List<Compra> findAllCompraUsuario(Long id){
 		return repository.listaComprasUsuario(id);
 	}
+	
+	public List<Compra> relatorioDiario(int ano, int mes, int dia){
+		return repository.relatorioDiario(ano, mes, dia);
+	}
 }

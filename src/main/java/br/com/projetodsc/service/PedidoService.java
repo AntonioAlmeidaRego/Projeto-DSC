@@ -38,8 +38,8 @@ public class PedidoService {
 		return repository.carinhoPedidos(id);
 	}
  
-	public List<Pedido> relatorio(int anoPedido, int mesPedido, int diaPedido, int anoCompra, int mesCompra, int diaCompra){
-		return repository.relatorioDiario(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra);
+	public List<Pedido> relatorio(int anoPedido, int mesPedido, int diaPedido){
+		return repository.relatorioDiario(anoPedido, mesPedido, diaPedido);
 	}
 	 
 }

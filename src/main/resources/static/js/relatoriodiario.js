@@ -15,100 +15,118 @@ $("#date-relatorio").change(function (event) {
     }
 });
 
-$("#consultar-relatorio").click(function(event){
-    event.preventDefault();
-    let tags = new TagsView();
-	let api = new Api;
-    let objetoJSON = api.apiRelatorio($("#date-relatorio").val().split("-")[0], $("#date-relatorio").val().split("-")[1], $("#date-relatorio").val().split("-")[2],$("#date-relatorio").val().split("-")[0], $("#date-relatorio").val().split("-")[1], $("#date-relatorio").val().split("-")[2]);
-    objetoJSON.then(function (data) {
-        clearTable(document.getElementById("tbody-pedidos"));
-        criarTable(document.getElementById("table-pedidos"),data, tags);
-    });
 
+
+$("#consultar-relatorio").click(function(event){
+    if($("#date-relatorio").val() != ""){
+        event.preventDefault();
+        let tags = new TagsView();
+        let api = new Api;
+        let objetoJSONPedido = api.apiRelatorioPedido($("#date-relatorio").val().split("-")[0], $("#date-relatorio").val().split("-")[1], $("#date-relatorio").val().split("-")[2]);
+        objetoJSONPedido.then(function (data) {
+            clearTable(document.getElementById("tbody-pedidos"));
+            criarTable(document.getElementById("table-pedidos"),data, tags);
+        });
+        let objetoJSONCompra = api.apiRelatorioCompra($("#date-relatorio").val().split("-")[0], $("#date-relatorio").val().split("-")[1], $("#date-relatorio").val().split("-")[2]);
+        objetoJSONCompra.then(function (data) {
+            clearTable(document.getElementById("tbody-compras"));
+            criarTableCompras(document.getElementById("table-compras"), data, tags);
+        });
+    }else{
+        clearfield.show("date-relatorio"+"-div");
+        $("#consultar-relatorio").attr("disabled", true);
+        tags.updateElement(document.getElementById("date-relatorio"+"-div"), "span", "Campo obrigatório!");
+    }
 });
 
 $(document).ready(function () {
    $("#date-relatorio-div").hide();
+    $("#alert-compras").hide();
+    $("#alert-pedidos").hide();
 });
 
 function criarTableCompras(table, data, tags) {
-    let k = 0;
-    let tbody = table.children[1];
-    let colunas = table.children[0].children[0].children;
-    let tr = tags.criarElementNoClassAndNoId("tr", tbody);
-    for(let i = 0; i<data.length;i++){
-        let usuario = data[i];
-        let livros = data[i];
-        for(let j = 0; j<colunas.length;j++){
-            $.each(data[i], function (i, val) {
-                if(k == colunas.length){
-                    tr = tags.criarElementNoClassAndNoId("tr", tbody);
-                    k = 0;
-                }
-                if(i == colunas[j].id){
-                    if(colunas[j].id == "usuario"){
-                        $.each(usuario.usuario, function (chave, value) {
-                            if(chave == "nome"){
-                                criarTd(value, tr, tags);
-                            }
-                        });
+    if(data != "Lista vazia"){
+        $("#alert-compras").hide();
+        let k = 0;
+        let tbody = table.children[1];
+        let colunas = table.children[0].children[0].children;
+        let tr = tags.criarElementNoClassAndNoId("tr", tbody);
+        for(let i = 0; i<data.length;i++){
+            let pedidos = data[i];
+            for(let c = 0;c <colunas.length;c++){
+                $.each(data[i], function (f, val) {
+                    if(k == colunas.length){
+                        tr = tags.criarElementNoClassAndNoId("tr", tbody);
+                        k = 0;
                     }
-                    else if(colunas[j].id != "livros"){
-                        criarTd(val, tr, tags);
-                    }else{
-                        $.each(livros.livros, function (chave2, value) {
-                            criarTd(value.titulo, tr, tags);
-                        });
+                    if(f != "id"){
+                        if(f == "pedidos"){
+                            $.each(pedidos.pedidos[c].usuario, function (chave, value) {
+                                if(chave == "nome"){
+                                    criarTd(value, tr, tags);
+                                }
+                            });
+                            $.each(pedidos.pedidos[c].livros, function (chave2, value) {
+                                criarTd(value.titulo, tr, tags);
+                            });
+                        }else{
+                            criarTd(val, tr, tags);
+                        }
                     }
                     k++;
-                }
-            });
+                });
+            }
         }
+    }else{
+        $("#alert-compras").show();
     }
 }
 
 function criarTable(table, data, tags){
-    let k = 0;
-    let tbody = table.children[1];
-    let colunas = table.children[0].children[0].children;
-    let tr = tags.criarElementNoClassAndNoId("tr", tbody);
-    for(let i = 0; i<data.length;i++){
-        let usuario = data[i];
-        let livros = data[i];
-        console.log(data[i]);
-        for(let j = 0; j<colunas.length;j++){
-            $.each(data[i], function (i, val) {
-                if(k == colunas.length){
-                    tr = tags.criarElementNoClassAndNoId("tr", tbody);
-                    k = 0;
-                }
-                if(i == colunas[j].id){
-                    if(colunas[j].id == "usuario"){
-                        $.each(usuario.usuario, function (chave, value) {
-                            if(chave == "nome"){
-                                criarTd(value, tr, tags);
-                            }
-                        });
+    if(data != "Lista vazia"){
+        $("#alert-pedidos").hide();
+        let k = 0;
+        let tbody = table.children[1];
+        let colunas = table.children[0].children[0].children;
+        let tr = tags.criarElementNoClassAndNoId("tr", tbody);
+        for(let i = 0; i<data.length;i++){
+            let usuario = data[i];
+            let livros = data[i];
+            for(let j = 0; j<colunas.length;j++){
+                $.each(data[i], function (i, val) {
+                    if(k == colunas.length){
+                        tr = tags.criarElementNoClassAndNoId("tr", tbody);
+                        k = 0;
                     }
-                    else if(colunas[j].id != "livros"){
-                        criarTd(val, tr, tags);
-                    }else{
-                        $.each(livros.livros, function (chave2, value) {
-                            criarTd(value.titulo, tr, tags);
-                        });
+                    if(i == colunas[j].id){
+                        if(colunas[j].id == "usuario"){
+                            $.each(usuario.usuario, function (chave, value) {
+                                if(chave == "nome"){
+                                    criarTd(value, tr, tags);
+                                }
+                            });
+                        }
+                        else if(colunas[j].id != "livros"){
+                            criarTd(val, tr, tags);
+                        }else{
+                            $.each(livros.livros, function (chave2, value) {
+                                criarTd(value.titulo, tr, tags);
+                            });
+                        }
+                        k++;
                     }
-                    k++;
-                }
-            });
+                });
+            }
         }
+    }else{
+        $("#alert-pedidos").show();
     }
-
-
 }
 
 function criarTd(val, tr, tags){
     let td = tags.criarElementFatherNoClassAndNoId("td", tr);
-    tags.updateElement(td, "p", val);
+    tags.updateElement(td, "span", val);
 }
 
 function clearTable(tbody){

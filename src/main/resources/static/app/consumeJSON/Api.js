@@ -8,21 +8,37 @@ class Api {
         this._view = new TagsView();
     }
 
-    _getRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra){
+    _getRelatorioPedido(anoPedido, mesPedido, diaPedido){
         return new Promise(resolve => {
-            $.getJSON("/relatoriojson/gerarRelatorio/"+anoPedido+"/"+mesPedido+"/"+diaPedido
-                +"/"+anoCompra+"/"+mesCompra+"/"+diaCompra)
+            $.getJSON("/relatoriojson/gerarRelatorio/"+anoPedido+"/"+mesPedido+"/"+diaPedido)
             .done(function (data) {
                 resolve(data);
             })
             .fail(function () {
-                resolve("Erro");
+                resolve("Lista vazia");
             });
         });
     }
 
-    async apiRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra){
-        return await this._getRelatorio(anoPedido, mesPedido, diaPedido, anoCompra, mesCompra, diaCompra);
+    _getRelatorioCompra(anoCompra, mesCompra, diaCompra){
+        return new Promise(resolve => {
+            $.getJSON("/relatoriojson/gerarRelatorioCompra/"+anoCompra+"/"+mesCompra+"/"+diaCompra)
+            .done(function (data) {
+                resolve(data);
+            })
+            .fail(function () {
+                resolve("Lista vazia");
+            });
+        });
+
+    }
+
+    async apiRelatorioPedido(anoPedido, mesPedido, diaPedido){
+        return await this._getRelatorioPedido(anoPedido, mesPedido, diaPedido);
+    }
+
+    async apiRelatorioCompra(anoCompra, mesCompra, diaCompra){
+        return await this._getRelatorioCompra(anoCompra, mesCompra, diaCompra);
     }
 
     apiCep(cep, form){        

@@ -40,32 +40,45 @@
                                     <button id="consultar-relatorio" class="btn btn-success pull-right">Gerar relatorio</button>
                                     <div class="clearfix"></div>
 									</form>
+									<div id="alert-pedidos" class="alert alert-danger">
+										<span>Não existe pedidos para essa data</span>
+									</div>
 									<p class="text-lg-center" style="color: #000">Pedidos</p>
-									<style>
-										p{
-											color: #000;
-										}
-									</style>
-									<table class="table table-striped" id="table-pedidos">
-										<thead>
-											<tr>
-												<th id="usuario">Cliente</th>
-												<th id="livros">Livro</th>
-												<th id="valorTotal">Valor Pedido</th>
-												<th id="data">Data do Pedido</th>
-												<th id="quantidade">Quantidade de Livros</th>
-											</tr>
-										</thead>
-										<tbody id="tbody-pedidos">
-											
-										</tbody>
-									</table>
+									<div class="table-responsive">
+										<table class="table table-striped" id="table-pedidos">
+											<thead>
+												<tr>
+													<th id="usuario">Cliente</th>
+													<th id="livros">Livro</th>
+													<th id="valorTotal">Valor Pedido</th>
+													<th id="data">Data do Pedido</th>
+													<th id="quantidade">Quantidade de Livros</th>
+												</tr>
+											</thead>
+											<tbody id="tbody-pedidos">
+											</tbody>
+										</table>
+									</div>
+									
+									
+									<div id="alert-compras" class="alert alert-danger">
+										<span>Não existe compras para essa data</span>
+									</div>
 									<p class="text-lg-center" style="color: #000">Compras</p>
-									<table class="table table-striped">
-										<thead>
-											<tr></tr>
-										</thead>
-									</table>
+									<div class="table-responsive">
+										<table class="table table-striped" id="table-compras">
+											<thead>
+												<tr>
+													<th id="valorCompra">Valor Compra</th>
+													<th id="pedidos">Cliente</th>
+													<th id="livrosCompra">Livro</th>
+													<th id="data">Data da Compra</th>
+												</tr>
+											</thead>
+											<tbody id="tbody-compras">
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
                     	</div>

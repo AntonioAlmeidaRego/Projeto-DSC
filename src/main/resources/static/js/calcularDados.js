@@ -69,12 +69,13 @@
 
    $("#addPedido").click(function (event) {
 	        event.preventDefault();
+	        let usuarioLogado = $("#usuario_logado").val();
 	      if(!($("#quantidade").val() == "0") || !($("#quantidade").val().length == 0)){
-	        if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
+	        if((usuarioLogado !== undefined)){
                 let randomPedido = Math.random();
                 let submit = new SubmitRequest("post", "/pedido/savePedido");
                 let request = new RequestController;
-                let objeto = request.getJsonLivro("/livrojson/livroJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
+                let objeto = request.getJsonLivro("/livrojson/livroJaAdd", "post", $("#idLivro").val(), usuarioLogado);
 
                 objeto.then(function (data) {
                     if(data == "pedido adicionado com sucesso"){
@@ -98,9 +99,9 @@
                         session.getSession("pedido");
                         request.submitPedido(submit, new Date(), session.getSession("pedido")._preco, randomPedido,
                             session.getSession("pedido")._idLivro, session.getSession("pedido")._quantidade,
-                            session.getSession("user")._idUsuario, cal.calcularDays(dia, new Date().getMonth(), new Date().getFullYear()), str2);
+                            usuarioLogado, cal.calcularDays(dia, new Date().getMonth(), new Date().getFullYear()), str2);
                         alert("Pedido adicionado com Sucesso!");
-                        window.location.replace("/pedido/pedidos/"+session.getSession("user")._idUsuario);
+                        window.location.replace("/pedido/pedidos/"+usuarioLogado);
 
                     }else{
                         alert("Este pedido já foi adicionado!");
@@ -115,10 +116,11 @@
 
        $("#addFavorito").click(function (event) {
            event.preventDefault();
-           if((session.getSession("user") != null) && (session.getSession("user")._idUsuario !== undefined)){
+           let usuarioLogado = $("#usuario_logado").val();
+           if((usuarioLogado !== undefined)){
                let submit = new SubmitRequest("post", "/livro/addFavorito");
                let request = new RequestController;
-               let objeto = request.getJsonLivroFavorito("/livrojson/livroFavoritoJaAdd", "post", $("#idLivro").val(), session.getSession("user")._idUsuario);
+               let objeto = request.getJsonLivroFavorito("/livrojson/livroFavoritoJaAdd", "post", $("#idLivro").val(), usuarioLogado);
                objeto.then(function (data) {
                    if(data == "livro adicionado como favorito"){
                        request.submitFavorito(submit, $("#idLivro").val());

@@ -135,11 +135,19 @@
             <p>Gerar relatorio</p>
           	</a></li>
             <li class="nav-item"><a data-togle="collapse" class="nav-link"
-                                  th:href="@{/deslogar}">
+                                  id="sair">
 			 
             <p>Sair</p>
           </a></li>
         </ul>
+        <script type="text/javascript">
+	        $("#sair").click(function(event){
+				if(event.length === undefined){
+					session.clearSession("user");
+					window.location.replace("/deslogar");
+				}
+			});
+        </script>
       </div>
     </div>
 	</div>
