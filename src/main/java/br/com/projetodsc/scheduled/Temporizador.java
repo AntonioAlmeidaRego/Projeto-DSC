@@ -1,6 +1,7 @@
 package br.com.projetodsc.scheduled;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Component;
 
 import br.com.projetodsc.model.Email;
 import br.com.projetodsc.model.Promocao;
+import br.com.projetodsc.model.Tempo;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.EmailService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
+import br.com.projetodsc.service.TempoService;
 import br.com.projetodsc.service.UsuarioService;
 
 @Component
@@ -26,27 +29,23 @@ public class Temporizador{
 	private PromocaoService promocaoService;
 	@Autowired
 	private LivroService livroService;
-
-	  private int segundo = new Date().getSeconds(); 
-	  private int minuto = new Date().getMinutes();
-	  private int hora = new Date().getHours();
-	  private int dia = new Date().getDate(); 
-	  private int mes = new Date().getMonth(); 
-	  private int ano = new Date().getYear();
+	@Autowired
+	private TempoService tempoService;
+    private int segundo = new Date().getSeconds(); 
+    private int minuto = new Date().getMinutes();
+    private int hora = new Date().getHours();
+    private int dia = new Date().getDate(); 
+    private int mes = new Date().getMonth(); 
+    private int ano = new Date().getYear();
+    private int diaAux = 0;
 	  
 	  private void time() { 
-		  if(segundo == 59) {
-			  minuto++; 
-			  if(minuto == 59) {
-			      hora++; 
-				  if(hora == 23) { 
-				     hora = 0; 
-				  } 
-			  	 minuto = 0; 
-			  } 
-		  	segundo = 0; 
-		  }
-		  segundo++;
+		  segundo = new Date().getSeconds();
+		  minuto = new Date().getMinutes();
+		  hora = new Date().getHours();
+		  dia = new Date().getDate(); 
+		  mes = new Date().getMonth(); 
+		  ano = new Date().getYear();
 	  }
 	 
 	private void listaAniversario() {
@@ -83,18 +82,30 @@ public class Temporizador{
 	@Scheduled(cron = " */1 * * * * *")
 	public void temporizadorPromocao() {
 		time();
-		if((hora == 23) && (minuto == 18) && (segundo == 1) && (dia == 15)) {
-			for(Promocao promocao : promocaoService.findAll()) {
-				promocao.setStatus(false);
-				promocaoService.add(promocao);
+		if((hora == 16) && (minuto == 18) && (segundo == 15)) {
+			List<Tempo> tempos = tempoService.getTempo(ano, mes, dia, hora, minuto, segundo);
+			if((!tempos.isEmpty())) {
+				for(Tempo tempo : tempos) {
+					Promocao promocao = tempo.getPromocao();
+					if(!promocao.isStatus()) {
+						promocao.setStatus(true);
+						promocaoService.add(promocao);
+						diaAux = dia + 5;
+					}
+				}
+				listaPromocoes();
 			}
-		}else if((hora == 23) && (minuto == 32) && (segundo == 1) && (dia == 14)){
-			for(Promocao promocao : promocaoService.findAll()) {
-				promocao.setStatus(true);
-				promocaoService.add(promocao);
-			}
-			listaPromocoes();
 		}
+		if((hora == 23) && (minuto == 30) && (segundo == 1) && (dia == diaAux)) {
+			diaAux = 0;
+			for(Promocao promocao : promocaoService.findAll()) {
+				if(promocao.isStatus()) {
+					promocao.setStatus(false);
+					promocaoService.add(promocao);
+				}
+			}
+		}
+		
 	}
 	
 	@Scheduled(cron = "25 18 9 * * *")

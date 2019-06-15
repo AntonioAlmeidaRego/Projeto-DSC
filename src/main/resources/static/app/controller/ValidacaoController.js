@@ -32,6 +32,57 @@ class ValidacaoController {
         return false;
     }
 
+    validacaoMinutos(minuto){
+        if(minuto > 0 && minuto <= 60){
+            return true;
+        }
+        return false;
+    }
+
+    validacaoHora(hora){
+        if(hora > 0 && hora <= 24){
+            return true;
+        }
+        return false;
+    }
+
+    validacaoDia(dia){
+        if((dia > 0) && (dia <= 31)){
+            if(new Date().getFullYear() % 4 == 0){
+                if(new Date().getMonth() == 1){
+                    if(dia <= 28){
+                        return true;
+                    }
+                }else{
+                    return true;
+                }
+            }else{
+                if(new Date().getMonth() == 1){
+                    if(dia <= 29){
+                       return true;
+                    }
+                }else{
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    validacaoMes(mes){
+        if((mes > 0) && (mes <= 12)){
+            return true;
+        }
+        return false;
+    }
+
+    validacaoSegundo(segundo){
+        if((segundo > 0) && (segundo <= 60)){
+            return true;
+        }
+        return false;
+    }
+
     validacaoFieldValors(element, valor){
         if((element.value) > valor){
             return true;

@@ -24,13 +24,28 @@ class RequiredController {
         return false;
     }
 
+    requiredInputNumberAll(form, inicio, tamanho){
+        for(let i = inicio;i<tamanho;i++){
+            if(document.getElementById(form[i].id).value != "0" || document.getElementById(form[i].id).value != ""){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    requiredInputNumber(form, i){
+        if(document.getElementById(form[i].id).value > 0){
+            return true;
+        }
+        return false;
+    }
+
     requiredInput(id){
         if(document.getElementById(id).value == "") {
             return true;
         }
         return false;
     }
-
 
     requiredEmail(event){
     	console.log(event.which);

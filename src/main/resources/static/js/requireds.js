@@ -73,6 +73,9 @@ $(document).ready(function () {
     if($("#form-promocao").length){
         esconderDiv(document.getElementById("form-promocao"), 0, document.getElementById("form-promocao").length);
     }
+    if($("#form-tempo").length){
+        esconderDiv(document.getElementById("form-tempo"), 0, document.getElementById("form-tempo").length);
+    }
 
     if($("#imagem-capa").length){
         exe = extensao;
@@ -100,6 +103,153 @@ $(document).ready(function () {
     $("#update-user-municipio").attr("disabled", true);
 });
 /*---------------------------------------------------------------------------------------------------------------------*/
+
+/* Cadastro de Tempo */
+
+$("#tempo-dia").keypress(function (event) {
+    let validacao = new ValidacaoController;
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }else{
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }
+});
+
+$("#tempo-dia").keyup(function () {
+    let validacao = new ValidacaoController;
+    if(validacao.validacaoDia($(this).val())){
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }else{
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Dia inválido!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }
+});
+
+$("#tempo-hora").keypress(function (event) {
+    let validacao = new ValidacaoController;
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }else{
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }
+});
+
+$("#tempo-hora").keyup(function () {
+    let validacao = new ValidacaoController;
+    if(validacao.validacaoHora($(this).val())){
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }else{
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Hora inválido!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }
+});
+
+$("#tempo-mes").keypress(function (event) {
+    let validacao = new ValidacaoController;
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }else{
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }
+});
+
+$("#tempo-mes").keyup(function () {
+    let validacao = new ValidacaoController;
+    if(validacao.validacaoMes($(this).val())){
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }else{
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Mês inválido!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }
+});
+
+$("#tempo-segundo").keypress(function (event) {
+    let validacao = new ValidacaoController;
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }else{
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }
+});
+
+$("#tempo-segundo").keyup(function () {
+    let validacao = new ValidacaoController;
+    if(validacao.validacaoSegundo($(this).val())){
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }else{
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Segundo inválido!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }
+});
+
+
+$("#tempo-minuto").keypress(function (event) {
+    let validacao = new ValidacaoController;
+    if(!validacao.keyCodeNumber(event)){
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }else{
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }
+});
+
+$("#tempo-minuto").keyup(function () {
+    let validacao = new ValidacaoController;
+    if(validacao.validacaoMinutos($(this).val())){
+        $("#cadastro-tempo").attr("disabled", false);
+        clearfield.hide(this.id+"-div");
+    }else{
+        clearfield.show(this.id+"-div");
+        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Minuto inválido!");
+        $("#cadastro-tempo").attr("disabled", true);
+    }
+});
+
+
+$("#cadastro-tempo").click(function (event) {
+    let form = document.getElementById("form-tempo");
+    let required = new RequiredController(this);
+    let select = document.getElementById("descontos");
+    if((!required.requiredInputNumberAll(form, 1, form.length-2)) && (select.value != "")){
+        $("#cadastro-tempo").submit();
+    }else{
+        event.preventDefault();
+        for(let i = 1; i<form.length-2;i++){
+            if(form[i].id != "descontos"){
+                if(!required.requiredInputNumber(form, i)){
+                    clearfield.show(form[i].id+"-div");
+                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+                }
+            }
+        }
+        if(select.value == ""){
+            clearfield.show("descontos-div");
+            tags.updateElement(document.getElementById("descontos-div"), "span", "campo obrigatório!");
+        }
+    }
+});
 
 /* Eventos Login */
 
@@ -193,6 +343,10 @@ $("#sinopsie-livro").focus(function () {
 /* Evento select -- editora-livro*/
 
 $("#editora-livro").click(function () {
+    clearfield.hide(this.id+"-div");
+});
+
+$("#descontos").click(function () {
     clearfield.hide(this.id+"-div");
 });
 

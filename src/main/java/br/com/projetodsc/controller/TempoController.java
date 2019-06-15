@@ -1,5 +1,7 @@
 package br.com.projetodsc.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,7 @@ public class TempoController {
 	
 	@PostMapping("/saveTempo")
 	public ModelAndView saveTempo(Tempo tempo) {
+		tempo.setAno(new Date().getYear());
 		Tempo tempo2 = tempoService.getTempoPromocao(tempo.getPromocao().getId());
 		if(tempo2 == null) {
 			tempoService.add(tempo);

@@ -33,4 +33,8 @@ public class TempoService {
 	public Tempo getTempoPromocao(Long id) {
 		return repository.findByPromocao(id);
 	}
+	
+	public List<Tempo> getTempo(int ano, int mes, int dia, int hora, int minuto, int segundo) {
+		return repository.findByAnoAndMesAndDiaAndHoraAndMinutoAndSegundo(ano, mes, dia, hora, minuto, segundo);
+	}
 }

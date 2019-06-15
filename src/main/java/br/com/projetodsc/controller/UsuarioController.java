@@ -21,6 +21,7 @@ import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.EmailService;
 import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.SessionService;
+import br.com.projetodsc.service.TempoService;
 import br.com.projetodsc.service.UsuarioService;
 import br.com.projetodsc.util.Conversor;
 import br.com.projetodsc.util.SaveImg;
@@ -30,6 +31,8 @@ import br.com.projetodsc.util.SaveImg;
 public class UsuarioController implements SaveImg<Usuario>{
 	@Autowired
 	private UsuarioService service;
+	@Autowired
+	private TempoService tempoService;
 	@Autowired
 	private CompraService serviceCompra;
 	@Autowired
@@ -41,7 +44,10 @@ public class UsuarioController implements SaveImg<Usuario>{
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
-		return new ModelAndView("usuario/portal-user").addObject("usuario", usuario).addObject("logado", serviceSession.getSession("usuario-logado"));
+		return new ModelAndView("usuario/portal-user")
+				.addObject("usuario", usuario)
+				.addObject("logado", serviceSession.getSession("usuario-logado"))
+				.addObject("tempos", tempoService.findAll());
 	}
 	
 	@GetMapping("/cadastro-user")
