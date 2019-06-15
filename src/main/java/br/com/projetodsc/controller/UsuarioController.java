@@ -1,6 +1,7 @@
 package br.com.projetodsc.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -130,11 +131,14 @@ public class UsuarioController implements SaveImg<Usuario>{
 	}
 	@GetMapping("/ativarConta/{link}")
 	public ModelAndView ativarConta(@PathVariable String link) {
-		Usuario usuario = service.findByAtivarConta(true);
-		if((usuario != null) && (link.equals(usuario.getLinkAtivarConta()))) {
-			usuario.setLinkAtivarConta("");
-			service.update(usuario);
-			return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
+		List<Usuario> usuarios = service.findByAtivarConta(true);
+		for(Usuario usuario : usuarios) {
+			if((usuario != null) && (link.equals(usuario.getLinkAtivarConta()))) {
+				usuario.setLinkAtivarConta("");
+				usuario.setAtivarConta(false);
+				service.update(usuario);
+				return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
+			}
 		}
 		return new ModelAndView("usuario/ativarConta").addObject("error", "Link inválido!");
 	}

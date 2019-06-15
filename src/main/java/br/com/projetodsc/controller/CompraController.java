@@ -60,11 +60,9 @@ public class CompraController {
 		List<Livro> livros = new ArrayList<Livro>();
 		for(Pedido p : compra.getPedidos()) {
 			for(Livro l : p.getLivros()) {
-				for(Categoria categoria : l.getCategorias()) {
-					Estoque estoque = estoqueService.getCategoria(categoria.getNome());
-					estoque.setQuantidade(estoque.getQuantidade()-1);
-					estoqueService.add(estoque);
-				}
+				Estoque estoque = estoqueService.getLivro(l.getTitulo());
+				estoque.setQuantidade(estoque.getQuantidade()-p.getQuantidade());
+				estoqueService.add(estoque);
 				livros.add(l);
 			}
 		}

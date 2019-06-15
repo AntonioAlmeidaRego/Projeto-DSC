@@ -16,9 +16,6 @@ public class Estoque {
 	@ManyToOne
 	@JoinColumn(name="livro_id")
 	private Livro livro;
-	@ManyToOne
-	@JoinColumn(name="categoria_id")
-	private Categoria categoria;
 	
 	public Estoque() {
 		super();
@@ -48,11 +45,4 @@ public class Estoque {
 		this.livro = livro;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
 }

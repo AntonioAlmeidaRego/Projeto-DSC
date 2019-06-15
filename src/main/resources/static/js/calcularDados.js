@@ -18,6 +18,7 @@
     $(document).ready(function () {
         $("#error-quantidade").hide();
         if($("#addPedido").length){
+            $("#quantidade").attr("disabled", true);
         	$("#addPedido").attr("disabled", true);
         }	
         

@@ -146,7 +146,7 @@ public class LivroController implements SaveImg<Livro>{
 	}
 	
 	@PostMapping("/saveLivro")
-	public ModelAndView saveLivro(Livro livro, @RequestParam("file") MultipartFile file, String ids) {
+	public ModelAndView saveLivro(Livro livro, @RequestParam("file") MultipartFile file, String ids, @RequestParam("estoque") int quantidade) {
 		Livro livro2 = service.getLivroIsbnAndTitulo(livro.getIsbn(), livro.getTitulo());
 		if(livro2 == null) {
 			saveImg(file, livro, livro2);
@@ -154,18 +154,12 @@ public class LivroController implements SaveImg<Livro>{
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
 				service.add(livro);
-				for(Categoria categoria : livro.getCategorias()) {
-					String getIds[] = ids.split(",");
-					for(int i = 0;i<getIds.length;i++) {
-						Long id = Long.parseLong(getIds[i]);
-						if(categoria.getId().equals(id)) {
-							Estoque estoque = estoqueService.getCategoria(categoria.getNome());
-							estoque.setQuantidade(estoque.getQuantidade()+1);
-							estoque.setLivro(livro);
-							estoqueService.add(estoque);
-						}
-					}
-					
+				Estoque estoque = estoqueService.getLivro(livro.getTitulo());
+				if(estoque == null) {
+					estoque = new Estoque();
+					estoque.setQuantidade(quantidade);
+					estoque.setLivro(livro);
+					estoqueService.add(estoque);
 				}
 			}else {
 				return cadastroLivro(livro).addObject("error", "Editora não existe na base de dados!");
@@ -177,6 +171,12 @@ public class LivroController implements SaveImg<Livro>{
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
 				service.add(livro);
+				Estoque estoque = estoqueService.getLivro(livro.getTitulo());
+				if(estoque != null) {
+					estoque.setQuantidade(quantidade);
+					estoque.setLivro(livro);
+					estoqueService.add(estoque);
+				}
 				return findAll().addObject("success", "Livro alterado com sucesso!");
 			}else {
 				return cadastroLivro(livro).addObject("error", "Editora não existe na base de dados!");
@@ -232,8 +232,11 @@ public class LivroController implements SaveImg<Livro>{
 	@GetMapping("/detalheLivro/{id}")
 	public ModelAndView detalheLivro(@PathVariable Long id) {
 		ModelAndView view = new ModelAndView("livro/detalhesLivro");
+		Livro livro = service.getOne(id);
+		Estoque estoque = estoqueService.getLivro(livro.getTitulo());
 		view.addObject("categorias", serviceCategoria.findAll());
 		view.addObject("livro", service.getOne(id));
+		view.addObject("estoque", estoque);
 		view.addObject("promocoesUltimos", service.getPromocaoUltimosLimit(3)); 
 		view.addObject("promocoesPrimeiros", service.getPromocaoPrimeirosLimit(3));
 		view.addObject("primeirasCategorias", serviceCategoria.listaPrimeirasLimit(5));

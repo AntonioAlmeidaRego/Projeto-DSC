@@ -1,6 +1,8 @@
 package br.com.projetodsc.controller;
 
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientCodecCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
@@ -79,6 +81,9 @@ public class IndexController{
 	
 	@GetMapping("/deslogar")
 	public ModelAndView deslogar() {
+		Usuario usuarioLogado = serviceSession.getSession("usuario-logado");
+		usuarioLogado.setUltimoAcesso(new Date());
+		serviceUsuario.update(usuarioLogado);
 		serviceSession.clearSession();
 		Usuario usuario = new Usuario();
 		return new ModelAndView("login").addObject("usuario", usuario);

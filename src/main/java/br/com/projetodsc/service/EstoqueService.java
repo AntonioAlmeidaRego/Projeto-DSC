@@ -30,8 +30,8 @@ public class EstoqueService {
 		return repository.findAll();
 	}
 	
-	public Estoque getCategoria(String categoria) {
-		return repository.findByCategoria(categoria);
+	public Estoque getLivro(String livro) {
+		return repository.findByLivro(livro);
 	}
 	
 }

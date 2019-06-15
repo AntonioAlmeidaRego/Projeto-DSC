@@ -8,6 +8,7 @@ import br.com.projetodsc.model.Estoque;
 
 @Repository
 public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
-	@Query
-	public Estoque findByCategoria(String nome);
+	@Query(value="SELECT * FROM estoque e inner join livro l on(l.id = e.livro_id)\n" + 
+			"where l.titulo = ?", nativeQuery = true)
+	public Estoque findByLivro(String nome);
 }

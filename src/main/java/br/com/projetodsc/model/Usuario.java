@@ -69,7 +69,7 @@ public class Usuario implements UserDetails{
 	private String estado;
 	@Column(nullable = true)
 	private String linkAlterarSenha;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String linkAtivarConta;
 	private boolean statusLink;
 	private boolean ativarConta;

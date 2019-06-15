@@ -114,7 +114,7 @@ public class UsuarioService implements UserDetailsService{
 		return repository.findByStatusLink(status);
 	}
 	
-	public Usuario findByAtivarConta(boolean status) {
+	public List<Usuario> findByAtivarConta(boolean status) {
 		return repository.findByAtivarConta(status);
 	}
 	

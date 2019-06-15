@@ -7,11 +7,6 @@
 <body>
 <div th:fragment="menu-esquerdo" >
 	<div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           Livraria DSC
@@ -93,6 +88,14 @@
                 <li class="nav-item"><a data-togle="collapse"
                                         class="nav-link" th:href="@{/editora/listaEditora}">
                   <p>Listar Editora</p>
+                </a></li>
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/estoque/listaEstoque}">
+                  <p>Listar Estoque</p>
+                </a></li>
+                <li class="nav-item"><a data-togle="collapse"
+                                        class="nav-link" th:href="@{/tempo/listaTempo}">
+                  <p>Listar Tempo</p>
                 </a></li>
 
                 <li class="nav-item"><a data-togle="collapse"

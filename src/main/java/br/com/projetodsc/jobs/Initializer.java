@@ -7,8 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import br.com.projetodsc.model.Email;
 import br.com.projetodsc.model.Role;
 import br.com.projetodsc.model.Usuario;
+import br.com.projetodsc.service.EmailService;
 import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.UsuarioService;
 
@@ -19,7 +21,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent>{
 	@Autowired
 	private UsuarioService serviceUsuario;
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private EmailService emailService;
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -44,29 +46,12 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent>{
 			role.setNome("ADMINISTRADOR");
 			serviceRole.add(role);
 			usuario.getRole().add(role);
+			serviceUsuario.createLinkAtivarConta(usuario);
 			serviceUsuario.add(usuario);
+			Email email = new Email();
+			email.setTo(usuario.getEmail());
+			emailService.sendEmailBemVindo(email);
 		}
-	}
-	
-	private void createUsuario() {
-		Usuario usuario = new Usuario();
-		usuario.setEmail("antonio.alm4500@gmail.com");
-		usuario.setSenha("123456");
-		System.out.println(usuario.getPassword());
-		usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getPassword()));
-		usuario.setEstado("RN");
-		usuario.setBairro("João Barro");
-		usuario.setRua("7 de Setembro");
-		usuario.setMunicipio("Encanto");
-		usuario.setNome("Antônio Rêgo");
-		Role role = serviceRole.getNome("Cliente");
-		//if(role == null) {
-			role = new Role();
-			role.setNome("Cliente");
-			serviceRole.add(role);
-			usuario.getRole().add(role);
-		//}
-		serviceUsuario.add(usuario);
 	}
 
 }

@@ -21,7 +21,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query
 	public Usuario findByStatusLink(boolean status);
 	@Query
-	public Usuario findByAtivarConta(boolean status);
+	public List<Usuario> findByAtivarConta(boolean status);
+	@Query
+	public Usuario findByLinkAtivarConta(String link);
 	@Query
 	public Usuario findByLinkAlterarSenha(String link);
 	@Query(value="SELECT * FROM usuario order by data_nascimento;", nativeQuery = true)

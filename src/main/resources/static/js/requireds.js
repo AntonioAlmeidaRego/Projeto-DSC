@@ -525,7 +525,8 @@ $("#cadastro-livro").click(function (event) {
         && (!$("#isbn-livro").val() == "") && (!$("#edicao-livro").val() == "")
         && (!$("#ano-livro").val() == "") && (isInputCheckBox(inputsCheck, required)) && (select.value != "")
         && (!$("#sinopsie-livro").val() == "") && (!$("#comprimento-livro").val() == "")
-        && (!$("#largura-livro").val() == "") && (!$("#altura-livro").val() == "")){
+        && (!$("#largura-livro").val() == "") && (!$("#altura-livro").val() == "")
+        && (!$("#quantidade-livro").val() == "")){
         selectEmpty = false;
         $("#cadastro-livro").submit();
     }else{
