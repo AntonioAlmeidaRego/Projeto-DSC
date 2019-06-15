@@ -18,11 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Categoria;
 import br.com.projetodsc.model.Editora;
+import br.com.projetodsc.model.Estoque;
 import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.model.Promocao;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CategoriaService;
 import br.com.projetodsc.service.EditoraService;
+import br.com.projetodsc.service.EstoqueService;
 import br.com.projetodsc.service.LivroService;
 import br.com.projetodsc.service.PromocaoService;
 import br.com.projetodsc.service.SessionService;
@@ -34,6 +36,8 @@ import br.com.projetodsc.util.SaveImg;
 public class LivroController implements SaveImg<Livro>{
 	@Autowired
 	private LivroService service;
+	@Autowired
+	private EstoqueService estoqueService;
 	@Autowired
 	private EditoraService serviceEditora;
 	@Autowired
@@ -150,6 +154,19 @@ public class LivroController implements SaveImg<Livro>{
 			relacionarLivroPromocao(livro);
 			if(relacionarLivroEditora(livro)) {
 				service.add(livro);
+				for(Categoria categoria : livro.getCategorias()) {
+					String getIds[] = ids.split(",");
+					for(int i = 0;i<getIds.length;i++) {
+						Long id = Long.parseLong(getIds[i]);
+						if(categoria.getId().equals(id)) {
+							Estoque estoque = estoqueService.getCategoria(categoria.getNome());
+							estoque.setQuantidade(estoque.getQuantidade()+1);
+							estoque.setLivro(livro);
+							estoqueService.add(estoque);
+						}
+					}
+					
+				}
 			}else {
 				return cadastroLivro(livro).addObject("error", "Editora não existe na base de dados!");
 			}

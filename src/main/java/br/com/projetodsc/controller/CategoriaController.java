@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projetodsc.model.Categoria;
+import br.com.projetodsc.model.Estoque;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CategoriaService;
+import br.com.projetodsc.service.EstoqueService;
 import br.com.projetodsc.service.SessionService;
 
 @Controller
@@ -18,6 +20,8 @@ import br.com.projetodsc.service.SessionService;
 public class CategoriaController {
 	@Autowired
 	private CategoriaService service;
+	@Autowired
+	private EstoqueService estoqueService;
 	@Autowired
 	private SessionService<Usuario> serviceSession;
 
@@ -39,6 +43,9 @@ public class CategoriaController {
 		
 		if(categoria2 == null) {
 			service.add(categoria);
+			Estoque estoque = new Estoque(); 
+			estoque.setCategoria(categoria);
+			estoqueService.add(estoque);
 		}else if(categoria2.getId() == categoria.getId()) {
 			service.add(categoria);
 			return findAll().addObject("success", "Categoria alterada com sucesso!");

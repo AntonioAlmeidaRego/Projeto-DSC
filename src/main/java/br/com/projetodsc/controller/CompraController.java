@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.projetodsc.model.Categoria;
 import br.com.projetodsc.model.Compra;
 import br.com.projetodsc.model.Email;
+import br.com.projetodsc.model.Estoque;
 import br.com.projetodsc.model.Livro;
 import br.com.projetodsc.model.Pedido;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.service.CompraService;
 import br.com.projetodsc.service.EmailService;
+import br.com.projetodsc.service.EstoqueService;
 import br.com.projetodsc.service.PedidoService;
 import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.UsuarioService;
@@ -32,6 +35,8 @@ public class CompraController {
 	private PedidoService servicePedido;
 	@Autowired
 	private SessionService<Usuario> serviceSession;
+	@Autowired
+	private EstoqueService estoqueService;
 	@Autowired
 	private EmailService serviceEmail;
 	
@@ -55,6 +60,11 @@ public class CompraController {
 		List<Livro> livros = new ArrayList<Livro>();
 		for(Pedido p : compra.getPedidos()) {
 			for(Livro l : p.getLivros()) {
+				for(Categoria categoria : l.getCategorias()) {
+					Estoque estoque = estoqueService.getCategoria(categoria.getNome());
+					estoque.setQuantidade(estoque.getQuantidade()-1);
+					estoqueService.add(estoque);
+				}
 				livros.add(l);
 			}
 		}
