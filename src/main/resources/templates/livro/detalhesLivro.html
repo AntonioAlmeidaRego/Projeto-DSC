@@ -76,6 +76,7 @@
 					</div><!--/category-tab-->
 					
 					<script type="text/javascript">
+						var iniciar = false;
 						var quantidadeEstoque = [[${estoque.quantidade}]];
 						var precoLivro = [[${livro.preco}]];
 						$(document).ready(function(){
@@ -85,39 +86,41 @@
 								alert("Estoque vazio!");
 								window.location.replace("/");
 							}else{
-								$("#quantidade").keyup(function(){
-									if($("#quantidade").val() <= quantidadeEstoque){
-										$("#addPedido").attr("disabled", false);
-									}else{
-										$("#addPedido").attr("disabled", true);
-										alert("Não permitido essa quantidade");
-										$("#quantidade").val("1");	
-										$("#preco").text(precoLivro);
-									}							
-								});
 								let preco = [[${livro.preco}]];
 								let peso = [[${livro.peso}]];
 								let comprimento = [[${livro.comprimento}]];
 								let altura = [[${livro.altura}]];
 								let largura = [[${livro.largura}]];
-								$("#cep").keyup(function (event) {
-									   $("#addPedido").attr("disabled", true);
-									   if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
-										   clearResult();
-									   }
-								       if($(this).val().length == 9){
-								    	   $("#img-carregamento").show();
-								           let apisoap = new ApiSoap();
-								           let objetoXML = apisoap.apiCorreios($(this).val(), peso, comprimento, 
+								$("#quantidade").keyup(function(){
+									if($("#quantidade").val() <= quantidadeEstoque){
+										$("#addPedido").attr("disabled", false);
+										if($("#quantidade").val() > 0){
+											iniciar = true;
+										}
+									}else{
+										$("#addPedido").attr("disabled", true);
+										alert("Não permitido essa quantidade");
+										$("#quantidade").val("1");	
+										$("#preco").text(precoLivro);
+									}	
+								});
+								var interval = setInterval(function(){
+									if(iniciar == true){
+										if(($("#quantidade").val() > 0) && ($("#preco").text() > 0)){
+											$("#img-carregamento").show();
+								            let apisoap = new ApiSoap();
+								            let objetoXML = apisoap.apiCorreios($("#cep").val(), peso, comprimento, 
 								        		   altura,
-								               largura, preco);
+								               largura, $("#preco").text());
 								           objetoXML.then(function (data) {
 								                clearResult();
 								                criarResult(data);
-								                console.log(data);
 								           });
-								       }
-								   });
+										}
+										iniciar = false;
+									}
+								}, 1000);
+								$("#cep").keyup(calcularFrete);
 
 								   function clearResult() {
 									   $("#img-carregamento").hide();
@@ -135,6 +138,25 @@
 								       });
 								       $("#addPedido").attr("disabled", false);
 								       $("#quantidade").attr("disabled", false);
+								   }
+								   
+								   function calcularFrete(event){
+									   $("#addPedido").attr("disabled", true);
+									   if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+										   clearResult();
+									   }
+								       if($(this).val().length == 9){
+								    	   $("#img-carregamento").show();
+								           let apisoap = new ApiSoap();
+								           let objetoXML = apisoap.apiCorreios($(this).val(), peso, comprimento, 
+								        		   altura,
+								               largura, preco);
+								           objetoXML.then(function (data) {
+								                clearResult();
+								                criarResult(data);
+								                console.log(data);
+								           });
+								       }
 								   }
 							}	
 						});
