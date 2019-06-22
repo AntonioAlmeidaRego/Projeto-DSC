@@ -64,10 +64,10 @@ public class LivroController implements SaveImg<Livro>{
 		ModelAndView view = new ModelAndView("livro/lista-livros-categoria");
 		view.addObject("livros", service.findAllCategoriaId(id));
 		view.addObject("categorias", serviceCategoria.findAll());
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	
@@ -106,10 +106,12 @@ public class LivroController implements SaveImg<Livro>{
 		ModelAndView view = new ModelAndView("livro/livros");
 		int length = service.findAll().size();
 		System.out.println(calcularPages(length));
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("categorias", serviceCategoria.findAll());
+		view.addObject("livros", service.listaLivroLimitInterval(interval, interval2));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00));
 		view.addObject("quantidadePages", calcularPages(length)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		
 		return view;
@@ -238,10 +240,10 @@ public class LivroController implements SaveImg<Livro>{
 		view.addObject("promocoesUltimos", service.getPromocaoUltimosLimit(3)); 
 		view.addObject("promocoesPrimeiros", service.getPromocaoPrimeirosLimit(3));
 		view.addObject("primeirasCategorias", serviceCategoria.listaPrimeirasLimit(5));
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	@GetMapping("/buscaValoresIntervalors/{interval}/{interval2}")
@@ -249,10 +251,10 @@ public class LivroController implements SaveImg<Livro>{
 		ModelAndView view = new ModelAndView("livro/resultado-livros");
 		view.addObject("livros", service.listaLivroIntervalosValores(interval, interval2));
 		view.addObject("categorias", serviceCategoria.findAll());
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	@GetMapping("/buscaValorMaior/{valorMaior}")
@@ -260,10 +262,10 @@ public class LivroController implements SaveImg<Livro>{
 		ModelAndView view = new ModelAndView("livro/resultado-livros");
 		view.addObject("livros", service.listaLivroMaiorValor(valorMaior));
 		view.addObject("categorias", serviceCategoria.findAll());
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	@PostMapping("/searchLivro")
@@ -272,10 +274,10 @@ public class LivroController implements SaveImg<Livro>{
 		view.addObject("livros", service.listaLivroSearch(search));
 		System.out.println(service.listaLivroSearch(search));
 		view.addObject("categorias", serviceCategoria.findAll());
-		view.addObject("count10And60", service.countLivrosIntervalosValores((10.00-1), (60.00-1)));
-		view.addObject("count60And100", service.countLivrosIntervalosValores((60.00-1), (100.00-1)));
-		view.addObject("count120And150", service.countLivrosIntervalosValores((120.00-1), (150.00-1)));
-		view.addObject("countMaior150", service.countLivroMaiorValor((150.00-1))).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
+		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
+		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
 		return view;
 	}
 	@RequestMapping(path = {"/imagem/{id}"}, produces = MediaType.IMAGE_JPEG_VALUE)
