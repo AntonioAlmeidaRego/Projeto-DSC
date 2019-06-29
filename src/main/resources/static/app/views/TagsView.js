@@ -50,6 +50,10 @@ class TagsView {
         }
     }
 
+    criarTag(pai, tagName){
+        return this.criarElementFatherNoClassAndNoId(tagName, pai);
+    }
+
     updateElementInputEmpty(tag, texto){
         return $("#"+tag.id).val(texto);
     }

@@ -47,8 +47,7 @@ class RequiredController {
         return false;
     }
 
-    requiredEmail(event){
-    	console.log(event.which);
+    requiredEmail(){
     	let array = this._input.value.split("");
     	for(let i = 0;i< array.length;i++){
             if(array[i] == "@"){

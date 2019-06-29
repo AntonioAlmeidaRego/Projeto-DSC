@@ -131,40 +131,31 @@ class ValidacaoController {
     	return false;
     }
     
-    keyCodeCaractere(event){
-    	console.log(event.which);
-        if((event.which == 33 || event.keyCode == 33) || (event.which == 34 || event.keyCode == 34)
-            || (event.which == 35 || event.keyCode == 35) ||
-            (event.which == 36 || event.keyCode == 36) || (event.which == 37 || event.keyCode == 37)
-            || (event.which == 38 || event.keyCode == 38)
-            || (event.which == 39 || event.keyCode == 39)
-            || (event.which == 219 || event.keyCode == 219) 
-            || (event.which == 40 || event.keyCode == 40)
-            || (event.which == 41 || event.keyCode == 41)
-            || (event.which == 42 || event.keyCode == 42)
-            || (event.which == 43 || event.keyCode == 43)
-            || (event.which == 44 || event.keyCode == 44)
-            || (event.which == 45 || event.keyCode == 45)
-            || (event.which == 47 || event.keyCode == 47)
-            || (event.which == 58 || event.keyCode == 58)
-            || (event.which == 59 || event.keyCode == 59)
-            || (event.which == 60 || event.keyCode == 60)
-            || (event.which == 61 || event.keyCode == 61)
-            || (event.which == 62 || event.keyCode == 62)
-            || (event.which == 63 || event.keyCode == 63)
-            || (event.which == 64 || event.keyCode == 64)
-            || (event.which == 91 || event.keyCode == 91)
-            || (event.which == 92 || event.keyCode == 92)
-            || (event.which == 93 || event.keyCode == 93)
-            || (event.which == 94 || event.keyCode == 94)
-            || (event.which == 95 || event.keyCode == 95)
-            || (event.which == 96 || event.keyCode == 96)
-            || (event.which == 123 || event.keyCode == 123)
-            || (event.which == 124 || event.keyCode == 124)
-            || (event.which == 125 || event.keyCode == 125)){
-            return true;
+    _searchChar(input, char){
+        let str = input.value.split("");
+        for(let i = 0; i < str.length;i++){
+            if(str[i] == char){
+                return true;
+            }
         }
         return false;
+    }
+
+    notAllowedCharacters(element, input){
+       if((element.key == "Dead") || (element.key == "AltGraph") || (element.key == "]")
+       || (this._searchChar(input, "}")) || (element.key == "]") || (this._searchChar(input, "{"))
+       || (element.key == "[") || (this._searchChar(input, "&"))
+       || (this._searchChar(input, "-")) || (this._searchChar(input, "#"))
+       || (this._searchChar(input, "¨")) || (this._searchChar(input, "(")) || (this._searchChar(input, ")"))
+       || (this._searchChar(input, "%"))
+       || (this._searchChar(input, "*")) || (element.key == "/") || (this._searchChar(input, "|"))
+       || (this._searchChar(input, "+")) || (this._searchChar(input, "="))
+       || (element.key == "\\") || (element.key == "'") || (this._searchChar(input, '"'))
+       || (this._searchChar(input, "!")) || (element.key == ";") || (this._searchChar(input, ":"))
+       || (element.key == ",") || (this._searchChar(input, "$"))){
+           return true;
+       }
+       return false;
     }
     
     keyCodeBackspaceAndDelete(event){

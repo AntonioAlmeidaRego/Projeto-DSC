@@ -48,35 +48,6 @@ $(document).ready(function () {
     clearfield = new ClearfieldsController();
     tags = new TagsView();
 
-    /* formularios de todos os cadastros */
- 
-    if($("#form1").length){
-    	esconderDiv(document.getElementById("form1"), 0, document.getElementById("form1").length);
-    }
-    if($("#form-categoria").length){
-        esconderDivCategoria(document.getElementById("form-categoria"), 0, document.getElementById("form-categoria").length);
-    }
-    if($("#form-editora").length){
-    	esconderDiv(document.getElementById("form-editora"), 0, document.getElementById("form-editora").length);
-    }
-    if($("#form-autor").length){
-    	esconderDiv(document.getElementById("form-autor"), 0, document.getElementById("form-autor").length);
-        esconderDivAutor();
-    }
-    if($("#form-livro").length){
-        esconderDiv(document.getElementById("form-livro"), 0, document.getElementById("form-livro").length);
-        esconderDivLivro();
-    }
-    if($("#form-update-user").length){
-        esconderDiv(document.getElementById("form-update-user"), 0, document.getElementById("form-update-user").length);
-    }
-    if($("#form-promocao").length){
-        esconderDiv(document.getElementById("form-promocao"), 0, document.getElementById("form-promocao").length);
-    }
-    if($("#form-tempo").length){
-        esconderDiv(document.getElementById("form-tempo"), 0, document.getElementById("form-tempo").length);
-    }
-
     if($("#imagem-capa").length){
         exe = extensao;
     }
@@ -89,12 +60,6 @@ $(document).ready(function () {
         clearfield.hide("aux-Preco");
     }
 
-    /* Esconder as divs de cadastro */
-
-    clearfield.hide("father-login");
-    clearfield.hide("father-cadastro");
-    clearfield.hide("father-cadastro-categoria");
-   
     /* disabilitar os campos */
 
     $("#cidade").attr("disabled", true);
@@ -109,12 +74,15 @@ $(document).ready(function () {
 $("#tempo-dia").keypress(function (event) {
     let validacao = new ValidacaoController;
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números!";
         $("#cadastro-tempo").attr("disabled", true);
     }else{
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }
 });
 
@@ -122,10 +90,13 @@ $("#tempo-dia").keyup(function () {
     let validacao = new ValidacaoController;
     if(validacao.validacaoDia($(this).val())){
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }else{
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Dia inválido!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Dia inválido!";
         $("#cadastro-tempo").attr("disabled", true);
     }
 });
@@ -133,12 +104,15 @@ $("#tempo-dia").keyup(function () {
 $("#tempo-hora").keypress(function (event) {
     let validacao = new ValidacaoController;
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente núemros!";
         $("#cadastro-tempo").attr("disabled", true);
     }else{
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }
 });
 
@@ -148,8 +122,11 @@ $("#tempo-hora").keyup(function () {
         $("#cadastro-tempo").attr("disabled", false);
         clearfield.hide(this.id+"-div");
     }else{
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Hora inválido!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Hora inválida!";
         $("#cadastro-tempo").attr("disabled", true);
     }
 });
@@ -157,12 +134,15 @@ $("#tempo-hora").keyup(function () {
 $("#tempo-mes").keypress(function (event) {
     let validacao = new ValidacaoController;
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números!";
         $("#cadastro-tempo").attr("disabled", true);
     }else{
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }
 });
 
@@ -170,10 +150,13 @@ $("#tempo-mes").keyup(function () {
     let validacao = new ValidacaoController;
     if(validacao.validacaoMes($(this).val())){
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }else{
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Mês inválido!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Mês inválido!";
         $("#cadastro-tempo").attr("disabled", true);
     }
 });
@@ -181,12 +164,15 @@ $("#tempo-mes").keyup(function () {
 $("#tempo-segundo").keypress(function (event) {
     let validacao = new ValidacaoController;
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "campo obrigatório!";
         $("#cadastro-tempo").attr("disabled", true);
     }else{
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }
 });
 
@@ -194,11 +180,14 @@ $("#tempo-segundo").keyup(function () {
     let validacao = new ValidacaoController;
     if(validacao.validacaoSegundo($(this).val())){
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }else{
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Segundo inválido!");
         $("#cadastro-tempo").attr("disabled", true);
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Segundo inválido!";
     }
 });
 
@@ -206,12 +195,15 @@ $("#tempo-segundo").keyup(function () {
 $("#tempo-minuto").keypress(function (event) {
     let validacao = new ValidacaoController;
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "campo obrigatório!";
         $("#cadastro-tempo").attr("disabled", true);
     }else{
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }
 });
 
@@ -219,10 +211,13 @@ $("#tempo-minuto").keyup(function () {
     let validacao = new ValidacaoController;
     if(validacao.validacaoMinutos($(this).val())){
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }else{
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Minuto inválido!");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Minuto inválido!";
         $("#cadastro-tempo").attr("disabled", true);
     }
 });
@@ -232,21 +227,27 @@ $("#cadastro-tempo").click(function (event) {
     let form = document.getElementById("form-tempo");
     let required = new RequiredController(this);
     let select = document.getElementById("descontos");
-    if((!required.requiredInputNumberAll(form, 1, form.length-2)) && (select.value != "")){
+    if((required.requiredInputNumberAll(form, 1, form.length-2)) && (select.value != "")){
         $("#cadastro-tempo").submit();
     }else{
         event.preventDefault();
         for(let i = 1; i<form.length-2;i++){
             if(form[i].id != "descontos"){
                 if(!required.requiredInputNumber(form, i)){
-                    clearfield.show(form[i].id+"-div");
-                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+                    clearfield.clear(form[i].id+"-div");
+                    let div = tags.criarTag(document.getElementById(form[i].id+"-div"), "div");
+                    div.setAttribute("class", "alert alert-danger");
+                    let span = tags.criarTag(div, "span");
+                    span.textContent = "campo obrigatório!";
                 }
             }
         }
         if(select.value == ""){
-            clearfield.show("descontos-div");
-            tags.updateElement(document.getElementById("descontos-div"), "span", "campo obrigatório!");
+            clearfield.clear("descontos-div");
+            let div = tags.criarTag(document.getElementById("descontos-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
     }
 });
@@ -265,9 +266,9 @@ $("#alterarSenha").click(function(event) {
 });
 
 /* Verificar se o email é válido */
-function verificarEmail(id, event){
+function verificarEmail(id){
     let requerid = new RequiredController(document.getElementById(id));
-    return requerid.requiredEmail(event);
+    return requerid.requiredEmail();
 }
 
 /* Evento para o cadastro de promocao */
@@ -276,10 +277,12 @@ $("#cadastro-promocao").click(function (event) {
 
    if(($("#promocao-desconto").val().length == 0) || ($("#promocao-desconto").val() == "") || ($("#promocao-desconto").val() == "0")){
       event.preventDefault();
-      clearfield.show("promocao-desconto-div");
-      tags.updateElement(document.getElementById("promocao-desconto-div"), "span", "campo obrigatório!");
+       clearfield.clear("promocao-desconto-div");
+       let div = tags.criarTag(document.getElementById("promocao-desconto-div"), "div");
+       div.setAttribute("class", "alert alert-danger");
+       let span = tags.criarTag(div, "span");
+       span.textContent = "campo obrigatório!";
    }else {
-       clearfield.hide();
        $("#promocao-desconto").val(parseInt($("#promocao-desconto").val()));
        $("#cadastro-promocao").submit();
    }
@@ -324,13 +327,7 @@ $("#login").click(function (event) {
 /* Eventos Cadastro */
 
 $("input").focus(function () {
-    clearfield.hide(this.id+"-div");
-});
-
-/* Eventos Cadastro Categoria */
-
-$("input").focus(function () {
-    clearfield.hide(this.id+"-div-categoria");
+    clearfield.clear(this.id+"-div");
 });
 
 /* Evento textArea */
@@ -395,6 +392,26 @@ $("#update-user").click(function (event) {
     }
 });
 
+$("#cep-padrao").keyup(function (event) {
+    let val = new ValidacaoController;
+    let tags = new TagsView;
+    if(val.validacaoFieldLength(8, this)){
+    	if($("#cadastro-usuario").length){
+	        $("#cadastro-usuario").attr("disabled", true);
+            document.getElementById("preencha-div").innerHTML = "";
+            let div = tags.criarTag(document.getElementById("preencha-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "Preencha o campo obrigatório!";
+    	}    
+    }else{
+        if($("#cadastro-usuario").length){
+            $("#cadastro-usuario").attr("disabled", false);
+            document.getElementById("preencha-div").innerHTML = "";
+        }
+    }
+});
+
 /*Mascara do CEP API*/
 $("#update-user-cep").keyup(function (event){
     let mascara = new MascaraController(this);
@@ -452,26 +469,35 @@ $("#date").keyup(function () {
 });
 
 $("input").keyup(function(event) {
-	if(this.id == "email"){
-		let valid = new ValidacaoController;
-		if(!valid.keyCodeCaractere(event) || valid.keyCodeTecla(event)){
-			if(verificarEmail(this.id, event)){
-				clearfield.hide(this.id+"-div");
-				if($("#cadastro-usuario").length){
-					$("#cadastro-usuario").attr("disabled", false);
-				} 
-			}else{
-				clearfield.show(this.id+"-div");
-				tags.updateElement(document.getElementById(this.id+"-div"), "span", "Email inválido. São aceitos: email@hotmail.com, email@gmail.com e/ou email@outlook.com");
-				if($("#cadastro-usuario").length){
-					$("#cadastro-usuario").attr("disabled", true);
-				} 
-			}
-		}else{
-			$(this).val("");
-		}		
-	}
+    if(this.id == "email"){
+        let val = new ValidacaoController;
+        if(verificarEmail(this.id) && !val.notAllowedCharacters(event, this)){
+            document.getElementById("email-div").innerHTML = "";
+            if($("#cadastro-usuario").length){
+                $("#cadastro-usuario").attr("disabled", false);
+            }
+            if($("#cadastro-autor").length){
+                $("#cadastro-autor").attr("disabled", false);
+            }
+        }else{
+            $("#email-div").show();
+            document.getElementById("email-div").innerHTML = "";
+            let div = tags.criarTag(document.getElementById("email-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com";
+
+            if($("#cadastro-usuario").length){
+                $("#cadastro-usuario").attr("disabled", true);
+            }
+            if($("#cadastro-autor").length) {
+                $("#cadastro-autor").attr("disabled", true);
+
+            }
+        }
+    }
 });
+
 
 $("#cadastro-usuario").click(function (event) {
     let requerid = new RequiredController(this);
@@ -484,33 +510,31 @@ $("#cadastro-usuario").click(function (event) {
         $("#cidade").attr("disabled", false);
         $("#bairro").attr("disabled", false);
         $("#estado").attr("disabled", false);
-        clearfield.hide("father-cadastro");
         $("#cadastro").submit();
     } else{
         event.preventDefault();
         for(let i = 0; i < form.length-1;i++){
             if(form[i].id != "estado" && form[i].id != "cidade"){
                 if((requerid.required(i, form))){
-                    if(form[i].id == "email"){
-                        emailEmpty = true;
-                    }
-                    clearfield.show(form[i].id+"-div");
-                    tags.updateElement(document.getElementById(form[i].id+"-div"), "span", "campo obrigatório!");
+                    clearfield.clear(form[i].id+"-div");
+                    let div = tags.criarTag(document.getElementById(form[i].id+"-div"), "div");
+                    div.setAttribute("class", "alert alert-danger");
+                    let span = tags.criarTag(div, "span");
+                    span.textContent = "campo obrigatório!";
+                    $("#cadastro-tempo").attr("disabled", true);
                 }
             }
         }
 
         if(($("#senha-confirmar").val() != $("#senha").val())){
-            clearfield.show("senha-confirmar-div");
-            tags.updateElement(document.getElementById("senha-confirmar-div"), "span", "senhas inválidas!");
+            clearfield.clear("senha-confirmar-div");
+            let div = tags.criarTag(document.getElementById("senha-confirmar-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "senhas inválidas!";
+            $("#cadastro-tempo").attr("disabled", true);
         }
-         if(emailEmpty == false){
-             if(!verificarEmail("email")){
-                 clearfield.show("father-cadastro");
-                 clearfield.clear("father-cadastro");
-                 tags.updateElement(document.getElementById("father-cadastro"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
-             }
-         }
+
     }
 
 
@@ -526,18 +550,19 @@ $("#cadastro-categoria").click(function (event) {
 
     let inputs = document.getElementsByTagName("input");
 
-   if((!required.required(1, formCategoria)) && (!$("#nome-categoria").val() == "") && (!$("#cidade-editora").val() == "")){
-        clearfield.hide("father-cadastro-categoria");
+   if((!$("#nome-categoria").val() == "")){
         $("#cadastro-categoria").submit();
    }else{
+       event.preventDefault();
        for(let j = 1; j < formCategoria.length;j++){
            for(let i = 1; i < inputs.length;i++){
                if(inputs[i].id == formCategoria[j].id){
                    if(required.requiredInput(inputs[i].id)){
-                       event.preventDefault();
-                       clearfield.show(formCategoria[j].id+"-div-categoria");
-                       console.log(formCategoria[j].id);
-                       tags.updateElement(document.getElementById(formCategoria[j].id+"-div-categoria"), "span", "campo obrigatório!");
+                       clearfield.clear(formCategoria[j].id+"-div");
+                       let div = tags.criarTag(document.getElementById(formCategoria[j].id+"-div"), "div");
+                       div.setAttribute("class", "alert alert-danger");
+                       let span = tags.criarTag(div, "span");
+                       span.textContent = "campo obrigatório!";
                    }
                }
            }
@@ -548,36 +573,26 @@ $("#cadastro-categoria").click(function (event) {
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Eventos cadastro Editora */
 
-$("#reset-editora").click(function() {
-	$("#cidade-editora").val("");
-	$("#nome-editora").val("");
-});
-
-$("input").focus(function() {
-	/*$("input").keyup(function(event) {
-		let mascara = new MascaraController(this);
-		if(mascara.keyCodeBackspaceAndDelete(event)){
-			$(this).val("");
-		}
-	});*/
-});
-
 $("#cadastro-editora").click(function(event) {
 	let required = new RequiredController(this);
     let formEditora = document.getElementById("form-editora");
     let tags = new TagsView();
     let inputs = document.getElementsByTagName("input");
     
-    if((!required.required(1, formEditora)) && (!$("#nome-editora").val() == "") && (!$("#cidade-editora").val() == "")){
+    if((!$("#nome-editora").val() == "") && (!$("#cidade-editora").val() == "")){
     	$(this).submit();
     }else{
+        event.preventDefault();
     	for(let j = 1; j < formEditora.length;j++){
             for(let i = 1; i < inputs.length;i++){
                 if(inputs[i].id == formEditora[j].id){
                     if(required.requiredInput(inputs[i].id)){
-                        event.preventDefault();
-                        clearfield.show(formEditora[j].id+"-div");
-                        tags.updateElement(document.getElementById(formEditora[j].id+"-div"), "span", "campo obrigatório!");
+                        console.log(formEditora[j].id);
+                        clearfield.clear(formEditora[j].id+"-div");
+                        let div = tags.criarTag(document.getElementById(formEditora[j].id+"-div"), "div");
+                        div.setAttribute("class", "alert alert-danger");
+                        let span = tags.criarTag(div, "span");
+                        span.textContent = "campo obrigatório!";
                     }
                 }
             }
@@ -588,18 +603,39 @@ $("#cadastro-editora").click(function(event) {
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Eventos cadastro Autor */
 
-/*$("#file-foto-autor").change(function () {
-    let name;
-    if(this.files.length > 0) name = this.files[0].name;
-    exeAutor = name.substring((name.length-4), name.length);
 
-    if(exeAutor != extensao){
-        alert("Tipo de imagem inválida!");
-        $(this).val("");
+$("#cpf").keyup(function (event) {
+    let val = new ValidacaoController;
+    let tags = new TagsView;
+    if(val.validacaoFieldLength(13, this)){
+        if($("#cadastro-usuario").length){
+            $("#cadastro-usuario").attr("disabled", true);
+            document.getElementById("preencha-div").innerHTML = "";
+            let div = tags.criarTag(document.getElementById("preencha-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "Preencha o campo obrigatório!";
+        }
+        if($("#cadastro-autor").length){
+        	$("#cadastro-autor").attr("disabled", true);
+            document.getElementById("preencha-div").innerHTML = "";
+            let div = tags.criarTag(document.getElementById("preencha-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "Preencha o campo obrigatório!";
+        }
+    }else{
+        if($("#cadastro-usuario").length){
+            $("#cadastro-usuario").attr("disabled", false);
+            document.getElementById("preencha-div").innerHTML = "";
+        }
+        if($("#cadastro-autor").length){
+            $("#cadastro-autor").attr("disabled", false);
+            document.getElementById("preencha-div").innerHTML = "";
+        }
     }
-
-});*/
-
+});
+ 
 $("#cadastro-autor").click(function(event) {
 	let required = new RequiredController(this);
     let formAutor = document.getElementById("form-autor");
@@ -607,7 +643,7 @@ $("#cadastro-autor").click(function(event) {
     let inputs = document.getElementsByTagName("input");
     let inputsCheck = document.getElementsByClassName("checkbox-autores");
 
-    if((!required.required(2, formAutor)) && (!$("#cpf-autor").val() == "") && (!$("#email-autor").val() == "") && (!$("#nome-autor").val() == "")
+    if((!required.required(2, formAutor)) && (!$("#cpf").val() == "") && (!$("#email").val() == "") && (!$("#nome-autor").val() == "")
         && (isInputCheckBox(inputsCheck, required))){
     	$(this).submit();
     }else{
@@ -617,25 +653,29 @@ $("#cadastro-autor").click(function(event) {
                 if(formAutor[j].id != "file-capa"){
                     if(inputs[i].id == formAutor[j].id){
                         if(required.requiredInput(inputs[i].id)){
-                            clearfield.show(formAutor[j].id+"-div");
-                            tags.updateElement(document.getElementById(formAutor[j].id+"-div"), "span", "campo obrigatório!");
+                        	clearfield.clear(formAutor[j].id+"-div");
+                            let div = tags.criarTag(document.getElementById(formAutor[j].id+"-div"), "div");
+                            div.setAttribute("class", "alert alert-danger");
+                            let span = tags.criarTag(div, "span");
+                            span.textContent = "campo obrigatório!";
                         }
                     }
                }
             }
         }
-        if(!verificarEmail("email-autor")){
-            clearfield.show("email-autor-div");
-            clearfield.clear("email-autor-div");
-            tags.updateElement(document.getElementById("email-autor-div"), "span", "Email inválido. São aceitos: @hotmail.com, @gmail.com e/ou @outlook.com");
-        }
         if(!isInputCheckBox(inputsCheck, required)){
-            clearfield.show("idLivros-autor-div");
-            tags.updateElement(document.getElementById("idLivros-autor-div"), "span", "campo obrigatório!");
+            clearfield.clear("idLivros-autor-div");
+            let div = tags.criarTag(document.getElementById("idLivros-autor-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
         if(exe != extensao){
-            clearfield.show("file-capa-div");
-            tags.updateElement(document.getElementById("file-capa-div"), "span", "campo obrigatório!");
+            clearfield.clear("file-capa-div");
+            let div = tags.criarTag(document.getElementById("file-capa-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
     }
 });
@@ -691,9 +731,11 @@ $("#cadastro-livro").click(function (event) {
                 if(formLivro[j].id != "file-capa"){
                     if((inputs[i].id == formLivro[j].id)){
                         if(required.requiredInput(inputs[i].id)){
-
-                            clearfield.show(formLivro[j].id+"-div");
-                            tags.updateElement(document.getElementById(formLivro[j].id+"-div"), "span", "campo obrigatório!");
+                            clearfield.clear(formLivro[j].id+"-div");
+                            let div = tags.criarTag(document.getElementById(formLivro[j].id+"-div"), "div");
+                            div.setAttribute("class", "alert alert-danger");
+                            let span = tags.criarTag(div, "span");
+                            span.textContent = "campo obrigatório!";
                         }
                     }
                 }
@@ -701,20 +743,32 @@ $("#cadastro-livro").click(function (event) {
         }
 
         if(select.value == ""){
-            clearfield.show("editora-livro-div");
-            tags.updateElement(document.getElementById("editora-livro-div"), "span", "campo obrigatório!");
+            clearfield.clear("editora-livro-div");
+            let div = tags.criarTag(document.getElementById("editora-livro-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
         if($("#sinopsie-livro").val() == ""){
-            clearfield.show("sinopsie-livro-div");
-            tags.updateElement(document.getElementById("sinopsie-livro-div"), "span", "campo obrigatório!");
+            clearfield.clear("sinopsie-livro-div");
+            let div = tags.criarTag(document.getElementById("sinopsie-livro-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
         if(exe != extensao){
-            clearfield.show("file-capa-div");
-            tags.updateElement(document.getElementById("file-capa-div"), "span", "campo obrigatório!");
+            clearfield.clear("file-capa-div");
+            let div = tags.criarTag(document.getElementById("file-capa-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
         if(!isInputCheckBox(inputsCheck, required)){
-            clearfield.show("idsCategoria-livro-div");
-            tags.updateElement(document.getElementById("idsCategoria-livro-div"), "span", "campo obrigatório!");
+            clearfield.clear("idsCategoria-livro-div");
+            let div = tags.criarTag(document.getElementById("idsCategoria-livro-div"), "div");
+            div.setAttribute("class", "alert alert-danger");
+            let span = tags.criarTag(div, "span");
+            span.textContent = "campo obrigatório!";
         }
     }
 
@@ -724,25 +778,31 @@ $("#cadastro-livro").click(function (event) {
 $("#preco-livro").keyup(function (event) {
     let validacao = new ValidacaoController();
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
         $(this).val("");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números";
     }if(validacao.validacaoFieldLength(10, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","10");
     }if(!validacao.validacaoFieldDesconto(this, 39.99)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)");
-        clearfield.hide("div-desconto-row");
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)";
     }if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Valor declarado não permitido (valor minimo: 19,5, valor maximo: 3000)");
         $("#cadastro-livro").attr("disabled", true);
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Valor declarado não permitido (valor minimo: 19,5, valor maximo: 3000)";
     }else if(validacao.validacaoFieldDesconto(this, 39.99)){
-        clearfield.show("div-desconto-row");
+    	clearfield.clear(this.id+"-div");
         $("#cadastro-livro").attr("disabled", false);
-        clearfield.hideTime(this.id+"-div", 3000);
     }else{
         $("#cadastro-livro").attr("disabled", false);
     }
@@ -750,7 +810,7 @@ $("#preco-livro").keyup(function (event) {
  });
 
 $("input").focus(function () {
-    if(this.id != $("#preco-livro").id){
+    if(this.id == $("#preco-livro").id){
         if($("#preco-livro").val() != "" && $("#preco-livro").val().length != 0){
             $("#preco-livro").val(parseFloat($("#preco-livro").val()).toFixed(2));
         }
@@ -767,8 +827,11 @@ $("#peso-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+    	clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
@@ -776,8 +839,11 @@ $("#peso-livro").keyup(function (event) {
         $(this).attr("maxlength","5");
     }
     if(!validacao.validacaoFieldValors(this, 0)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "O peso não pode ser inferior a 0");
+    	clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "O peso não pode ser inferior a 0";
         $("#cadastro-livro").attr("disabled", true);
     }else{
         $("#cadastro-livro").attr("disabled", false);
@@ -789,17 +855,23 @@ $("#comprimento-livro").keyup(function (event) {
 
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","5");
     }
     if(!validacao.validacaoFieldValors(this, 16.0)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "O comprimento não pode ser inferior a 16 cm");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "O comprimento não pode ser inferior a 16 cm";
         $("#cadastro-livro").attr("disabled", true);
     }else{
         $("#cadastro-livro").attr("disabled", false);
@@ -811,8 +883,11 @@ $("#largura-livro").keyup(function (event) {
     let validacao = new ValidacaoController();
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
@@ -820,8 +895,11 @@ $("#largura-livro").keyup(function (event) {
         $(this).attr("maxlength","5");
     }
     if(!validacao.validacaoFieldValors(this, 11.0)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "A largura não pode ser inferior a 11.cm");
+        clearfield.clear("editora-livro-div");
+        let div = tags.criarTag(document.getElementById("editora-livro-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "A largura não pode ser inferior a 11.cm";
         $("#cadastro-livro").attr("disabled", true);
     }else{
         $("#cadastro-livro").attr("disabled", false);
@@ -833,17 +911,23 @@ $("#altura-livro").keyup(function (event) {
     let validacao = new ValidacaoController();
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        clearfield.clear("altura-livro-div");
+        let div = tags.criarTag(document.getElementById("altura-livro-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números!";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","5");
     }
     if(!validacao.validacaoFieldValors(this,2.0)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "A altura não pode ser inferior a 2 cm");
+        clearfield.clear("altura-livro-div");
+        let div = tags.criarTag(document.getElementById("altura-livro-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "A altura não pode ser inferior a 2 cm";
         $("#cadastro-livro").attr("disabled", true);
     }else{
         $("#cadastro-livro").attr("disabled", false);
@@ -854,20 +938,26 @@ $("#altura-livro").keyup(function (event) {
 $("#ano-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
    if(!validacao.keyCodeNumber(event)){
-       clearfield.show(this.id+"-div");
-       tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+       clearfield.clear("ano-livro-div");
+       let div = tags.criarTag(document.getElementById("ano-livro-div"), "div");
+       div.setAttribute("class", "alert alert-danger");
+       let span = tags.criarTag(div, "span");
+       span.textContent = "Somente números!";
        $(this).val("");
    }
    if((validacao.validacaoFieldLength(4, this))){
        $(this).attr("maxlength","4");
-       clearfield.hide(this.id+"-div");
+       clearfield.clear(this.id+"-div");
        $("#cadastro-livro").attr("disabled",false);
        $("#cadastro-livro").css("cursor","pointer");
    }
    if(!(validacao.validacaoFieldLimitDate(4, this, 2019))){
 	   $(this).attr("maxlength","4");
-	   clearfield.show(this.id+"-div");
-       tags.updateElement(document.getElementById(this.id+"-div"), "span", "Digite um ano válido!");
+       clearfield.clear("ano-livro-div");
+       let div = tags.criarTag(document.getElementById("ano-livro-div"), "div");
+       div.setAttribute("class", "alert alert-danger");
+       let span = tags.criarTag(div, "span");
+       span.textContent = "Digite um ano válido!";
        $("#cadastro-livro").attr("disabled", true);
        $("#cadastro-livro").css("cursor","no-drop");
    }
@@ -878,12 +968,15 @@ $("#edicao-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        clearfield.clear("edicao-livro-div");
+        let div = tags.criarTag(document.getElementById("edicao-livro-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números!";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(10, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","10");
     }
 });
@@ -892,7 +985,7 @@ $("#isbn-livro").keyup(function (event) {
    let validacao = new ValidacaoController();
 
     if(validacao.validacaoFieldLength(30, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","30");
     }
 
@@ -903,12 +996,15 @@ $("#promocao-desconto").keyup(function (event) {
     let validacao = new ValidacaoController();
 
     if(!validacao.keyCodeNumber(event)){
-        clearfield.show(this.id+"-div");
-        tags.updateElement(document.getElementById(this.id+"-div"), "span", "Somente números");
+        clearfield.clear("promocao-desconto-div");
+        let div = tags.criarTag(document.getElementById("promocao-desconto-div"), "div");
+        div.setAttribute("class", "alert alert-danger");
+        let span = tags.criarTag(div, "span");
+        span.textContent = "Somente números!";
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(2, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","2");
     }
 });

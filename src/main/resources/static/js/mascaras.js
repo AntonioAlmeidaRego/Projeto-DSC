@@ -43,7 +43,7 @@ $("#date").keypress(function (event){
 
 /* Mascara do Cep e faz o consumo da Api*/
 
-$("#cep").keyup(function (event){
+$("#cep-padrao").keyup(function (event){
     let mascara = new MascaraController(this);
     mascara.mascaraCEP(event);
     if(mascara.keyCodeBackspaceAndDelete(event)){
@@ -54,11 +54,11 @@ $("#cep").keyup(function (event){
             $("#bairro").val("");
         }
         entrou = false;
-        $("#cep-div").hide("slow");
+        $("#cep-padrao-div").hide("slow");
     }else {
         if(mascara.keyCodeNumber(event)){
             if(event.length === undefined){
-                if(($("#cep").val().length == tamanhoCep) && (entrou == false)){
+                if(($("#cep-padrao").val().length == tamanhoCep) && (entrou == false)){
                     let api = new Api();
                     entrou = true;
                     let form = document.getElementById("form1");
@@ -67,7 +67,7 @@ $("#cep").keyup(function (event){
             }
         }else{
             entrou = false;
-            $("#cep").val("");
+            $("#cep-padrao").val("");
             $("#estado").val("");
             $("#cidade").val("");
         }
