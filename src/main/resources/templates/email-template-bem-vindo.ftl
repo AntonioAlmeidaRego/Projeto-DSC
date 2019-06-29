@@ -59,7 +59,7 @@
 															<tr>
 																<td>
 																	<p>Ativar conta!
-																	<a href="https://livraria-ifrn.herokuapp.com/usuario/ativarConta/${link}">http://localhost:8080/usuario/ativarConta/${link}</a></p>
+																	<a href="https://livraria-ifrn.herokuapp.com/usuario/ativarConta/${link}">https://livraria-ifrn.herokuapp.com/usuario/ativarConta/${link}</a></p>
 																</td>
 															</tr>
 														</tbody>
