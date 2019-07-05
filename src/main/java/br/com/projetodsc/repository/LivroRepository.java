@@ -82,7 +82,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	public List<Livro> listaLivrosSearch(String search);
 	@Query(value="select * from livro l where l.id in (select ip.livros_id from itens_pedidos ip\n" + 
 			"inner join pedido p on(p.id = ip.pedidos_id) group by ip.livros_id order by (select ip2.livros_id from itens_pedidos ip2\n" + 
-			"inner join pedido p2 on(p2.id = ip2.pedidos_id))) limit ?;", nativeQuery = true)
+			"inner join pedido p2 on(p2.id = ip2.pedidos_id)) desc\n" + 
+			"\n" + 
+			") limit ?", nativeQuery = true)
 	public List<Livro> listaLivrosMaisVendidos(int total);
 	
 }	
