@@ -311,4 +311,12 @@ public class LivroController implements SaveImg<Livro>{
 		view.addObject("livros", service.listaLivrosFavoritos(usuario.getId()));
 		return view;
 	}
+	
+	@GetMapping("/lista-livro-mais-vendidos")
+	public ModelAndView listaLivrosVendidos() {
+		ModelAndView view = new ModelAndView("livro/livro-mais-vendidos");
+		view.addObject("livros", service.listaLivroVendidos(10));
+		view.addObject("logado", serviceSession.getSession("usuario-logado"));
+		return view;
+	}
 }

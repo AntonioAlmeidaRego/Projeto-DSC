@@ -80,5 +80,8 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 	
 	@Query(value="select * from livro l  where l.titulo like %?%", nativeQuery=true)
 	public List<Livro> listaLivrosSearch(String search);
+	@Query(value="select * from livro l where l.id in (select ip.livros_id from itens_pedidos ip\n" + 
+			"inner join pedido p on(p.id = ip.pedidos_id) group by ip.livros_id having count(ip.livros_id) >= ?);", nativeQuery = true)
+	public List<Livro> listaLivrosMaisVendidos(int total);
 	
 }	

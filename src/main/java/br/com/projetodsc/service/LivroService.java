@@ -92,4 +92,8 @@ public class LivroService {
 	public void deleteLivroFavorito(Long idUsuario) {
 		repository.deleteLivroFavorito(idUsuario);
 	}
+	
+	public List<Livro> listaLivroVendidos(int total){
+		return repository.listaLivrosMaisVendidos(total);
+	}
 }

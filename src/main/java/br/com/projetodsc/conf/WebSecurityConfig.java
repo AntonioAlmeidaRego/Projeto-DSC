@@ -68,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/usuario/listaComprasUsuario/**").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "/contato/sendEmail").hasAnyAuthority("CLIENTE")
 		.antMatchers(HttpMethod.GET, "/contato/sendSuccess").hasAnyAuthority("CLIENTE")
+		.antMatchers(HttpMethod.GET, "/livro/lista-livro-mais-vendidos").hasAnyAuthority("ADMINISTRADOR")
 		/* Métodos POST */
 		.antMatchers(HttpMethod.POST, "/usuario/enviarLinkAlterarSenha").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuario/updateSenha").permitAll()
