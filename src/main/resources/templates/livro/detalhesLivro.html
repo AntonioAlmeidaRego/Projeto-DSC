@@ -109,7 +109,7 @@
 										if(($("#quantidade").val() > 0) && ($("#preco").text() > 0)){
 											$("#img-carregamento").show();
 								            let apisoap = new ApiSoap();
-								            let objetoXML = apisoap.apiCorreios($("#cep").val(), peso, comprimento, 
+								            let objetoXML = apisoap.apiCorreios($("#cep-padrao").val(), peso, comprimento, 
 								        		   altura,
 								               largura, $("#preco").text());
 								           objetoXML.then(function (data) {
