@@ -88,7 +88,7 @@ $("#tempo-dia").keypress(function (event) {
 
 $("#tempo-dia").keyup(function () {
     let validacao = new ValidacaoController;
-    if(validacao.validacaoDia($(this).val())){
+    if(validacao.validacaoDia($(this).val(), $("#tempo-mes").val())){
         $("#cadastro-tempo").attr("disabled", false);
         clearfield.clear(this.id+"-div");
     }else{
@@ -120,7 +120,7 @@ $("#tempo-hora").keyup(function () {
     let validacao = new ValidacaoController;
     if(validacao.validacaoHora($(this).val())){
         $("#cadastro-tempo").attr("disabled", false);
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
     }else{
         clearfield.clear(this.id+"-div");
         let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
@@ -644,7 +644,7 @@ $("#cadastro-autor").click(function(event) {
     let inputsCheck = document.getElementsByClassName("checkbox-autores");
 
     if((!required.required(2, formAutor)) && (!$("#cpf").val() == "") && (!$("#email").val() == "") && (!$("#nome-autor").val() == "")
-        && (isInputCheckBox(inputsCheck, required))){
+        && (isInputCheckBox(inputsCheck, required)) && (exe == extensao)){
     	$(this).submit();
     }else{
         event.preventDefault();
@@ -720,7 +720,7 @@ $("#cadastro-livro").click(function (event) {
         && (!$("#ano-livro").val() == "") && (isInputCheckBox(inputsCheck, required)) && (select.value != "")
         && (!$("#sinopsie-livro").val() == "") && (!$("#comprimento-livro").val() == "")
         && (!$("#largura-livro").val() == "") && (!$("#altura-livro").val() == "")
-        && (!$("#quantidade-livro").val() == "")){
+        && (!$("#quantidade-livro").val() == "") && (exe == extensao)){
         selectEmpty = false;
         $("#cadastro-livro").submit();
     }else{
@@ -891,12 +891,12 @@ $("#largura-livro").keyup(function (event) {
         $(this).val("");
     }
     if(validacao.validacaoFieldLength(5, this)){
-        clearfield.hide(this.id+"-div");
+        clearfield.clear(this.id+"-div");
         $(this).attr("maxlength","5");
     }
-    if(!validacao.validacaoFieldValors(this, 11.0)){
-        clearfield.clear("editora-livro-div");
-        let div = tags.criarTag(document.getElementById("editora-livro-div"), "div");
+     if(!validacao.validacaoFieldValors(this, 11.0)){
+        clearfield.clear(this.id+"-div");
+        let div = tags.criarTag(document.getElementById(this.id+"-div"), "div");
         div.setAttribute("class", "alert alert-danger");
         let span = tags.criarTag(div, "span");
         span.textContent = "A largura não pode ser inferior a 11.cm";

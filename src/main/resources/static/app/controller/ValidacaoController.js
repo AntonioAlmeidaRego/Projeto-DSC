@@ -46,23 +46,111 @@ class ValidacaoController {
         return false;
     }
 
-    validacaoDia(dia){
+    validacaoDia(dia, mes){
         if((dia > 0) && (dia <= 31)){
-            if(new Date().getFullYear() % 4 == 0){
-                if(new Date().getMonth() == 1){
-                    if(dia <= 28){
+            if((new Date().getFullYear() % 4 == 0 && new Date().getFullYear() % 100 != 0) || (new Date().getFullYear() % 4 != 0 && new Date().getFullYear() % 400 == 0)){
+            	if(mes == 1){
+                	if(dia <= 31){
                         return true;
-                    }
-                }else{
-                    return true;
+                    } 
+                }else if(mes == 2){
+                    if(dia <= 29){
+                        return true;
+                    } 
+                }else if(mes == 3){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 4){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 5){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 6){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 7){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 8){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 9){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 10){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 11){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 12){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else {
+                	return false;
                 }
             }else{
-                if(new Date().getMonth() == 1){
-                    if(dia <= 29){
-                       return true;
-                    }
+            	if(mes == 1){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 2){
+                    if(dia <= 28){
+                        return true;
+                    } 
+                }else if(mes == 3){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 4){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 5){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 6){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 7){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 8){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 9){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 10){
+                	if(dia <= 31){
+                        return true;
+                    } 
+                }else if(mes == 11){
+                	if(dia <= 30){
+                        return true;
+                    } 
+                }else if(mes == 12){
+                	if(dia <= 31){
+                        return true;
+                    } 
                 }else{
-                    return true;
+                	return false;
                 }
             }
         }
