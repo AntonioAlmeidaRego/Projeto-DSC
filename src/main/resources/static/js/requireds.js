@@ -793,6 +793,7 @@ $("#preco-livro").keyup(function (event) {
         div.setAttribute("class", "alert alert-danger");
         let span = tags.criarTag(div, "span");
         span.textContent = "Valor declarado não têm desconto (valor minimo: 40.00, valor maximo: 3000)";
+        clearfield.hide("div-desconto-row");
     }if(!validacao.validacaoFieldIntervalValors(this, 19.4, 3001)){
         $("#cadastro-livro").attr("disabled", true);
         clearfield.clear(this.id+"-div");
@@ -802,6 +803,7 @@ $("#preco-livro").keyup(function (event) {
         span.textContent = "Valor declarado não permitido (valor minimo: 19,5, valor maximo: 3000)";
     }else if(validacao.validacaoFieldDesconto(this, 39.99)){
     	clearfield.clear(this.id+"-div");
+    	clearfield.show("div-desconto-row");
         $("#cadastro-livro").attr("disabled", false);
     }else{
         $("#cadastro-livro").attr("disabled", false);
