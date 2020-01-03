@@ -52,14 +52,14 @@
 																<td align="center"
 																	class="conteudo-principal-texto conteudo-editavel"
 																	style="font-family: Georgia, serif; font-size: 16px; padding: 25px 0 0 0;">
-																	Este email de boas-vindas da <b>Livraria DSC</b> chega à caixa de
+																	Este email de boas-vindas da <b>Livraria PDF</b> chega à caixa de
 																	entrada do usuário logo após o cadastro pelo
-																	site: <a href="https://livraria-ifrn.herokuapp.com/">https://livraria-ifrn.herokuapp.com/</a>.</td>
+																	site: <a href="https://livraria-pdf.herokuapp.com/">https://livraria-pdf.herokuapp.com/</a>.</td>
 															</tr>
 															<tr>
 																<td>
 																	<p>Ativar conta!
-																	<a href="https://livraria-ifrn.herokuapp.com/usuario/ativarConta/${link}">https://livraria-ifrn.herokuapp.com/usuario/ativarConta/${link}</a></p>
+																	<a href="https://livraria-pdf.herokuapp.com/usuario/ativarConta/${token}">https://livraria-pdf.herokuapp.com/usuario/ativarConta/${token}</a></p>
 																</td>
 															</tr>
 														</tbody>

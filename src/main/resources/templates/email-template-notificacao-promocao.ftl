@@ -41,7 +41,7 @@
          	 </#list>	
         </tr>
         <tr style="text-align:center;">
-        	 	<p>Acesse aqui <a href="https://livraria-ifrn.herokuapp.com"> https://livraria-ifrn.herokuapp.com</a></p>
+        	 	<p>Acesse aqui <a href="https://livraria-ifrn.herokuapp.com"> https://livraria-pdf.herokuapp.com</a></p>
           </tr>
       </table>
     </td>
@@ -53,8 +53,8 @@
         <tr>
              <td width="18">&nbsp;</td>
              <td class="conteudo-editavel" width="372" style="font-size:12px;color:#000;text-align:left;padding:20px 0;">
-        Livraria DSC - IFRN Pau dos Ferros - Telefone: +42 25 254587 <br />
-       	Site - https://livraria-ifrn.herokuapp.com
+        Livraria PDF - IFRN Pau dos Ferros - Telefone: +42 25 254587 <br />
+       	Site - https://livraria-pdf.herokuapp.com
         </td>
            <td width="23">&nbsp;</td>
      </tr>
