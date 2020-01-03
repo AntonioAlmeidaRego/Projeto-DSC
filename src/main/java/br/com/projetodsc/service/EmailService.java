@@ -57,7 +57,7 @@ public class EmailService implements SendEmail{
 			Usuario usuario = serviceUsuario.getEmail(email.getTo());
 			email.setFrom("livrariadsc@gmail.com");
 			email.getMap().put("name", usuario.getNome());
-			email.getMap().put("link", usuario.getLinkAtivarConta());
+			email.getMap().put("token", usuario.getToken());
 			email.setSubject("Bem-vindo ao site Livraria DSC!");
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
