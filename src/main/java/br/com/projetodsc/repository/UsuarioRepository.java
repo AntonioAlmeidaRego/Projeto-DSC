@@ -11,7 +11,7 @@ import br.com.projetodsc.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query
-	public Usuario findByEmailAndLinkAtivarConta(String email, String link);
+	public Usuario findByEmailAndAtivarConta(String email, boolean ative);
 	@Query
 	public Usuario findByEmail(String email);
 	@Query

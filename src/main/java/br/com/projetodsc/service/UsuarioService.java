@@ -31,7 +31,7 @@ public class UsuarioService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails user = repository.findByEmailAndLinkAtivarConta(username, "");
+		UserDetails user = repository.findByEmailAndAtivarConta(username, true);
 		org.springframework.security.core.userdetails.User userFinal = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getPermissoes(user));
 		System.out.println(userFinal.getAuthorities());
 		return userFinal;
@@ -76,7 +76,7 @@ public class UsuarioService implements UserDetailsService{
 		usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
 		usuario.setDataCriacao(new Date());
 		usuario.setEnabled(true);
-		usuario.setAtivarConta(true);
+		usuario.setAtivarConta(false);
 		repository.saveAndFlush(usuario);
 	}
 	

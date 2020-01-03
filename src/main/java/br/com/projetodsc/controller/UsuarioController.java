@@ -143,7 +143,8 @@ public class UsuarioController implements SaveImg<Usuario>{
 	public ModelAndView ativarConta(@PathVariable String token) {
 		Usuario usuario = service.findByToken(token);
 		if((usuario != null) && !component.isTokenExpired(token)) {
-			usuario.setAtivarConta(false);
+			usuario.setAtivarConta(true);
+			usuario.setToken("");
 			service.update(usuario);
 			return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
 		}
@@ -163,7 +164,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 	public ModelAndView updateSenha(@RequestParam("senha") String senha, @RequestParam("id") Long id) {
 		Usuario usuario = service.getOne(id);
 		if(usuario != null) {
-			usuario.setStatusLink(false);
+			usuario.setToken("");
 			usuario.setSenha(senha);
 			service.alterarSenhaUsuario(usuario);
 			return new ModelAndView("login").addObject("successUpdateSenha", "Usuario alterou sua senha com sucesso!").addObject("usuario", new Usuario());
