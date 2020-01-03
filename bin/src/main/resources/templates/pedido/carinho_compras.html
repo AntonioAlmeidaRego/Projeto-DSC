@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html 
+	layout:decorate="~{layout-site}">
+<head>
+    <title>Home | Livraria</title>
+     
+</head><!--/head-->
+
+<body>
+	<div layout:fragment="corpo-site">
+		<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<th:block th:if="${not #lists.isEmpty(livros)}">
+				<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Itens</td>
+							<td class="description"></td>
+							<td class="price">Preço</td>
+							<td class="quantity">Quantidade</td>
+							<td class="quantity">Frete</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody id="tabela-pedidos">
+						<th:block th:each="pedido : ${pedidos}">
+							<tr>
+								<th:block th:each="livro : ${pedido.livros}">
+									<td class="cart_product">
+										<a href=""><img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="100" alt=""></a>
+									</td>
+									<td class="cart_description">
+										<h4 th:text="${livro.titulo}"></h4>
+										<p>ISBN <p th:text="${livro.isbn}"></p></p>
+									</td>
+									<td class="cart_price">
+										<p th:text="${livro.preco}"></p>
+									</td>
+									<td class="cart_quantity">
+										<div class="cart_quantity_button">
+											<span th:text="${pedido.quantidade}">
+										</div>
+									</td>
+									<td class="ids-pedidos">
+										<p th:text="${pedido.id}"></p>
+									</td>	
+									<td class="cart_quantity">
+										<p th:text="${pedido.frete}"></p>
+									</td>									 
+									<td class="cart_total">
+										<p class="cart_total_price" th:text="${pedido.valorTotal}"></p>
+									</td>
+									<td class="cart_delete">
+										<a th:data-objeto="${pedido.id}" class="cart_quantity_delete"><i class="fa fa-times"></i></a>
+									</td>
+								</th:block>								
+							</tr>
+						</th:block>
+					</tbody>
+					<tfoot>
+						<th>
+							<td>RESUMO DOS PEDIDOS</td>
+							<td id="resultado-compra"></td>
+						</th>
+						<th>
+							<td><a class="btn btn-success" id="finalizar-compra">Finalizar Compra</a></td>
+						</th>
+					</tfoot>
+				</table>
+			</div>			
+			</th:block>
+			<th:block th:if="${#lists.isEmpty(livros)}">
+										<div class="col-sm-4">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+																<p>Usuário não fez nenhum pedido!</p>
+															
+														</div>
+														<div class="choose">
+														</div>
+													</div>
+												</div>
+									</th:block>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+
+	</section><!--/#do_action-->
+	</div>	
+</body>
+</html>

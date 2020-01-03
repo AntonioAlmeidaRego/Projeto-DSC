@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria - Cadastro de Livro</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                        	<div class="card">
+                        		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Cadastrar Livro</h4>
+                                	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
+                            	</div>
+                            	<div class="card-body">
+                                	<form th:object="${livro}" th:action="@{/livro/saveLivro}" id="form-livro" method="POST" enctype="multipart/form-data">
+                                    	<input id="id" name="id" type="hidden" th:field="*{id}"
+                                           th:value="*{id}">
+                                      <div class="row">
+                                       		<div class="col-md-12">
+                                       			<th:block th:if="${livro.imagem == null}">
+                                       					<label class="bmd-label-floating">Capa do Livro<span style="color: red"> *</span></label>
+                                       					<br/>
+		                                       			<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa" />
+		                                       			<div id="file-capa-div">
+
+                                            			</div>
+                                       			</th:block>
+                                       			<th:block th:if="${livro.imagem != null}">
+                                       					<label class="bmd-label-floating">Capa do Livro</label>
+                                       					<br/> 
+                                  						<img id="imagem-capa" th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="100"/>
+                                       					<br />
+                                       					<input accept="image/png, image/jpeg" name="file" class="btn btn-primary" type="file" id="file-capa"  />
+	                                       				<div id="file-capa-div">
+	
+	                                           			</div> 
+                                       			</th:block>
+                                       			
+                                       		</div>         
+                                       </div>   
+                                       <br />
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Título<span style="color: red"> *</span></label>
+                                                   <input type="text" id="titulo-livro" th:field="*{titulo}" class="form-input">
+                                                   <div id="titulo-livro-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Ano<span style="color: red"> *</span></label>
+                                                   <input type="text" id="ano-livro" th:field="*{ano}" class="form-input">
+                                                    <div id="ano-livro-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Sinopsie<span style="color: red"> *</span></label>
+                                                   <textarea maxlength="255" type="text" id="sinopsie-livro" th:field="*{sinopsie}" class="form-input" ></textarea>
+                                                   <div id="sinopsie-livro-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>     
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">ISBN<span style="color: red"> *</span></label>
+                                                   <input type="text" id="isbn-livro" th:field="*{isbn}" class="form-input" />
+                                                   <div id="isbn-livro-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>                                         
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Edição<span style="color: red"> *</span></label>
+                                                   <input type="text" id="edicao-livro" th:field="*{edicao}" class="form-input" />
+                                                   <div id="edicao-livro-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>     
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Peso<span style="color: red"> *</span></label>
+                                                   <input type="text" id="peso-livro" th:field="*{peso}" class="form-input" />
+                                               	   <div id="peso-livro-div">
+														
+                                                   </div>    
+                                               </div>
+                                           </div>                                         
+                                       </div>
+                                        <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Preço<span style="color: red"> *</span></label>
+                                                   <input type="text" id="preco-livro" th:field="*{preco}" class="form-input" />
+                                                   <p id="aux-Preco" style="color: #000"></p>
+                                                   <div id="preco-livro-div">
+
+                                                   </div>                                                   
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6">
+                                           		<div class="form-group">
+                                           		   <label class="bmd-label-floating">Comprimento<span style="color: red"> *</span></label>
+                                                   <input type="text" id="comprimento-livro" th:field="*{comprimento}" class="form-input" />
+                                                   <div id="comprimento-livro-div">
+
+                                                   </div>
+                                           		</div>
+                                           </div>     
+                                       </div>
+                                       <div class="row">
+                                       		<div class="col-md-6">
+                                       			<div class="form-group">
+	                                       			<label class="bmd-label-floating">Largura<span style="color: red"> *</span></label>
+	                                       			<input type="text" id="largura-livro" th:field="*{largura}" class="form-input" />
+	                                       			<div id="largura-livro-div">
+	                                       			
+	                                       			</div>	                                       			
+                                       			</div>
+                                       		</div>
+                                       		<div class="col-md-6">
+                                       			<div class="form-group">
+                                       				<label class="bmd-label-floating">Altura<span style="color: red"> *</span></label>
+	                                       			<input type="text" id="altura-livro" th:field="*{altura}" class="form-input" />
+	                                       			<div id="altura-livro-div">
+	                                       			
+	                                       			</div>
+                                       			</div>
+                                       		</div>
+                                       </div>
+                                       <div class="row" id="div-desconto-row">
+                                       		<div class="col-md-12">
+                                       			<label class="bmd-label-floating">Desconto</label>
+                                       			<select id="descontos" th:field="*{promocao}" class="form-control">
+                                       				<option value="">Sem desconto</option>
+                                       				<th:block th:each="promocao : ${promocoes}">
+                                       					<option th:value="${promocao.id}" th:text="${promocao.desconto}"></option>
+                                       				</th:block>
+                                       			</select>
+                                       		</div>
+                                       </div>
+                                       <div class="row">
+                                       		<div class="col-md-6">
+                                       			<label class="bmd-label-floating">Editoras<span style="color: red"> *</span></label>
+                                       			<select id="editora-livro" th:field="*{editora.id}"  class="form-control">
+                                       				<option value="">--Selecione uma Editora--</option>
+                                    				<option th:value="${editora.id}" th:each="editora : ${editoras}" th:text="${editora.nome}"></option>
+                                       			</select>
+                                       			 <div id="editora-livro-div">
+
+                                                   </div>
+                                       		</div>
+                                       		<div class="col-md-6">
+                                       			<label class="bmd-label-floating">Categorias<span style="color: red"> *</span></label>
+                                       				<br />
+														<th:block th:each="categoria : ${categorias}">
+															<label th:text="${categoria.nome}"></label>
+															<input class="checkbox1" type="checkbox" th:id="'idsCategoria-livro' + ${categoria.id}" name="ids" th:value="${categoria.id}" />
+															<br />
+														</th:block>
+												<div id="idsCategoria-livro-div">
+
+                                                   </div>
+                                       		</div>
+										   <div id="livros-categorias">
+											   <th:block th:each="categoria : ${livro.categorias}">
+												   <input class="categoria-ids" th:value="${categoria.id}" />
+												   <br />
+											   </th:block>
+										   </div>
+                                       </div>
+                                       <div class="row">
+                                       		<div class="col-md-12">
+                                       			<div class="form-group">
+	                                       			<label class="bmd-label-floating">Quantidade de livros<span style="color: red"> *</span></label>
+	                                       			<input type="number" id="quantidade-livro" name="estoque" class="form-input" />
+	                                       			 <div id="quantidade-livro-div">
+	
+	                                                 </div>
+	                                            </div>     
+                                       		</div>
+                                       </div>
+                                       <br />
+                                    <button id="cadastro-livro" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button type="reset" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <div class="clearfix"></div>
+                                	</form>
+                            	</div>
+								<script type="text/javascript">
+									$(document).ready(function () {
+										$("#livros-categorias").hide();
+										let checkboxCategoria = document.getElementsByClassName("checkbox1");
+										let idsCategorias = document.getElementsByClassName("categoria-ids");
+										for(let i = 0; i<idsCategorias.length;i++){
+											for(let j = 0; j<checkboxCategoria.length;j++){
+												if(idsCategorias[i].value == checkboxCategoria[j].value){
+													checkboxCategoria[j].checked = true;
+												}
+											}
+										}
+									});
+								</script>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>

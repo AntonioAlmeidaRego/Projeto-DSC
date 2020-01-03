@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html 
+	layout:decorate="~{layout-site}">
+<head>
+    <title>Home | Livraria</title>
+     
+</head><!--/head-->
+
+<body>
+	<div layout:fragment="corpo-site">
+		<section>
+			<div class="container">
+			<div th:replace="fragmentos/site/menu_vertical :: menu-vertical"></div>
+			<div class="col-sm-9 padding-right">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img th:src="@{/livro/imagem/{id}(id=${livro.id})}" />
+							</div>
+						</div>	
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+								<h2 th:text="${livro.titulo}"></h2>
+								<input type="hidden" id="idLivro" th:value="${livro.id}"/> 
+								<p><b>ISBN:</b> <p th:text="${livro.isbn}"></p></p>
+								<img src="images/product-details/rating.png" alt="">
+								<div id="error-quantidade" class="alert alert-danger">
+
+								</div>
+								<span>
+									<span id="preco" th:text="${livro.preco}"></span>
+									<label>Quantidade:</label>
+									<input type="text" id="quantidade" value="1">
+									<input type="hidden" id="peso" th:value="${livro.peso}" />
+									<button id="addPedido" class="btn btn-fefault cart">
+										<i class="fa fa-shopping-cart"></i>
+										Adicionar pedido
+									</button>
+									<button id="addFavorito" class="btn btn-fefault cart">
+										<i><img src="https://img.icons8.com/metro/26/000000/star.png"></i>
+										Adicionar Favorito
+									</button>
+								</span>
+								<div>
+									<input type="text" class="cep-input" placeholder="_____-___" id="cep-padrao"/>
+								</div>
+								<div id="father-result-cep">
+									
+								</div>
+								<input id="usuario_logado" type="hidden" th:value="${logado.id}">
+								<img alt="" id="img-carregamento" width="100px" height="100px" th:src="@{/images/gifs/carregando.gif}">
+								<p><b>Sinopsie:</b><p th:text="${livro.sinopsie}"> </p></p>
+								<p><b>Autores:</b></p>
+								<th:block th:each="autor : ${livro.autors}">
+									<img style="border-radius: 50%;" width="90px" th:src="@{/autor/imagem/{id}(id=${autor.id})}"/>
+									<p><p th:text="${autor.nome}"></p> 
+								</th:block>
+								<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt=""></a>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+					
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+								<th:block th:each="categoria : ${primeirasCategorias}">
+									<li><a href="#" th:id="${categoria.id}" data-toggle="tab" th:text="${categoria.nome}"></a></li>
+								</th:block>
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div class="tab-pane fade active in"  id="fatherAll">
+								 
+							</div>
+						</div>
+					</div><!--/category-tab-->
+					
+					<script type="text/javascript">
+						var iniciar = false;
+						var quantidadeEstoque = [[${estoque.quantidade}]];
+						var precoLivro = [[${livro.preco}]];
+						$(document).ready(function(){
+							$("#img-carregamento").hide();
+							if(quantidadeEstoque == 0){
+								$("#addPedido").attr("disabled", true);
+								alert("Estoque vazio!");
+								window.location.replace("/");
+							}else{
+								let preco = [[${livro.preco}]];
+								let peso = [[${livro.peso}]];
+								let comprimento = [[${livro.comprimento}]];
+								let altura = [[${livro.altura}]];
+								let largura = [[${livro.largura}]];
+								$("#quantidade").keyup(function(){
+									if($("#quantidade").val() <= quantidadeEstoque){
+										$("#addPedido").attr("disabled", false);
+										if($("#quantidade").val() > 0){
+											iniciar = true;
+										}
+									}else{
+										$("#addPedido").attr("disabled", true);
+										alert("Não permitido essa quantidade");
+										$("#quantidade").val("1");	
+										$("#preco").text(precoLivro);
+									}	
+								});
+								var interval = setInterval(function(){
+									if(iniciar == true){
+										if(($("#quantidade").val() > 0) && ($("#preco").text() > 0)){
+											$("#img-carregamento").show();
+								            let apisoap = new ApiSoap();
+								            let objetoXML = apisoap.apiCorreios($("#cep-padrao").val(), peso, comprimento, 
+								        		   altura,
+								               largura, $("#preco").text());
+								           objetoXML.then(function (data) {
+								                clearResult();
+								                criarResult(data);
+								           });
+										}
+										iniciar = false;
+									}
+								}, 1000);
+								$("#cep-padrao").keyup(calcularFrete);
+
+								   function clearResult() {
+									   $("#img-carregamento").hide();
+								       let divPai = document.getElementById("father-result-cep");
+								       divPai.innerHTML = "";
+								   }
+
+								   function criarResult(data){
+								       let divPai = document.getElementById("father-result-cep");
+								       $(data).find('cServico').each(function () {
+								           codigo = $(this).find('Codigo').text();
+								           valor = $(this).find('Valor').text();
+								           prazo = $(this).find('PrazoEntrega').text();
+								           divPai.innerHTML = "<p style='font-size:20px' id='valor-correio'>"+valor+"</p><p style='font-size:20px' id='prazo-correio'>"+" "+prazo+" dias</p>";
+								       });
+								       $("#addPedido").attr("disabled", false);
+								       $("#quantidade").attr("disabled", false);
+								   }
+								   
+								   function calcularFrete(event){
+									   $("#addPedido").attr("disabled", true);
+									   if((event.which == 8 || event.keyCode == 8) || (event.which == 46 || event.keyCode == 46)){
+										   clearResult();
+									   }
+								       if($(this).val().length == 9){
+								    	   $("#img-carregamento").show();
+								           let apisoap = new ApiSoap();
+								           let objetoXML = apisoap.apiCorreios($(this).val(), peso, comprimento, 
+								        		   altura,
+								               largura, preco);
+								           objetoXML.then(function (data) {
+								                clearResult();
+								                criarResult(data);
+								                console.log(data);
+								           });
+								       }
+								   }
+							}	
+						});
+					</script>
+					
+					<div class="recommended_items"><!--recommended_items-->
+						<h2 class="title text-center">Promoções de Livros</h2>
+						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+					            <div class="item active">
+					                <th:block th:each="livro : ${promocoesUltimos}">
+					                    <div class="col-sm-4">
+				                            <div class="product-image-wrapper">
+				                                <div class="single-products">
+				                                    <div class="productinfo text-center">
+				                                        <img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="90px" height="300px" alt="" />
+				                                        <h2 th:text="${livro.preco}"></h2>
+				                                        <p th:text="${livro.titulo}"></p>
+				                                        <a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+				                                    </div>
+				
+				                                </div>
+				                            </div>
+					                    </div>
+					                </th:block>
+					            </div>
+					            <div class="item">
+					                <th:block th:each="livro : ${promocoesPrimeiros}">
+					                    <div class="col-sm-4">
+					                        <div class="product-image-wrapper">
+					                            <div class="single-products">
+					                                <div class="productinfo text-center">
+					                                    <img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="90px" height="300px" alt="" />
+					                                    <h2 th:text="${livro.preco}"></h2>
+					                                    <p th:text="${livro.titulo}"></p>
+					                                    <a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+					                                </div>							
+					                            </div>
+					                        </div>
+					                    </div>
+					                </th:block>
+					            </div>
+					        </div>									
+							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							  </a>
+							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							  </a>			
+						</div>				
+					</div><!--/recommended_items-->
+					
+				</div>
+		</div>
+	</div>
+		</section>
+	</div>	
+</body>
+</html>

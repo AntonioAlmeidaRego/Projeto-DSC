@@ -1,0 +1,291 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+	xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{/assets/css/material-dashboard.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/assets/demo/demo.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/fonts.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style-main.css}"/>
+<title sec:authorize="hasAuthority('ADMINISTRADOR')">Admin</title>
+<title sec:authorize="hasAuthority('CLIENTE')">User</title>
+</head>
+	<script th:src="@{/assets/js/core/jquery.min.js}"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script th:src="@{/app/model/Session.js}"></script>
+    <script th:src="@{/app/controller/SessionController.js}"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript">
+    	var session = new SessionController();
+    </script>
+<body>
+    <div class="wrapper ">
+
+
+    	<div sec:authorize="hasAuthority('CLIENTE')">
+    		<div th:replace="fragmentos/menu-user :: menu-user-esquerdo">
+    		</div>
+		</div>
+
+	  	<div sec:authorize="hasAuthority('ADMINISTRADOR')"
+		 th:replace="fragmentos/menu-admin :: menu-esquerdo"></div>
+		<div class="main-panel">
+			<th:block th:if="${emailSuccess != null}">
+               		<div class="alert alert-success">
+               			<span th:text="${emailSuccess}"></span>
+            		</div>
+           		</th:block>
+			<div class="content-wrapper" layout:fragment="corpo">
+				
+			</div>
+		</div>
+    </div>
+    <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- your content here -->
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                Livraria DSC
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>, made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                </div>
+                <!-- your footer here -->
+            </div>
+        </footer>
+    </div>
+</div>
+<!--   Core JS Files   -->
+  
+  <script th:src="@{/assets/js/core/popper.min.js}"></script>
+  <script th:src="@{/assets/js/core/bootstrap-material-design.min.js}"></script>
+  <script th:src="@{https://unpkg.com/default-passive-events}"></script>
+  <script th:src="@{/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chartist JS -->
+  <script th:src="@{/assets/js/plugins/chartist.min.js}"></script>
+  <!--  Notifications Plugin    -->
+  <script th:src="@{/assets/js/plugins/bootstrap-notify.js}"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script th:src="@{/assets/js/material-dashboard.js?v=2.1.0}"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+
+    <script type="text/javascript">
+ 
+    </script>
+  <script th:src="@{/assets/demo/demo.js}"></script>
+    <script th:src="@{/app/model/Mascara.js}"></script>
+    <script th:src="@{/app/model/Required.js}"></script>
+    <script th:src="@{/app/controller/MascaraController.js}"></script>
+    <script th:src="@{/app/model/SubmitRequest.js}"></script>
+    <script th:src="@{/app/dataStructures/Parameters.js}"></script>
+    <script th:src="@{/app/controller/RequiredController.js}"></script>
+    <script th:src="@{/app/controller/RequestController.js}"></script>
+    <script th:src="@{/app/controller/ValidacaoController.js}"></script>
+    <script th:src="@{/app/views/TagsView.js}"></script>
+    <script th:src="@{/app/consumeJSON/Api.js}"></script>
+    <script th:src="@{/app/consumeSoap/ApiSoap.js}"></script>
+    <script th:inline="javascript"  th:src="@{/app/util/Calculadora.js}"></script>
+    <script th:src="@{/app/controller/ClearfieldsController.js}"></script>
+    <script th:src="@{/js/wantRemove.js}"></script>
+    <script th:src="@{/js/relatoriodiario.js}"></script>
+    <script th:src="@{/js/setarchebox.js}"></script>
+    <script th:inline="javascript"  th:src="@{/js/requireds.js}"></script>
+    <script th:src="@{/js/mascaras.js}"></script>
+<script>
+    $(document).ready(function() {
+    	 
+    	$("#file-capa").change(function () {
+    		if(this.files.length > 0) nome = this.files[0].name;
+            $("#urlCapa").val("/home/antonioalmeida/Imagens/capas/"+nome);
+        });
+
+    	/*$("#file-foto-autor").change(function () {
+           if(this.files.length > 0) nome = this.files[0].name;
+           $("#urlFotoAutor").val("/home/antonio/Imagens/autors/"+nome);
+        });*/
+    	
+        $().ready(function() {
+            $sidebar = $('.sidebar');
+
+            $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+            $full_page = $('.full-page');
+
+            $sidebar_responsive = $('body > .navbar-collapse');
+
+            window_width = $(window).width();
+
+            $('.fixed-plugin a').click(function(event) {
+                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                if ($(this).hasClass('switch-trigger')) {
+                    if (event.stopPropagation) {
+                        event.stopPropagation();
+                    } else if (window.event) {
+                        window.event.cancelBubble = true;
+                    }
+                }
+            });
+
+            $('.fixed-plugin .active-color span').click(function() {
+                $full_page_background = $('.full-page-background');
+
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+
+                var new_color = $(this).data('color');
+
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-color', new_color);
+                }
+
+                if ($full_page.length != 0) {
+                    $full_page.attr('filter-color', new_color);
+                }
+
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.attr('data-color', new_color);
+                }
+            });
+
+            $('.fixed-plugin .background-color .badge').click(function() {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+
+                var new_color = $(this).data('background-color');
+
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-background-color', new_color);
+                }
+            });
+
+            $('.fixed-plugin .img-holder').click(function() {
+                $full_page_background = $('.full-page-background');
+
+                $(this).parent('li').siblings().removeClass('active');
+                $(this).parent('li').addClass('active');
+
+
+                var new_image = $(this).find("img").attr('src');
+
+                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    $sidebar_img_container.fadeOut('fast', function() {
+                        $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                        $sidebar_img_container.fadeIn('fast');
+                    });
+                }
+
+                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $full_page_background.fadeOut('fast', function() {
+                        $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        $full_page_background.fadeIn('fast');
+                    });
+                }
+
+                if ($('.switch-sidebar-image input:checked').length == 0) {
+                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                }
+
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                }
+            });
+
+            $('.switch-sidebar-image input').change(function() {
+                $full_page_background = $('.full-page-background');
+
+                $input = $(this);
+
+                if ($input.is(':checked')) {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar_img_container.fadeIn('fast');
+                        $sidebar.attr('data-image', '#');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                        $full_page_background.fadeIn('fast');
+                        $full_page.attr('data-image', '#');
+                    }
+
+                    background_image = true;
+                } else {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar.removeAttr('data-image');
+                        $sidebar_img_container.fadeOut('fast');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                        $full_page.removeAttr('data-image', '#');
+                        $full_page_background.fadeOut('fast');
+                    }
+
+                    background_image = false;
+                }
+            });
+
+            $('.switch-sidebar-mini input').change(function() {
+                $body = $('body');
+
+                $input = $(this);
+
+                if (md.misc.sidebar_mini_active == true) {
+                    $('body').removeClass('sidebar-mini');
+                    md.misc.sidebar_mini_active = false;
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                } else {
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                    setTimeout(function() {
+                        $('body').addClass('sidebar-mini');
+
+                        md.misc.sidebar_mini_active = true;
+                    }, 300);
+                }
+
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 180);
+
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function() {
+                    clearInterval(simulateWindowResize);
+                }, 1000);
+
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

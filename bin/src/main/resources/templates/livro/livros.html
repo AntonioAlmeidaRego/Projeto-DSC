@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="br" 
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{layout-site}"
+>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Livros | Livraria</title>
+</head><!--/head-->
+<body>
+	<div layout:fragment="corpo-site">
+		<section>
+				<div class="container">
+					<div class="row">
+						<div th:replace="fragmentos/site/menu_vertical :: menu-vertical"></div>
+						<div class="col-sm-9 padding-right">
+							<div class="features_items"><!--features_items-->
+								<h2 class="title text-center">Livros</h2>
+									<div th:each="livro : ${livros}">
+										<div class="col-sm-4">
+											<div class="product-image-wrapper">
+												<div class="single-products">
+														<div class="productinfo text-center">
+															<img th:src="@{/livro/imagem/{id}(id=${livro.id})}" width="206px" height="400px" alt="" />
+															<h2 th:text="${livro.preco}"></h2>
+															<p th:text="${livro.titulo}"></p>
+															<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+														</div>
+														<div class="product-overlay">
+															<div class="overlay-content">
+																<h2 th:text="${livro.preco}"></h2>
+																<p th:text="${livro.titulo}"></p>
+																<a th:href="@{/livro/detalheLivro/{id}(id=${livro.id})}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalhes</a>
+															</div>
+														</div>
+													
+												</div>
+											</div>
+										</div>
+								</div>
+						</div>
+						<ul id="pages" class="pagination">
+
+						</ul>
+						<script type="text/javascript">
+							var pages = [[${quantidadePages}]];
+							var ul = document.getElementById("pages");
+							if(pages > 1){
+								var length = 0;
+								var inicio = 0;
+								var j = 1;
+								for(let i = 0; i < pages;i++){
+									let li = document.createElement("li");
+									let a = document.createElement("a");
+									inicio = length;
+									length = length + 6;
+									a.setAttribute("href", "/livro/listaAll/"+inicio+"/"+length);
+									a.textContent = j;
+
+									li.appendChild(a);
+									ul.appendChild(li);
+									j++;
+								}
+							}else{
+								ul.innerHTML = "";
+							}
+						</script>
+						</div>
+					</div>
+					
+					
+				</div>
+			</section>
+	</div>
+
+</body>
+</html>

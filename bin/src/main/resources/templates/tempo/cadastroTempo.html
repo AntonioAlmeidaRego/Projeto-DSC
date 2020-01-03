@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                    		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+                        	<div class="card">
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Cadastrar Tempo</h4>
+                                	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
+                            	</div>
+                            	<div class="card-body">
+                                	<form th:object="${tempo}" th:action="@{/tempo/saveTempo}" id="form-tempo" method="POST">
+                                    	<input id="id" name="id" type="hidden" th:field="*{id}"
+                                           th:value="*{id}">
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Hora<span style="color: red"> *</span></label>
+                                                   <input type="number" id="tempo-hora" th:field="*{hora}" class="form-input">
+                                                   <div id="tempo-hora-div">
+
+                                                   </div>
+                                               </div>
+                                           </div> 
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Minutos<span style="color: red"> *</span></label>
+                                                   <input type="number" id="tempo-minuto" th:field="*{minuto}" class="form-input">
+                                                   <div id="tempo-minuto-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>                                            
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-12">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Segundo<span style="color: red"> *</span></label>
+                                                   <input type="number" id="tempo-segundo" th:field="*{segundo}" class="form-input">
+                                                   <div id="tempo-segundo-div">
+
+                                                   </div>
+                                               </div>
+                                           </div> 
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Mês<span style="color: red"> *</span></label>
+                                                   <input type="number" id="tempo-mes" th:field="*{mes}" class="form-input">
+                                                   <div id="tempo-mes-div">
+
+                                                   </div>
+                                               </div>
+                                           </div> 
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Dia<span style="color: red"> *</span></label>
+                                                   <input type="number" id="tempo-dia" th:field="*{dia}" class="form-input">
+                                                   <div id="tempo-dia-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>                                            
+                                       </div>
+                                       <div class="row" id="div-desconto-row">
+                                       		<div class="col-md-12">
+                                       			<div class="form-group">
+	                                       			 <label class="bmd-label-floating">Promoções<span style="color: red"> *</span></label>
+	                                       			 <select id="descontos" th:field="*{promocao}" class="form-control">
+	                                       				<option value="">-- Selecione promoção --</option>
+	                                       				<th:block th:each="promocao : ${promocoes}">
+	                                       					<option th:value="${promocao.id}" th:text="${promocao.desconto}"></option>
+	                                       				</th:block>
+	                                       			</select>
+	                                       			<div id="descontos-div">
+
+                                                   	</div>
+                                       			</div>
+                                       		</div>
+                                       </div>
+                                    <button id="cadastro-tempo" class="btn btn-success pull-right">Cadastrar</button>
+                                    <button type="reset" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <div class="clearfix"></div>
+                                	</form>
+                            	</div>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Pedidos</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+		<div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-success">
+                                <h4 class="card-title">Lista de Pedidos</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody th:each="pedido : ${pedidos}">
+	                                        <tr>
+	                                        	<td colspan="3">ID</td>
+	                                            <td th:text="${pedido.id}"></td>
+	                                            <td colspan="3">Valor Total</td>
+	                                            <td th:text="${pedido.valorTotal}"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td colspan="3">Data</td>
+	                                            <td th:text="${pedido.data}"></td>
+	                                            <td colspan="3">Código do Pedido</td>
+	                                            <td th:text="${pedido.codigo}"></td>
+	                                            <td colspan="3">Quantidade</td>
+	                                            <td th:text="${pedido.quantidade}"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td colspan="3">Usuario</td>
+	                                            <td th:text="${pedido.usuario.nome}"></td>
+	                                            <td colspan="3">Livro</td>
+	                                            <th:block th:each="livro : ${pedido.livros}">
+	                                            	<td th:text="${livro.titulo}"></td>
+	                                            </th:block>
+	                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+</body>
+</html>

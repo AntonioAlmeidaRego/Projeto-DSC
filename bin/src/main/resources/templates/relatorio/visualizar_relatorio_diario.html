@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                    		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+                        	<div class="card">
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Gerar Relatorio</h4>
+                            	</div>
+                            	<div class="card-body">
+                                	<form>
+                                       <div class="row">
+                                           <div class="col-md-12">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Data do Dia<span style="color: red"> *</span></label>
+                                                   <input type="date" id="date-relatorio" class="form-input">
+                                                   <div class="alert alert-danger" id="date-relatorio-div">
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                    <button id="consultar-relatorio" class="btn btn-success pull-right">Gerar relatorio</button>
+                                    <div class="clearfix"></div>
+									</form>
+									<div id="alert-pedidos" class="alert alert-danger">
+										<span>Não existe pedidos para essa data</span>
+									</div>
+									<p class="text-lg-center" style="color: #000">Pedidos</p>
+									<div class="table-responsive">
+										<table class="table table-striped" id="table-pedidos">
+											<thead>
+												<tr>
+													<th id="usuario">Cliente</th>
+													<th id="livros">Livro</th>
+													<th id="valorTotal">Valor Pedido</th>
+													<th id="data">Data do Pedido</th>
+													<th id="quantidade">Quantidade de Livros</th>
+												</tr>
+											</thead>
+											<tbody id="tbody-pedidos">
+											</tbody>
+										</table>
+									</div>
+									
+									
+									<div id="alert-compras" class="alert alert-danger">
+										<span>Não existe compras para essa data</span>
+									</div>
+									<p class="text-lg-center" style="color: #000">Compras</p>
+									<div class="table-responsive">
+										<table class="table table-striped" id="table-compras">
+											<thead>
+												<tr>
+													<th id="valorCompra">Valor Compra</th>
+													<th id="pedidos">Cliente</th>
+													<th id="livrosCompra">Livro</th>
+													<th id="data">Data da Compra</th>
+												</tr>
+											</thead>
+											<tbody id="tbody-compras">
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>

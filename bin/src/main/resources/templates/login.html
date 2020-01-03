@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="br" layout:decorate="~{layout-site}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Account | Livraria</title>
+</head><!--/head-->
+<body>
+	<div layout:fragment="corpo-site">
+		<section><!--form-->
+			<th:block th:if="${successUpdateSenha != null}">
+				<div id="success" class="alert alert-success">
+					<span id="teste" th:text="${successUpdateSenha}"></span>
+				</div>
+			</th:block>
+			<th:block th:if="${errorUpdateSenha != null}">
+			<div id="error" class="alert alert-danger">
+				<span id="teste2" th:text="${errorUpdateSenha}"></span>
+			</div>
+			</th:block>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-1">
+						<th:block th:if="${param.error}">
+							<div id="error-usuario" class="alert alert-danger">
+						  		<span id="usuario-invalido">Usuário e/ou inválidos!</span> 
+							</div>
+						</th:block>	
+						<div class="login-form"><!--login form-->
+							<h2>Faça login na sua conta</h2>
+							<form action="entrar" method="post">
+								<input type="text" id="email-login" name="username" placeholder="Email" />
+								<input type="password" id="senha-login" name="password" placeholder="senha" />
+								<div style="display: inline-flex;">
+									<button id="login" class="btn btn-default">Login</button>
+									<button style="margin-left: 15%;" id="alterarSenha" class="btn btn-default">Alterar senha</button>
+								</div>
+							</form>
+						</div><!--/login form-->
+					</div>
+					<div class="col-sm-1">
+						<h2 class="or">OR</h2>
+					</div>
+					<div class="col-sm-4">
+						<th:block th:if="${mensagem != null}">
+							<div id="success" class="alert alert-success">
+								<span id="teste" th:text="${mensagem}"></span>
+							</div>
+						</th:block>
+						<th:block th:if="${error != null}">
+						<div id="error" class="alert alert-danger">
+							<span id="teste2" th:text="${error}"></span>
+						</div>
+						</th:block>
+						<div class="signup-form"><!--sign up form-->
+							<h2>Cadastra-se na Livraria</h2>
+						  	<form id="form1" th:action="@{/usuario/saveUsuario}" th:object="${usuario}" method="post">
+								<input type="text" id="nome" th:field="*{nome}" placeholder="Nome"/>
+								<div id="nome-div"></div>
+								<input type="text" th:field="*{dataNascimento}" id="date" placeholder="__/__/____">
+								<div id="date-div">
+								</div>
+								<input type="email" id="email" th:field="*{email}" placeholder="Email Address"/>
+								<div id="email-div"></div>
+								<input type="password" id="senha" th:field="*{senha}" placeholder="Password"/>
+								<div id="senha-div"></div>
+								<input type="password" id="senha-confirmar" placeholder="Confirmar Password"/>
+								<div id="senha-confirmar-div"></div>
+								<input type="text" placeholder="00000-000" id="cep-padrao">
+								<div id="cep-padrao-div"></div>
+								<div id="preencha-div"></div>
+								<input type="text" th:field="*{municipio}" id="cidade">
+								<input type="text" th:field="*{estado}" id="estado">
+								<input type="text" th:field="*{rua}" placeholder="Rua"/>
+								<div id="rua-div">
+								</div>
+								<input type="text" th:field="*{bairro}" placeholder="Bairro"/>
+								<div id="bairro-div">
+								</div>
+								<button id="cadastro-usuario" class="btn btn-default">Signup</button>
+							</form>
+						</div><!--/sign up form-->
+						
+					</div>
+				</div>
+			</div>
+		</section><!--/form-->
+
+	</div>
+</body>
+</html>

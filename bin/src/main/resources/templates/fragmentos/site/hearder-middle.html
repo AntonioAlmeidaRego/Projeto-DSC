@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+</head>
+<body>
+<div th:fragment="header_middle" >
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 clearfix">
+						<div class="logo pull-left">
+
+						</div>
+						<div class="btn-group pull-right clearfix">
+							<div class="btn-group">
+
+							</div>
+							
+							<div class="btn-group">
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 clearfix">
+						<div class="shop-menu clearfix pull-right">
+							<ul class="nav navbar-nav">
+
+								<th:block th:if="${logado != null}">
+
+								<input type="hidden" id="idUsuario" value="${usuario.id}"/>
+									<li><a href="#" th:text="${logado.nome}"><i class="fa fa-user"></i></a></li>
+								<li><a th:href="@{/pedido/pedidos/{id}(id=${logado.id})}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+								<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i> Login</a></li>
+								</th:block>
+
+								<th:block th:if="${logado == null}">
+									<div id="menu-horizontal">
+										<li><a th:href="@{/entrar}"><i class="fa fa-shopping-cart"></i> Carinho de Compras</a></li>
+										<li><a th:href="@{/entrar}"><i class="fa fa-lock"></i>Login</a></li>
+									</div>
+								</th:block>
+							</ul>
+
+						</div>
+						<script type="text/javascript">
+							/*$(document).ready(function () {
+								*/
+								if(session.getSession("user") != null){
+									var name = document.getElementById("user-name");
+									if(name != null){
+										name.textContent = " "+session.getSession("user")._nomeUsuario
+									}
+								}
+								$("#url").click(function () {
+									if(session != null){
+										if(session.getSession("user") != null) {
+											var id = session.getSession("user")._idUsuario;
+											window.open("/pedido/pedidos/" + id);
+										}else{
+											alert("USUÁRIO NÃO AUTENTICADO!");
+											window.location.replace("/entrar");
+										}
+									}
+								});
+							//});
+						</script>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+</div>
+</body>
+</html>		
+		

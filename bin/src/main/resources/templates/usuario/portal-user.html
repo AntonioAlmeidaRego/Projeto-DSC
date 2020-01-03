@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-br" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"> 
+</head>
+
+<body class="dark-edition">
+<div class="wrapper ">    
+	 
+    <div class="content-wrapper" layout:fragment="corpo">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)">
+                                <i class="material-icons">notifications</i>
+                                <p class="d-lg-none d-md-block">
+                                    Notifications
+                                </p>
+                            </a>
+                        </li>
+                        <!-- your navbar here -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div>
+        	<th:block th:if="${!#lists.isEmpty(tempos)}">
+        		<p style="font-size: 35; padding: 20px; text-align: center;">Promoções</p>
+        		 <div class="table-responsive">
+                     <table class="table table-striped">
+                       <thead>
+                         <tr>
+                             <th>ID</th>
+                             <th>Hora</th>
+                             <th>Minuto</th>      
+                             <th>Segundos</th> 
+							<th>Ano</th>  
+							<th>Mês</th>  
+							<th>Dia</th>   
+							<th>Promoção</th>                                
+                          </tr>
+                         </thead>
+                         <tbody>
+                             <tr th:each="tempo : ${tempos}">
+                                 <td th:text="${tempo.id}"></td>
+                                 <td th:text="${tempo.hora}"></td>
+                                 <td th:text="${tempo.minuto}"></td>
+                                 <td th:text="${tempo.segundo}"></td>
+                                 <td th:text="${tempo.ano}"></td>
+                                 <td th:text="${tempo.mes}"></td>
+                                 <td th:text="${tempo.dia}"></td>
+                                 <th:block th:if="${tempo.promocao != null}">
+                                 	<td th:text="${tempo.promocao.desconto}"></td>
+                                 </th:block>
+                           	</tr>
+                          </tbody>
+                        </table>
+                   </div>
+        	</th:block>
+        </div>
+ </div>
+ </body>
+ </html>       
+    

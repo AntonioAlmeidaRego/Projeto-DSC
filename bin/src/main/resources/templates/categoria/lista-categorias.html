@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Categorias</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+		<div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                        	<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+	                    	<th:block th:if="${success != null}">
+	                    		<div class="alert alert-success">
+	                    			<span th:text="${success}"></span>
+	                    		</div>
+	                    	</th:block>
+	                    	<br />
+	                    	<br />
+                            <div class="card-header card-header-success">
+                                <h4 class="card-title">Lista de Categorias</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="entidade-categoria">
+                                        <tr th:each="categoria : ${categorias}">
+                                            <td th:text="${categoria.id}"></td>
+                                            <td th:text="${categoria.nome}"></td>
+                                            <td>
+                                                <div class="btn-group pull-right">
+                                                    <a class="btn btn-sm btn-success" th:href="@{/categoria/updateCategoria/{id}(id=${categoria.id})}"
+                                                    >Editar</a> <a class="delete btn btn-sm btn-danger"
+                                                        th:href="@{/categoria/deleteCategoria/{id}(id=${categoria.id})}">Excluir</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <a class="btn btn-primary" th:href="@{/categoria/cadastro-categoria}">Adiciona Nova Categoria</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+</body>
+</html>

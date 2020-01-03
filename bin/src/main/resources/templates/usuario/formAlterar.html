@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="br" layout:decorate="~{layout-site}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Alterar senha | Livraria</title>
+</head><!--/head-->
+<body>
+	<div layout:fragment="corpo-site">
+		<section><!--form-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-1">
+						<th:block th:if="${success != null}">
+							<div id="error-usuario" class="alert alert-success">
+						  		<span id="usuario-invalido" th:text="${success}"></span> 
+							</div>
+						</th:block>	
+						<th:block th:if="${error != null}">
+							<div id="error-usuario" class="alert alert-danger">
+						  		<span id="usuario-invalido" th:text="${error}"></span> 
+							</div>
+						</th:block>	
+						<div class="login-form"><!--login form-->
+							<h2>Update Senha</h2>
+							<form th:action="@{/usuario/updateSenha}" method="post">
+								<input type="hidden" name="id" th:value="${usuario.id}" />
+								<input type="password" id="senha" name="senha" placeholder="Nova senha" />
+								<input type="password" id="confirma-senha" name="confirma-senha" placeholder="Confirmar Senha" />
+								<button class="btn btn-default">Update Senha</button>
+							</form>
+						</div><!--/login form-->
+					</div>
+				</div>
+			</div>
+		</section><!--/form-->
+
+	</div>
+</body>
+</html>

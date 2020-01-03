@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout}">
+<head>
+<title>Admin - Livraria - Envio de Email</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="corpo">
+        <div class="content-wrapper">
+        	<div class="content">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class="col-md-12">
+                        	<div class="card">
+                        		<br />
+	                    	<br />
+                    		<th:block th:if="${error != null}">
+	                    		<div class="alert alert-danger">
+	                    			<span th:text="${error}"></span>
+	                    		</div>
+                    		</th:block>
+                    		<th:block th:if="${success != null}">
+	                    		<div class="alert alert-success">
+	                    			<span th:text="${success}"></span>
+	                    		</div>
+                    		</th:block>
+                            	<div class="card-header card-header-success">
+                                	<h4 class="card-title">Enviar Email</h4>
+                                	<p class="card-category">campos obrigatorios <span style="color: red">*</span></p>
+                            	</div>
+                            	<div class="card-body">
+                                	<form th:object="${email}" th:action="@{/email/sendEmailTemplate}" method="POST">
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Titulo<span style="color: red"> *</span></label>
+                                                   <input type="text" name="titulo" class="form-input"/>
+                                               </div>
+                                           </div>
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Para<span style="color: red"> *</span></label>
+                                                   <select th:field="*{to}" class="form-control">
+                                                   		<option th:value="${usuario.email}" th:text="${usuario.email}" th:each="usuario : ${usuarios}"></option>
+                                                   </select>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Subject<span style="color: red"> *</span></label>
+                                                   <input  type="text" th:field="*{subject}" class="form-input" />
+                                               </div>
+                                           </div>     
+                                           <div class="col-md-6">
+                                               <div class="form-group">
+                                                   <label class="bmd-label-floating">Content<span style="color: red"> *</span></label>
+                                                   <input type="text" th:field="*{content}" class="form-input" />
+                                               </div>
+                                           </div>                                         
+                                       </div>
+                                       <div class="row">
+                                      		<div class="col-md-6">
+                                      			<div class="form-group">
+                                      			   <label class="bmd-label-floating">Descrição<span style="color: red"> *</span></label>
+                                                   <input  type="text" name="descricao" class="form-input" />
+                                      			</div>
+                                      		</div>
+                                       </div> 
+                                    <button class="btn btn-success pull-right">Send Email</button>
+                                    <button type="reset" id="reset-autor" class="btn btn-danger pull-right">Limpar Campos</button>
+                                    <div class="clearfix"></div>
+                                	</form>
+                            	</div>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        </div>
+</body>
+</html>
