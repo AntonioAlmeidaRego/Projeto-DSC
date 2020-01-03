@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private void telas(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
+		.antMatchers("/resources/**", "/css/**", "/app/**", "/js/**", "/images/**", "/assets/**", "/fonts/**", "/api/").permitAll()
 		.antMatchers("/fragmentos/**").permitAll()
 		.antMatchers("/autor/**").hasAnyAuthority("ADMINISTRADOR")
 		.antMatchers("/categoria/**").hasAnyAuthority("ADMINISTRADOR")
