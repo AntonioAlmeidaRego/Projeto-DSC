@@ -182,7 +182,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 			email2.setContent("Alterar Senha");
 			email2.setSubject("Alterar Senha");
 			email2.setTo(email);
-			email2.setFrom("gestaoescolaronline1.0@gmail.com");
+			email2.setFrom("livrariadsc@gmail.com");
 			email2.getMap().put("link", usuario.getLinkAlterarSenha());
 			email2.getMap().put("name", usuario.getNome());
 			email2.getMap().put("data", conversor.converteData(new Date()));
