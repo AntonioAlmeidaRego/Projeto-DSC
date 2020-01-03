@@ -55,7 +55,7 @@ public class EmailService implements SendEmail{
 	public void sendEmailBemVindo(Email email) {
 		try {
 			Usuario usuario = serviceUsuario.getEmail(email.getTo());
-			email.setFrom("gestaoescolaronline1.0@gmail.com");
+			email.setFrom("livrariadsc@gmail.com");
 			email.getMap().put("name", usuario.getNome());
 			email.getMap().put("link", usuario.getLinkAtivarConta());
 			email.setSubject("Bem-vindo ao site Livraria DSC!");
