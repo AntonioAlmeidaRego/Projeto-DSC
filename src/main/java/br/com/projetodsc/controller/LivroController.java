@@ -243,7 +243,7 @@ public class LivroController implements SaveImg<Livro>{
 		view.addObject("count10And60", service.countLivrosIntervalosValores(10.00, 60.00));
 		view.addObject("count60And100", service.countLivrosIntervalosValores(60.00, 100.00));
 		view.addObject("count120And150", service.countLivrosIntervalosValores(120.00, 150.00));
-		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado"));
+		view.addObject("countMaior150", service.countLivroMaiorValor(150.00)).addObject("logado", serviceSession.getSession("usuario-logado") != null ? serviceSession.getSession("usuario-logado") : new Usuario());
 		return view;
 	}
 	@GetMapping("/buscaValoresIntervalors/{interval}/{interval2}")
