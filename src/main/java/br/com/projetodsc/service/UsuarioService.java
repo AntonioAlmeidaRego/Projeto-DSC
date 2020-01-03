@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import br.com.projetodsc.model.Role;
 import br.com.projetodsc.model.Usuario;
 import br.com.projetodsc.repository.UsuarioRepository;
+import br.com.projetodsc.token.JwtTokenComponent;
 
 @Service
 public class UsuarioService implements UserDetailsService{
@@ -25,6 +26,8 @@ public class UsuarioService implements UserDetailsService{
 	private UsuarioRepository repository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private JwtTokenComponent component;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,16 +54,7 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	public void createLink(Usuario usuario) {
-		String link = "";
-		String array[] = passwordEncoder.encode(usuario.getEmail()).split(""); 
-		for(int i = 0; i<array.length;i++) {
-			if(array[i].equals("/")) {
-				array[i] = ""+i;
-				link += array[i];
-			}
-			link += array[i];
-		}
-		usuario.setLinkAlterarSenha(link);
+		usuario.setToken(component.generateToken(usuario));
 		repository.saveAndFlush(usuario);
 	}
 	
@@ -133,5 +127,9 @@ public class UsuarioService implements UserDetailsService{
 
 	public List<Usuario> findAllOrderByDataNascimento(){
 		return repository.findAllOrderByDataNascimento();
+	}
+	
+	public Usuario findByToken(String token) {
+		return repository.findByToken(token);
 	}
 }

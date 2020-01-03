@@ -72,6 +72,7 @@ public class Usuario implements UserDetails{
 	@Column(nullable = true)
 	private String linkAtivarConta;
 	private boolean statusLink;
+	private String token;
 	private boolean ativarConta;
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany
@@ -305,4 +306,13 @@ public class Usuario implements UserDetails{
 	public void setAtivarConta(boolean ativarConta) {
 		this.ativarConta = ativarConta;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 }

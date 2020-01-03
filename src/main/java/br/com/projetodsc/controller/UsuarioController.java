@@ -23,6 +23,7 @@ import br.com.projetodsc.service.RoleService;
 import br.com.projetodsc.service.SessionService;
 import br.com.projetodsc.service.TempoService;
 import br.com.projetodsc.service.UsuarioService;
+import br.com.projetodsc.token.JwtTokenComponent;
 import br.com.projetodsc.util.Conversor;
 import br.com.projetodsc.util.SaveImg;
 
@@ -41,6 +42,8 @@ public class UsuarioController implements SaveImg<Usuario>{
 	private EmailService sendEmail;
 	@Autowired
 	private SessionService<Usuario> serviceSession;
+	@Autowired
+	private JwtTokenComponent component;
 	
 	@GetMapping("/portal-user")
 	public ModelAndView portalUser(Usuario usuario) {
@@ -135,24 +138,22 @@ public class UsuarioController implements SaveImg<Usuario>{
 	public ModelAndView mudarSenha() {
 		return new ModelAndView("usuario/mudar-senha");
 	}
-	@GetMapping("/ativarConta/{link}")
-	public ModelAndView ativarConta(@PathVariable String link) {
-		List<Usuario> usuarios = service.findByAtivarConta(true);
-		for(Usuario usuario : usuarios) {
-			if((usuario != null) && (link.equals(usuario.getLinkAtivarConta()))) {
-				usuario.setLinkAtivarConta("");
-				usuario.setAtivarConta(false);
-				service.update(usuario);
-				return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
-			}
+	
+	@GetMapping("/ativarConta/{token}")
+	public ModelAndView ativarConta(@PathVariable String token) {
+		Usuario usuario = service.findByToken(token);
+		if((usuario != null) && !component.isTokenExpired(token)) {
+			usuario.setAtivarConta(false);
+			service.update(usuario);
+			return new ModelAndView("usuario/ativarConta").addObject("success", "Usuario " + usuario.getEmail() + ". Ativou conta!");
 		}
 		return new ModelAndView("usuario/ativarConta").addObject("error", "Link inválido!");
 	}
  
-	@GetMapping("/formAlterar/{link}")
-	public ModelAndView formAlterar(@PathVariable String link) {
-		Usuario usuario = service.findByStatusLink(true);
-		if((usuario != null) && (link.equals(usuario.getLinkAlterarSenha()))) {
+	@GetMapping("/formAlterar/{token}")
+	public ModelAndView formAlterar(@PathVariable String token) {
+		Usuario usuario = service.findByToken(token);
+		if((usuario != null) && (!component.isTokenExpired(token))) {
 			return new ModelAndView("usuario/formAlterar").addObject("usuario", usuario);
 		}
 		return new ModelAndView("usuario/mudar-senha").addObject("error", "Link inválido!");
@@ -176,7 +177,6 @@ public class UsuarioController implements SaveImg<Usuario>{
 		ModelAndView view = new ModelAndView("usuario/mudar-senha");
 		if(usuario != null) {
 			Conversor conversor = new Conversor();
-			usuario.setStatusLink(true);
 			service.createLink(usuario);
 			Email email2 = new Email();
 			email2.setContent("Alterar Senha");

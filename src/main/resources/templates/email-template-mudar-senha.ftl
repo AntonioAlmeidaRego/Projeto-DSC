@@ -57,7 +57,7 @@
 																	Você solicitou a redefinição de sua
 																	senha de acesso ao Livraria DSC. ${data} . 
 																	Click no link para alterar sua senha <a
-																	href="https://livraria-ifrn.herokuapp.com/usuario/formAlterar/${link}">https://livraria-ifrn.herokuapp.com/usuario/formAlterar/${link}</a>.
+																	href="https://livraria-ifrn.herokuapp.com/usuario/formAlterar/${token}">https://livraria-ifrn.herokuapp.com/usuario/formAlterar/${token}</a>.
 																</td>
 															</tr>
 														</tbody>
