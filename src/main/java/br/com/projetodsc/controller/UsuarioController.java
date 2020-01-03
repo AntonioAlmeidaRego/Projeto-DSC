@@ -183,7 +183,7 @@ public class UsuarioController implements SaveImg<Usuario>{
 			email2.setSubject("Alterar Senha");
 			email2.setTo(email);
 			email2.setFrom("livrariadsc@gmail.com");
-			email2.getMap().put("link", usuario.getLinkAlterarSenha());
+			email2.getMap().put("token", usuario.getToken());
 			email2.getMap().put("name", usuario.getNome());
 			email2.getMap().put("data", conversor.converteData(new Date()));
 			sendEmail.sendEmailTemplate(email2, "email-template-mudar-senha.ftl", "");
