@@ -27,6 +27,17 @@ public class LivroResource {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/findAllLinkedCategoria/{id}")
+	public ResponseEntity<List<Livro>> findLivrosCategoria(@PathVariable Long id) {
+		List<Livro> livros = livroService.findAllCategoriaId(id);
+		
+		if(!livros.isEmpty()) {
+			return ResponseEntity.ok(livros);
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
 	@GetMapping("/findAllLimitInterval/{limitIntervalOne}/{limitIntervalTwo}")
 	public ResponseEntity<List<Livro>> findAllLimitInterval(@PathVariable int limitIntervalOne, @PathVariable int limitIntervalTwo){
 		List<Livro> livros = livroService.listaLivroLimitInterval(limitIntervalOne, limitIntervalTwo);
