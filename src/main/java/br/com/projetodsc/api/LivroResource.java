@@ -27,6 +27,39 @@ public class LivroResource {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/findAllLimitInterval/{limitIntervalOne}/{limitIntervalTwo}")
+	public ResponseEntity<List<Livro>> findAllLimitInterval(@PathVariable int limitIntervalOne, @PathVariable int limitIntervalTwo){
+		List<Livro> livros = livroService.listaLivroLimitInterval(limitIntervalOne, limitIntervalTwo);
+		
+		if(!livros.isEmpty()) {
+			return ResponseEntity.ok(livros);	
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/findAllPromocaoPrimeiros")
+	public ResponseEntity<List<Livro>> findAllPromocoesPrimeiros(){
+		List<Livro> livros = livroService.getPromocaoPrimeirosLimit(5);
+		
+		if(!livros.isEmpty()) {
+			return ResponseEntity.ok(livros);
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/findAllPromocaoUltimos")
+	public ResponseEntity<List<Livro>> findAllPromocoesUltimos(){
+		List<Livro> livros = livroService.getPromocaoUltimosLimit(5);
+		
+		if(!livros.isEmpty()) {
+			return ResponseEntity.ok(livros);
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
 	@GetMapping("/getOne/{id}")
 	public ResponseEntity<Livro> getOne(@PathVariable("id") Long id){
 		Livro livro = livroService.getOne(id);
