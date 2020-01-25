@@ -32,4 +32,8 @@ public class AutorService {
 	public Autor findByNomeOrCpfOrEmail(String nome, String cpf, String email) {
 		return repository.findByNomeOrCpfOrEmail(nome, cpf, email);
 	}
+	
+	public List<Autor> findAllLinkedLivro(Long idLivro){
+		return repository.findAllLinkedLivro(idLivro);
+	}
 }
