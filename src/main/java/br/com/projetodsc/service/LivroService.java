@@ -96,4 +96,8 @@ public class LivroService {
 	public List<Livro> listaLivroVendidos(int total){
 		return repository.listaLivrosMaisVendidos(total);
 	}
+	
+	public List<Livro> findAllRelatedByValue(int value, Long idLivro){
+		return repository.findAllRelatedByValue(value, idLivro);
+	}
 }

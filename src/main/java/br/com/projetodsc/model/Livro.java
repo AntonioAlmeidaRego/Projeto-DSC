@@ -45,6 +45,7 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
 	private String peso;
+	@JsonIgnore
 	@Lob
 	private byte[] imagem;
 	@Column(nullable=false, length=100)

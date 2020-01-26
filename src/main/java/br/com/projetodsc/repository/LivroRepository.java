@@ -86,5 +86,10 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			"\n" + 
 			") limit ?", nativeQuery = true)
 	public List<Livro> listaLivrosMaisVendidos(int total);
+	@Query(value="select * from livro l where l.id in(\r\n" + 
+			"	select l2.id from livro l2\r\n" + 
+			"    where l2.preco >= ? and l2.id != ?\r\n" + 
+			");", nativeQuery = true)
+	public List<Livro> findAllRelatedByValue(int value, Long idLivro);
 	
 }	

@@ -30,6 +30,18 @@ public class LivroResource {
 	}
 	
 	@CrossOrigin
+	@GetMapping("/findAllRelatedByValue/{value}/{idLivro}")
+	public ResponseEntity<List<Livro>> findAllRelatedByValue(@PathVariable("value") int value, @PathVariable("idLivro") Long idLivro){
+		List<Livro> livros = livroService.findAllRelatedByValue(value, idLivro);
+		
+		if(!livros.isEmpty()) {
+			return ResponseEntity.ok(livros);
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@CrossOrigin
 	@GetMapping("/findAllLinkedCategoria/{id}")
 	public ResponseEntity<List<Livro>> findLivrosCategoria(@PathVariable Long id) {
 		List<Livro> livros = livroService.findAllCategoriaId(id);

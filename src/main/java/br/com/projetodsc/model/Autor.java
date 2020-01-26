@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,6 +35,7 @@ public class Autor implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Email do autor é uma informação obrigatória!")
 	private String email;
+	@JsonIgnore
 	@Lob
 	private byte[] imagem;
 	@ManyToMany
