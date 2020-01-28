@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.projetodsc.model.Autor;
 import br.com.projetodsc.repository.AutorRepository;
+import br.com.projetodsc.util.EntityService;
 
 @Service
-public class AutorService {
+public class AutorService implements EntityService<Autor>{
 	@Autowired
 	private AutorRepository repository;
 	
@@ -21,10 +22,12 @@ public class AutorService {
 		repository.deleteById(id);
 	}
 	
+	@Override
 	public List<Autor> findAll() {
 		return repository.findAll();
 	}
 	
+	@Override
 	public Autor getOne(Long id) {
 		return repository.getOne(id);
 	}
@@ -35,5 +38,15 @@ public class AutorService {
 	
 	public List<Autor> findAllLinkedLivro(Long idLivro){
 		return repository.findAllLinkedLivro(idLivro);
+	}
+
+	@Override
+	public void save(Autor entity) {
+		repository.saveAndFlush(entity);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		repository.deleteById(id);
 	}
 }

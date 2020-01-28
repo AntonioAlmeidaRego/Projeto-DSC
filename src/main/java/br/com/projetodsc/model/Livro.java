@@ -45,6 +45,7 @@ public class Livro implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Peso é uma informação obrigatória!")
 	private String peso;
+	private String subTitulo;
 	@JsonIgnore
 	@Lob
 	private byte[] imagem;
@@ -190,5 +191,10 @@ public class Livro implements Serializable{
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
+	public String getSubTitulo() {
+		return subTitulo;
+	}
+	public void setSubTitulo(String subTitulo) {
+		this.subTitulo = subTitulo;
+	}
 }
